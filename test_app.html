@@ -41,6 +41,13 @@
     color: var(--text-dark);
     direction: rtl;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  html {
+    width: 100%;
+    overflow-x: hidden;
   }
 
   /* Dark Mode */
@@ -185,10 +192,13 @@
   /* App Container */
   .app-container {
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     padding-bottom: 80px;
     opacity: 0;
     transition: opacity 0.5s ease;
+    min-height: 100vh;
+    overflow-y: auto;
   }
 
   .app-container.show {
@@ -208,6 +218,7 @@
 
   .app-bar-content {
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -309,7 +320,8 @@
     margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     cursor: pointer;
     transition: var(--transition);
     box-shadow: var(--shadow);
@@ -436,11 +448,12 @@
     background: white;
     border: 1px solid rgba(212, 175, 55, 0.15);
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 10px 16px;
     margin-bottom: 8px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 10px;
     cursor: pointer;
     transition: var(--transition);
   }
@@ -495,19 +508,20 @@
   }
 
   .file-play-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: none;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(212, 175, 55, 0.12);
     color: var(--primary);
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
     flex-shrink: 0;
+    margin: 0 4px;
   }
 
   .file-play-btn:hover {
@@ -526,6 +540,8 @@
     bottom: 0;
     left: 0;
     right: 0;
+    max-width: 800px;
+    margin: 0 auto;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     padding: 12px 16px;
     display: none;
@@ -613,6 +629,8 @@
     left: 0;
     right: 0;
     bottom: 0;
+    max-width: 800px;
+    margin: 0 auto;
     background: var(--cream);
     z-index: 300;
     display: none;
@@ -810,6 +828,8 @@
     align-items: flex-end;
     justify-content: center;
   }
+
+
 
   .modal-overlay.show {
     display: flex;
@@ -1039,6 +1059,20 @@
     .player-file-name {
       font-size: 17px;
     }
+    .file-item {
+      padding: 10px 12px;
+    }
+    .file-play-btn {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+    .app-bar {
+      padding: 12px 14px;
+    }
+    .app-bar-title {
+      font-size: 17px;
+    }
   }
 </style>
 </head>
@@ -1096,6 +1130,9 @@
 
   <div class="page" id="page-settings">
     <div class="settings-page">
+      <div style="padding: 12px;">
+        <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 8px;">&#8250; رجوع</button>
+      </div>
       <div class="settings-section">
         <h3><span>&#127912;</span> المظهر</h3>
         <div class="settings-row">
