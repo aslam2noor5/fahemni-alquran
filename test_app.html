@@ -1213,18 +1213,18 @@ async function init() {
     // Show splash for at least 2 seconds
     const startTime = Date.now();
 
-    // Try loading from R2 data.json first
+    // Load from GitHub data.json
     let data = null;
-    const r2Url = localStorage.getItem('r2_url') || 'https://pub-xxxxx.r2.dev/data.json';
+    const dataUrl = localStorage.getItem('data_url') || 'https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/data.json';
 
     try {
-      const res = await fetch(r2Url);
+      const res = await fetch(dataUrl);
       if (res.ok) data = await res.json();
     } catch (e) {
-      console.log('Could not fetch from R2, using demo data');
+      console.log('Could not fetch data.json, using demo data');
     }
 
-    // If R2 failed, generate demo data from localStorage or use default
+    // If fetch failed, generate demo data
     if (!data) {
       data = generateDemoData();
     }
@@ -1724,12 +1724,12 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// ============ R2 Config Dialog ============
-function showR2Config() {
-  const currentUrl = localStorage.getItem('r2_url') || '';
-  const url = prompt('أدخل رابط ملف data.json من Cloudflare R2:', currentUrl);
+// ============ Data URL Config ============
+function showDataConfig() {
+  const currentUrl = localStorage.getItem('data_url') || '';
+  const url = prompt('أدخل رابط ملف data.json:', currentUrl);
   if (url) {
-    localStorage.setItem('r2_url', url);
+    localStorage.setItem('data_url', url);
     showToast('تم حفظ الرابط. سيتم تحميل البيانات عند إعادة التشغيل.');
   }
 }

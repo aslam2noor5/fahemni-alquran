@@ -5,7 +5,7 @@ class AppConstants {
 
   // API
   static const String defaultDataUrl =
-      'https://pub-xxxxx.r2.dev/data.json';
+      'https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/data.json';
   static const String cacheKeyData = 'cached_data';
   static const String cacheKeyFavorites = 'favorites';
   static const String cacheKeyLastPlayed = 'last_played';
