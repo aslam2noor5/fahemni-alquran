@@ -1,0 +1,30 @@
+# مستندات Word وملفات مؤقتة
+*.doc
+*.docx
+~$*
+*.tmp
+~WRL*.tmp
+
+# ملفات النظام
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# إعدادات R2 (خاص)
+.env
+
+# مجلد Flutter build
+fahemni_alquran/build/
+fahemni_alquran/.dart_tool/
+fahemni_alquran/.packages
+fahemni_alquran/.flutter-plugins
+fahemni_alquran/.flutter-plugins-dependencies
+
+# مجلدات IDE
+.idea/
+.vscode/
+*.iml
+
+# Python
+__pycache__/
+*.pyc
