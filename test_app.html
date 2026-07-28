@@ -394,23 +394,31 @@
 
   /* Back Button */
   .back-btn {
-    background: none;
+    background: var(--primary);
     border: none;
-    color: var(--gold);
-    font-size: 26px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
+    padding: 8px 20px;
+    border-radius: 10px;
     transition: var(--transition);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    gap: 6px;
+    font-family: 'Noto Naskh Arabic', serif;
   }
 
   .back-btn:hover {
-    background: rgba(255,255,255,0.1);
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .back-btn::before {
+    content: '\2039';
+    font-size: 20px;
+    line-height: 1;
   }
 
   /* Surah Detail Header */
@@ -550,24 +558,27 @@
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     padding: 10px 16px;
     display: none;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
     z-index: 200;
     box-shadow: 0 -8px 30px rgba(27, 94, 32, 0.4);
   }
 
   .player-bar.show {
-    display: flex;
+    display: block;
+  }
+
+  .player-bar-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
   }
 
   .player-bar-start {
     display: flex;
     align-items: center;
     gap: 8px;
-    flex: 1;
     min-width: 0;
     cursor: pointer;
+    justify-self: start;
   }
 
   .player-bar-play-btn {
@@ -582,9 +593,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     transition: var(--transition);
-    order: 2;
+    justify-self: center;
   }
 
   .player-bar-play-btn:hover {
@@ -592,7 +602,8 @@
   }
 
   .player-bar-info {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
     min-width: 0;
   }
 
@@ -615,7 +626,7 @@
     height: 4px;
     background: rgba(255,255,255,0.2);
     border-radius: 2px;
-    overflow: hidden;
+    overflow: flex;
     flex-shrink: 0;
   }
 
@@ -634,8 +645,7 @@
     font-size: 24px;
     cursor: pointer;
     padding: 4px;
-    flex-shrink: 0;
-    order: 3;
+    justify-self: end;
   }
 
   /* Full Player */
@@ -1174,7 +1184,7 @@
   <div class="page" id="page-settings">
     <div class="settings-page">
       <div style="padding: 12px;">
-        <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 8px;">&#8250;</button>
+        <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 8px;">رجوع</button>
       </div>
       <div class="settings-section">
         <h3><span>&#127912;</span> المظهر</h3>
@@ -1216,19 +1226,21 @@
 
 <!-- Player Bar -->
 <div class="player-bar" id="playerBar">
-  <div class="player-bar-start" onclick="openFullPlayer()">
-    <div class="player-bar-info">
-      <div class="player-bar-file" id="playerBarFile">اسم الملف</div>
-      <div class="player-bar-surah" id="playerBarSurah">اسم السورة</div>
+  <div class="player-bar-inner">
+    <div class="player-bar-start" onclick="openFullPlayer()">
+      <div class="player-bar-info">
+        <div class="player-bar-file" id="playerBarFile">اسم الملف</div>
+        <div class="player-bar-surah" id="playerBarSurah">اسم السورة</div>
+      </div>
+      <div class="player-bar-progress">
+        <div class="player-bar-progress-fill" id="playerBarProgress"></div>
+      </div>
     </div>
-    <div class="player-bar-progress">
-      <div class="player-bar-progress-fill" id="playerBarProgress"></div>
-    </div>
+    <button class="player-bar-play-btn" id="playerBarBtn" onclick="event.stopPropagation(); togglePlayPause()">
+      &#9654;
+    </button>
+    <button class="player-bar-next" onclick="event.stopPropagation(); playNext()">&#9197;</button>
   </div>
-  <button class="player-bar-play-btn" id="playerBarBtn" onclick="event.stopPropagation(); togglePlayPause()">
-    &#9654;
-  </button>
-  <button class="player-bar-next" onclick="event.stopPropagation(); playNext()">&#9197;</button>
 </div>
 
 <!-- Full Player Overlay -->
@@ -1445,7 +1457,7 @@ function renderSurahFiles() {
 
   container.innerHTML = `
     <div style="padding: 12px;">
-      <button class="back-btn" onclick="goHome()" style="margin-bottom: 8px;">&#8250;</button>
+      <button class="back-btn" onclick="goHome()" style="margin-bottom: 8px;">رجوع</button>
       <div class="surah-detail-header">
         <div class="icon">&#128214;</div>
         <div class="name">${surah.name}</div>
