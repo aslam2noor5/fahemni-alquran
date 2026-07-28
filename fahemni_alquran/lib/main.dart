@@ -15,13 +15,19 @@ void main() async {
   final storageService = StorageService();
   await storageService.init();
 
+  final themeProvider = ThemeProvider();
+  final themeMode = storageService.getString(AppConstants.cacheKeyThemeMode);
+  if (themeMode == 'light') {
+    themeProvider.setDark(false);
+  }
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ApiService()),
         ChangeNotifierProvider(create: (_) => AudioPlayerService()),
         ChangeNotifierProvider.value(value: storageService),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider.value(value: themeProvider),
       ],
       child: const FahemniAlQuranApp(),
     ),
@@ -29,7 +35,7 @@ void main() async {
 }
 
 class ThemeProvider extends ChangeNotifier {
-  bool _isDark = false;
+  bool _isDark = true;
 
   bool get isDark => _isDark;
 

@@ -7,6 +7,7 @@ import 'package:fahemni_alquran/models/surah.dart';
 import 'package:fahemni_alquran/services/audio_player_service.dart';
 import 'package:fahemni_alquran/widgets/audio_tile.dart';
 import 'package:fahemni_alquran/widgets/player_bar.dart';
+import 'package:fahemni_alquran/widgets/app_back_button.dart';
 
 class SurahDetailScreen extends StatefulWidget {
   final Surah surah;
@@ -37,113 +38,62 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
             .toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.surah.name),
-        actions: [
-          Builder(
-            builder: (ctx) => IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                showSearch(
-                  context: ctx,
-                  delegate: _AudioSearchDelegate(widget.surah.files),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Surah header
-          _buildSurahHeader(),
-          // Files list
-          Expanded(
-            child: files.isEmpty
-                ? Center(
-                    child: Text(
-                      'لا توجد ملفات مطابقة',
-                      style: GoogleFonts.notoNaskhArabic(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.only(
-                        left: 12, right: 12, top: 8, bottom: 100),
-                    itemCount: files.length,
-                    itemBuilder: (context, index) {
-                      return AudioTile(
-                        item: files[index],
-                        index: index,
-                        surahName: widget.surah.name,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: [
+                  const AppBackButton(),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.search, color: AppTheme.primaryGreen),
+                    onPressed: () {
+                      showSearch(
+                        context: context,
+                        delegate: _AudioSearchDelegate(widget.surah.files),
                       );
                     },
                   ),
-          ),
-          // Mini player
-          Consumer<AudioPlayerService>(
-            builder: (context, playerService, _) {
-              if (playerService.currentItem != null) {
-                return const PlayerBar();
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSurahHeader() {
-    return Container(
-      margin: const EdgeInsets.all(12),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppTheme.primaryGreen, AppTheme.darkGreen],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.primaryGreen.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const Icon(Icons.menu_book, size: 40, color: AppTheme.gold),
-          const SizedBox(height: 10),
-          Text(
-            widget.surah.name,
-            style: GoogleFonts.notoNaskhArabic(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            decoration: BoxDecoration(
-              color: AppTheme.gold.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              '${widget.surah.files.length} ملف صوتي',
-              style: GoogleFonts.notoNaskhArabic(
-                fontSize: 14,
-                color: AppTheme.goldLight,
-                fontWeight: FontWeight.w500,
+                ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: files.isEmpty
+                  ? Center(
+                      child: Text(
+                        'لا توجد ملفات مطابقة',
+                        style: GoogleFonts.notoNaskhArabic(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 12, right: 12, top: 8, bottom: 100),
+                      itemCount: files.length,
+                      itemBuilder: (context, index) {
+                        return AudioTile(
+                          item: files[index],
+                          index: index,
+                          surahName: widget.surah.name,
+                        );
+                      },
+                    ),
+            ),
+            Consumer<AudioPlayerService>(
+              builder: (context, playerService, _) {
+                if (playerService.currentItem != null) {
+                  return const PlayerBar();
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

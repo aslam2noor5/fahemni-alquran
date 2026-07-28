@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fahemni_alquran/config/theme.dart';
 import 'package:fahemni_alquran/config/constants.dart';
 import 'package:fahemni_alquran/main.dart';
+import 'package:fahemni_alquran/services/storage_service.dart';
+import 'package:fahemni_alquran/widgets/app_back_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -13,101 +15,106 @@ class SettingsScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('الإعدادات'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // Appearance section
-          _buildSectionHeader('المظهر', Icons.palette),
-          Card(
-            child: SwitchListTile(
-              title: Text(
-                'الوضع الليلي',
-                style: GoogleFonts.notoNaskhArabic(fontSize: 16),
-              ),
-              subtitle: Text(
-                'تفعيل الألوان الداكنة',
-                style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
-              ),
-              secondary: Icon(
-                themeProvider.isDark ? Icons.dark_mode : Icons.light_mode,
-                color: AppTheme.gold,
-              ),
-              value: themeProvider.isDark,
-              onChanged: (value) {
-                themeProvider.setDark(value);
-              },
-              activeColor: AppTheme.primaryGreen,
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // About section
-          _buildSectionHeader('عن التطبيق', Icons.info_outline),
-          Card(
-            child: Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.menu_book, color: AppTheme.gold),
-                  title: Text(
-                    'فهمني القرآن',
-                    style: GoogleFonts.notoNaskhArabic(fontSize: 16),
-                  ),
-                  subtitle: Text(
-                    'استمع إلى شرح القرآن الكريم',
-                    style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
-                  ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            AppBackButton(),
+            const SizedBox(height: 8),
+            // Appearance section
+            _buildSectionHeader('المظهر', Icons.palette),
+            Card(
+              child: SwitchListTile(
+                title: Text(
+                  'المظهر الداكن',
+                  style: GoogleFonts.notoNaskhArabic(fontSize: 16),
                 ),
-                Divider(color: AppTheme.gold.withValues(alpha: 0.2)),
-                ListTile(
-                  leading: Icon(Icons.code, color: AppTheme.gold),
-                  title: Text(
-                    'الإصدار',
-                    style: GoogleFonts.notoNaskhArabic(fontSize: 16),
-                  ),
-                  trailing: Text(
-                    AppConstants.version,
-                    style: GoogleFonts.notoNaskhArabic(
-                      color: AppTheme.primaryGreen,
-                      fontWeight: FontWeight.bold,
+                subtitle: Text(
+                  'التبديل إلى المظهر الفاتح',
+                  style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
+                ),
+                secondary: Icon(
+                  themeProvider.isDark ? Icons.dark_mode : Icons.light_mode,
+                  color: AppTheme.gold,
+                ),
+                value: themeProvider.isDark,
+                onChanged: (value) {
+                  themeProvider.setDark(value);
+                  context.read<StorageService>().saveString(
+                    AppConstants.cacheKeyThemeMode,
+                    value ? 'dark' : 'light',
+                  );
+                },
+                activeColor: AppTheme.primaryGreen,
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // About section
+            _buildSectionHeader('عن التطبيق', Icons.info_outline),
+            Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.menu_book, color: AppTheme.gold),
+                    title: Text(
+                      'فهمني القرآن',
+                      style: GoogleFonts.notoNaskhArabic(fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      'استمع إلى شرح القرآن الكريم',
+                      style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
                     ),
                   ),
+                  Divider(color: AppTheme.gold.withValues(alpha: 0.2)),
+                  ListTile(
+                    leading: Icon(Icons.code, color: AppTheme.gold),
+                    title: Text(
+                      'الإصدار',
+                      style: GoogleFonts.notoNaskhArabic(fontSize: 16),
+                    ),
+                    trailing: Text(
+                      AppConstants.version,
+                      style: GoogleFonts.notoNaskhArabic(
+                        color: AppTheme.primaryGreen,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Support section
+            _buildSectionHeader('الدعم', Icons.support),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.email, color: AppTheme.gold),
+                title: Text(
+                  'تواصل معنا',
+                  style: GoogleFonts.notoNaskhArabic(fontSize: 16),
                 ),
-              ],
+                subtitle: Text(
+                  'support@fahemni-alquran.app',
+                  style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-          // Support section
-          _buildSectionHeader('الدعم', Icons.support),
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.email, color: AppTheme.gold),
-              title: Text(
-                'تواصل معنا',
-                style: GoogleFonts.notoNaskhArabic(fontSize: 16),
-              ),
-              subtitle: Text(
-                'support@fahemni-alquran.app',
-                style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
+            // Footer
+            Center(
+              child: Text(
+                'جميع الحقوق محفوظة © 2026',
+                style: GoogleFonts.notoNaskhArabic(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 32),
-
-          // Footer
-          Center(
-            child: Text(
-              'جميع الحقوق محفوظة © 2026',
-              style: GoogleFonts.notoNaskhArabic(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

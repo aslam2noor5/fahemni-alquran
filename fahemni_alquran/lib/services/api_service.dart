@@ -34,6 +34,7 @@ class ApiService extends ChangeNotifier {
         _surahs = surahsJson
             .map((e) => Surah.fromJson(e as Map<String, dynamic>))
             .toList();
+        _sortSurahs();
         _dataSource = 'online';
 
         // Cache the data
@@ -47,6 +48,7 @@ class ApiService extends ChangeNotifier {
       final cached = await _loadFromCache();
       if (cached != null) {
         _surahs = cached;
+        _sortSurahs();
         _dataSource = 'cache';
         _error = 'لا يوجد اتصال بالإنترنت - تم تحميل من الذاكرة المؤقتة';
       } else {
@@ -57,6 +59,14 @@ class ApiService extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void _sortSurahs() {
+    _surahs.sort((a, b) {
+      final aNum = int.tryParse(a.folder.split(' ')[0]) ?? 0;
+      final bNum = int.tryParse(b.folder.split(' ')[0]) ?? 0;
+      return aNum.compareTo(bNum);
+    });
   }
 
   Future<List<Surah>?> _loadFromCache() async {
