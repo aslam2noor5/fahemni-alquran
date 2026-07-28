@@ -1129,7 +1129,7 @@
   }
 </style>
 </head>
-<body>
+<body class="dark-mode">
 
 <!-- Splash Screen -->
 <div class="splash-screen" id="splash">
@@ -1193,8 +1193,8 @@
         <h3><span>&#127912;</span> المظهر</h3>
         <div class="settings-row">
           <div>
-            <label>الوضع الليلي</label>
-            <small>تفعيل الألوان الداكنة</small>
+            <label>المظهر الداكن</label>
+            <small>التبديل إلى المظهر الفاتح</small>
           </div>
           <div class="toggle" id="darkModeToggle" onclick="toggleDarkMode()"></div>
         </div>
@@ -1806,8 +1806,10 @@ function toggleDarkMode() {
   localStorage.setItem('darkMode', state.isDarkMode ? '1' : '0');
 }
 
-// Restore dark mode
-if (localStorage.getItem('darkMode') === '1') {
+// Restore dark mode (default: dark mode)
+if (localStorage.getItem('darkMode') === '0') {
+  state.isDarkMode = false;
+} else {
   state.isDarkMode = true;
   document.body.classList.add('dark-mode');
   document.getElementById('darkModeToggle').classList.add('active');
