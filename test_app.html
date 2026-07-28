@@ -43,6 +43,8 @@
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
   }
 
   html {
@@ -395,13 +397,16 @@
     background: none;
     border: none;
     color: var(--gold);
-    font-size: 22px;
+    font-size: 26px;
     cursor: pointer;
-    padding: 6px;
+    padding: 8px;
     border-radius: 50%;
     transition: var(--transition);
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
   }
 
   .back-btn:hover {
@@ -543,33 +548,43 @@
     max-width: 800px;
     margin: 0 auto;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    padding: 12px 16px;
+    padding: 10px 16px;
     display: none;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 8px;
     z-index: 200;
     box-shadow: 0 -8px 30px rgba(27, 94, 32, 0.4);
-    cursor: pointer;
   }
 
   .player-bar.show {
     display: flex;
   }
 
+  .player-bar-start {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+  }
+
   .player-bar-play-btn {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: none;
+    border: 2px solid var(--gold);
     background: var(--gold);
     color: var(--primary);
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     transition: var(--transition);
+    order: 2;
   }
 
   .player-bar-play-btn:hover {
@@ -596,7 +611,7 @@
   }
 
   .player-bar-progress {
-    width: 60px;
+    width: 50px;
     height: 4px;
     background: rgba(255,255,255,0.2);
     border-radius: 2px;
@@ -616,10 +631,11 @@
     background: none;
     border: none;
     color: white;
-    font-size: 22px;
+    font-size: 24px;
     cursor: pointer;
     padding: 4px;
     flex-shrink: 0;
+    order: 3;
   }
 
   /* Full Player */
@@ -1035,43 +1051,70 @@
   /* Responsive */
   @media (max-width: 600px) {
     .splash-title {
-      font-size: 28px;
+      font-size: 30px;
+    }
+    .splash-subtitle {
+      font-size: 17px;
     }
     .surah-card {
-      padding: 12px;
+      padding: 14px 16px;
     }
     .surah-number {
-      width: 42px;
-      height: 42px;
-      font-size: 13px;
+      width: 46px;
+      height: 46px;
+      font-size: 15px;
     }
     .surah-name {
-      font-size: 16px;
-    }
-    .player-art {
-      width: 160px;
-      height: 160px;
-    }
-    .player-art svg {
-      width: 55px;
-      height: 55px;
-    }
-    .player-file-name {
-      font-size: 17px;
-    }
-    .file-item {
-      padding: 10px 12px;
-    }
-    .file-play-btn {
-      width: 40px;
-      height: 40px;
       font-size: 18px;
     }
-    .app-bar {
+    .surah-meta {
+      font-size: 13px;
+    }
+    .player-art {
+      width: 180px;
+      height: 180px;
+    }
+    .player-art svg {
+      width: 60px;
+      height: 60px;
+    }
+    .player-file-name {
+      font-size: 19px;
+    }
+    .file-item {
       padding: 12px 14px;
     }
+    .file-index {
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+    }
+    .file-name {
+      font-size: 15px;
+    }
+    .file-play-btn {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+    }
+    .app-bar {
+      padding: 14px 16px;
+    }
     .app-bar-title {
-      font-size: 17px;
+      font-size: 19px;
+    }
+    .search-box {
+      font-size: 16px;
+      padding: 14px 20px;
+    }
+    .header h2 {
+      font-size: 15px;
+    }
+    .settings-section {
+      padding: 18px;
+    }
+    .settings-row label {
+      font-size: 16px;
     }
   }
 </style>
@@ -1131,7 +1174,7 @@
   <div class="page" id="page-settings">
     <div class="settings-page">
       <div style="padding: 12px;">
-        <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 8px;">&#8250; رجوع</button>
+        <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 8px;">&#8250;</button>
       </div>
       <div class="settings-section">
         <h3><span>&#127912;</span> المظهر</h3>
@@ -1173,16 +1216,18 @@
 
 <!-- Player Bar -->
 <div class="player-bar" id="playerBar">
+  <div class="player-bar-start" onclick="openFullPlayer()">
+    <div class="player-bar-info">
+      <div class="player-bar-file" id="playerBarFile">اسم الملف</div>
+      <div class="player-bar-surah" id="playerBarSurah">اسم السورة</div>
+    </div>
+    <div class="player-bar-progress">
+      <div class="player-bar-progress-fill" id="playerBarProgress"></div>
+    </div>
+  </div>
   <button class="player-bar-play-btn" id="playerBarBtn" onclick="event.stopPropagation(); togglePlayPause()">
     &#9654;
   </button>
-  <div class="player-bar-info" onclick="openFullPlayer()">
-    <div class="player-bar-file" id="playerBarFile">اسم الملف</div>
-    <div class="player-bar-surah" id="playerBarSurah">اسم السورة</div>
-  </div>
-  <div class="player-bar-progress">
-    <div class="player-bar-progress-fill" id="playerBarProgress"></div>
-  </div>
   <button class="player-bar-next" onclick="event.stopPropagation(); playNext()">&#9197;</button>
 </div>
 
@@ -1400,7 +1445,7 @@ function renderSurahFiles() {
 
   container.innerHTML = `
     <div style="padding: 12px;">
-      <button class="back-btn" onclick="goHome()" style="margin-bottom: 8px;">&#8250; رجوع</button>
+      <button class="back-btn" onclick="goHome()" style="margin-bottom: 8px;">&#8250;</button>
       <div class="surah-detail-header">
         <div class="icon">&#128214;</div>
         <div class="name">${surah.name}</div>
