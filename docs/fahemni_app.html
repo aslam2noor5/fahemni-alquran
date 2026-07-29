@@ -633,15 +633,17 @@
     border-radius: var(--radius-sm);
   }
   .quran-page-nav, .quran-surah-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 6px; padding: 6px 0; flex-wrap: wrap;
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px;
+    align-items: center; padding: 6px 0;
   }
   .quran-page-nav button, .quran-surah-nav button {
     background: var(--primary); color: var(--gold); border: none;
-    border-radius: var(--radius-sm); padding: 7px 10px; font-size: 12px;
+    border-radius: var(--radius-sm); padding: 8px; font-size: 12px;
     cursor: pointer; transition: var(--transition);
-    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap; flex-shrink: 0;
+    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap;
   }
+  .quran-page-nav button:first-child, .quran-surah-nav button:first-child { text-align: left; }
+  .quran-page-nav button:last-child, .quran-surah-nav button:last-child { text-align: right; }
   .quran-page-nav button:hover, .quran-surah-nav button:hover {
     transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
   }
