@@ -936,6 +936,7 @@ async function init() {
     renderSurahs(); renderFavorites();
     renderAzkar(); renderPrayerTimes(); updateHijriDate();
     initQibla(); initTasbih(); setupAzkarEvents();
+    preloadAdhanAudios();
     initPrayerNotificationChecker();
   }, Math.max(0, 2000 - elapsed));
 }
@@ -1451,6 +1452,31 @@ function savePrayerNotifyBefore(val) {
   savePrayerNotifySettings(s);
 }
 
+function preloadAdhanAudios() {
+  const urls = [
+    'https://cdn.aladhan.com/audio/adhans/a9.mp3',
+    'https://cdn.aladhan.com/audio/adhans/a1.mp3'
+  ];
+  state._adhanAudios = {};
+  urls.forEach(function(url) {
+    var audio = new Audio(url);
+    audio.preload = 'auto';
+    audio.load();
+    state._adhanAudios[url] = audio;
+  });
+}
+
+function getAdhanAudio(url) {
+  if (state._adhanAudios && state._adhanAudios[url]) {
+    var a = state._adhanAudios[url];
+    a.currentTime = 0;
+    return a;
+  }
+  var audio = new Audio(url);
+  audio.preload = 'auto';
+  return audio;
+}
+
 function stopPrayerPreview() {
   if (state._previewAudio) {
     state._previewAudio.pause();
@@ -1465,9 +1491,6 @@ function previewPrayerSound() {
 
 function playPrayerNotificationSound(isPreview) {
   const s = getPrayerNotifySettings();
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-
   var audioUrl = null;
   if (s.sound === 'adhan1') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a9.mp3';
   else if (s.sound === 'adhan2') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a1.mp3';
@@ -1475,7 +1498,7 @@ function playPrayerNotificationSound(isPreview) {
 
   if (audioUrl) {
     try {
-      var audio = new Audio(audioUrl);
+      var audio = getAdhanAudio(audioUrl);
       audio.volume = 0.9;
       audio.play().catch(function(){});
       if (isPreview) state._previewAudio = audio;
@@ -1484,15 +1507,6 @@ function playPrayerNotificationSound(isPreview) {
     showToast('تعذر تشغيل الصوت');
     return;
   }
-
-  // Fallback: simple beep
-  var osc = audioCtx.createOscillator();
-  var gain = audioCtx.createGain();
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.frequency.value = 880;
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-  osc.start(); osc.stop(audioCtx.currentTime + 0.5);
 }
 
 let _prayerCheckInterval = null;
