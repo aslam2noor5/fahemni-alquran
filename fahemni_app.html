@@ -702,15 +702,11 @@
           <div class="prayer-sound-options" id="prayerSoundOptions">
             <label class="prayer-sound-option" onclick="selectPrayerSound('adhan1')">
               <input type="radio" name="prayerSound" value="adhan1">
-              <span>&#127925; أذان مكي</span>
+              <span>&#127925; أذان - مشاري العفاسي</span>
             </label>
             <label class="prayer-sound-option" onclick="selectPrayerSound('adhan2')">
               <input type="radio" name="prayerSound" value="adhan2">
-              <span>&#127925; أذان مدني</span>
-            </label>
-            <label class="prayer-sound-option" onclick="selectPrayerSound('beep')">
-              <input type="radio" name="prayerSound" value="beep">
-              <span>&#128264; نغمة قصيرة</span>
+              <span>&#127925; أذان - أحمد النفيس</span>
             </label>
             <label class="prayer-sound-option" onclick="selectPrayerSound('custom')">
               <input type="radio" name="prayerSound" value="custom">
@@ -765,9 +761,8 @@
         <div class="settings-row">
           <div><label>صوت التنبيه</label><small>اختيار نغمة الأذان</small></div>
           <select onchange="selectPrayerSound(this.value)" style="font-family:'Noto Naskh Arabic',serif;padding:6px 10px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);background:transparent;color:var(--text-dark);">
-            <option value="adhan1">أذان مكي</option>
-            <option value="adhan2">أذان مدني</option>
-            <option value="beep">نغمة قصيرة</option>
+            <option value="adhan1">أذان - مشاري العفاسي</option>
+            <option value="adhan2">أذان - أحمد النفيس</option>
             <option value="custom">رابط مخصص</option>
           </select>
         </div>
@@ -1473,60 +1468,31 @@ function playPrayerNotificationSound(isPreview) {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume();
 
-  if (s.sound === 'beep') {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.frequency.value = 880;
-    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
-    if (isPreview) return;
-    setTimeout(() => {
-      const osc2 = audioCtx.createOscillator();
-      const gain2 = audioCtx.createGain();
-      osc2.connect(gain2); gain2.connect(audioCtx.destination);
-      osc2.frequency.value = 1100;
-      gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-      osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
-    }, 600);
+  var audioUrl = null;
+  if (s.sound === 'adhan1') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a9.mp3';
+  else if (s.sound === 'adhan2') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a1.mp3';
+  else if (s.sound === 'custom') audioUrl = s.customUrl;
+
+  if (audioUrl) {
+    try {
+      var audio = new Audio(audioUrl);
+      audio.volume = 0.9;
+      audio.play().catch(function(){});
+      if (isPreview) state._previewAudio = audio;
+      return;
+    } catch(e) {}
+    showToast('تعذر تشغيل الصوت');
     return;
   }
 
-  if (s.sound === 'custom') {
-    if (s.customUrl) {
-      try {
-        const audio = new Audio(s.customUrl);
-        audio.volume = 0.8;
-        audio.play().catch(() => {});
-        if (isPreview) state._previewAudio = audio;
-        return;
-      } catch(e) {}
-    }
-    showToast('الرجاء إدخال رابط صوت صحيح');
-    return;
-  }
-
-  // Adhan melodies
-  const notes = s.sound === 'adhan1'
-    ? [262, 330, 392, 330, 392, 523, 392, 330, 262, 330, 392, 330]
-    : [294, 370, 440, 370, 440, 587, 440, 370, 294, 370, 440, 370];
-  const durations = [0.3, 0.3, 0.4, 0.2, 0.3, 0.6, 0.3, 0.3, 0.3, 0.3, 0.4, 0.5];
-  const times = [];
-  let t = audioCtx.currentTime;
-  for (let i = 0; i < notes.length; i++) {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.frequency.value = notes[i];
-    gain.gain.setValueAtTime(0.25, t);
-    gain.gain.setValueAtTime(0.25, t + durations[i] - 0.05);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + durations[i]);
-    osc.start(t); osc.stop(t + durations[i]);
-    t += durations[i];
-  }
+  // Fallback: simple beep
+  var osc = audioCtx.createOscillator();
+  var gain = audioCtx.createGain();
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.frequency.value = 880;
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.5);
 }
 
 let _prayerCheckInterval = null;
