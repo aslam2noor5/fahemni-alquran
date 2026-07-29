@@ -580,20 +580,33 @@
   .quran-verses {
     padding: 0 16px 20px; direction: rtl;
   }
-  .quran-verse {
-    font-family: 'Noto Naskh Arabic', serif; font-size: 22px; line-height: 2.2;
-    padding: 16px 20px; margin-bottom: 8px; text-align: center;
-    background: white; border-radius: var(--radius); border: 1px solid rgba(212, 175, 55, 0.08);
-    box-shadow: var(--card-shadow); position: relative;
+  .quran-page-view {
+    background: white; border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.12);
+    line-height: 2.6; text-align: justify;
   }
-  body.dark-mode .quran-verse { background: var(--dark-card); color: #e0e0e0; }
-  .quran-verse .verse-number {
+  body.dark-mode .quran-page-view { background: var(--dark-card); color: #e0e0e0; }
+  .quran-page-view .verse-text {
+    font-family: 'Noto Naskh Arabic', serif; font-size: 22px;
+  }
+  .quran-page-view .verse-number {
     display: inline-block; background: var(--gold); color: white; border-radius: 50%;
-    width: 28px; height: 28px; line-height: 28px; font-size: 11px; text-align: center;
-    margin-right: 8px; font-family: sans-serif; vertical-align: middle;
+    width: 26px; height: 26px; line-height: 26px; font-size: 10px; text-align: center;
+    margin: 0 4px; font-family: sans-serif; vertical-align: middle; cursor: pointer;
+    transition: transform 0.2s ease; position: relative;
   }
-  .quran-verse .verse-aya { vertical-align: middle; }
-  .quran-verse .verse-ref { display: block; font-size: 11px; color: #fff; text-align: right; margin-top: 4px; font-family: sans-serif; }
+  .quran-page-view .verse-number:hover { transform: scale(1.15); }
+  .quran-page-view .verse-number.highlighted {
+    box-shadow: 0 0 0 3px var(--gold), 0 0 15px rgba(212, 175, 55, 0.4);
+    transform: scale(1.2);
+  }
+  .quran-page-view .verse-number::after {
+    content: '۝'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); font-size: 14px; opacity: 0.3;
+  }
+  .quran-verse { display: inline; }
+  .quran-verse .verse-aya { font-family: 'Noto Naskh Arabic', serif; }
+  .quran-verse .verse-ref { display: none; }
   .quran-nav {
     display: flex; justify-content: space-between; padding: 12px 16px 20px;
   }
@@ -652,7 +665,9 @@
     padding: 6px 12px !important; font-size: 12px !important;
   }
   @media (max-width: 600px) {
-    .quran-verse { font-size: 18px; padding: 14px 16px; }
+    .quran-page-view { padding: 16px 14px; }
+    .quran-page-view .verse-text { font-size: 18px; }
+    .quran-page-view .verse-number { width: 22px; height: 22px; line-height: 22px; font-size: 9px; }
     .quran-surah-header .surah-name-ar { font-size: 24px; }
   }
 </style>
@@ -1401,6 +1416,10 @@ function tasbihPrevDhikr() { state.tasbihIdx = (state.tasbihIdx - 1 + TASBIH_DHI
 
 // ============ QIBLA ============
 const KAABA = { lat: 21.4225, lon: 39.8262 };
+var qiblaAbsoluteAngle = null;
+var qiblaDeviceHeading = null;
+var qiblaOrientationHandler = null;
+
 function calcQibla(lat, lon) {
   var dLon = (KAABA.lon - lon) * Math.PI / 180;
   var lat1 = lat * Math.PI / 180;
@@ -1410,6 +1429,43 @@ function calcQibla(lat, lon) {
   var angle = Math.atan2(y, x) * 180 / Math.PI;
   return (angle + 360) % 360;
 }
+
+function requestOrientationPermission() {
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission().then(function(state) {
+      if (state === 'granted') {
+        startOrientationListener();
+      }
+    }).catch(function(){});
+  } else {
+    startOrientationListener();
+  }
+}
+
+function startOrientationListener() {
+  if (qiblaOrientationHandler) {
+    window.removeEventListener('deviceorientation', qiblaOrientationHandler);
+  }
+  qiblaOrientationHandler = function(e) {
+    var heading = null;
+    if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) {
+      heading = e.webkitCompassHeading;
+    } else if (e.alpha !== null) {
+      heading = 360 - e.alpha;
+      if (e.webkitCompassHeading === undefined && e.alpha !== null) {
+        if (screen.orientation && screen.orientation.angle) {
+          heading = (heading + screen.orientation.angle + 360) % 360;
+        }
+      }
+    }
+    if (heading !== null) {
+      qiblaDeviceHeading = heading;
+      updateQiblaNeedle();
+    }
+  };
+  window.addEventListener('deviceorientation', qiblaOrientationHandler, true);
+}
+
 function initQibla() {
   var cityEl = document.getElementById('qiblaCity');
   if (!cityEl) return;
@@ -1421,19 +1477,34 @@ function initQibla() {
   navigator.geolocation.getCurrentPosition(function(pos) {
     state.qiblaLat = pos.coords.latitude;
     state.qiblaLon = pos.coords.longitude;
+    qiblaAbsoluteAngle = calcQibla(state.qiblaLat, state.qiblaLon);
     updateQiblaDisplay();
+    requestOrientationPermission();
   }, function() {
     cityEl.textContent = 'الرجاء السماح بتحديد الموقع';
   }, { enableHighAccuracy: true, timeout: 10000 });
 }
+
 function updateQiblaDisplay() {
-  var angle = calcQibla(state.qiblaLat, state.qiblaLon);
+  if (qiblaAbsoluteAngle === null) {
+    qiblaAbsoluteAngle = calcQibla(state.qiblaLat, state.qiblaLon);
+  }
   var degEl = document.getElementById('qiblaDegrees');
   var cityEl = document.getElementById('qiblaCity');
-  var needle = document.getElementById('qiblaNeedle');
-  if (degEl) degEl.textContent = Math.round(angle) + '°';
+  if (degEl) degEl.textContent = Math.round(qiblaAbsoluteAngle) + '°';
   if (cityEl) cityEl.textContent = state.qiblaLat.toFixed(2) + '°, ' + state.qiblaLon.toFixed(2) + '°';
-  if (needle) needle.style.transform = 'translate(-50%, -100%) rotate(' + angle + 'deg)';
+  updateQiblaNeedle();
+}
+
+function updateQiblaNeedle() {
+  var needle = document.getElementById('qiblaNeedle');
+  if (!needle) return;
+  var angle = qiblaAbsoluteAngle || 0;
+  if (qiblaDeviceHeading !== null) {
+    angle = (qiblaDeviceHeading - qiblaAbsoluteAngle + 360) % 360;
+    angle = 360 - angle;
+  }
+  needle.style.transform = 'translate(-50%, -100%) rotate(' + angle + 'deg)';
 }
 
 // ============ PRAYER TIMES ============
@@ -1862,14 +1933,14 @@ function quranFilterInSurah(query) {
   }
 
   quranInSurahResults = results;
-  var html = '';
+  var html = '<div class="quran-page-view">';
   results.forEach(function(a) {
-    html += '<div class="quran-verse">' +
-      '<span class="verse-aya">' + a.text + '</span>' +
-      '<span class="verse-number">' + a.numberInSurah + '</span>' +
-      '<div class="verse-ref">' + surah.name + ' ' + a.numberInSurah + ' (صفحة ' + a.page + ')</div>' +
-      '</div>';
+    html += '<span class="quran-verse">' +
+      '<span class="verse-text">' + a.text + ' </span>' +
+      '<span class="verse-number" data-ayah="' + a.numberInSurah + '">' + a.numberInSurah + '</span>' +
+      '</span> ';
   });
+  html += '</div>';
   document.getElementById('quranVerses').innerHTML = html;
   document.getElementById('quranNav').innerHTML = '<div style="text-align:center;padding:8px;color:var(--gold);font-size:13px;">' + results.length + ' نتيجة | <span style="cursor:pointer;text-decoration:underline;" onclick="quranClearInSurahSearch()">مسح البحث</span></div>';
 }
@@ -1910,14 +1981,15 @@ function renderQuranPage() {
   var pKey = quranPageKeys[quranCurrentPage];
   var ayahsOnPage = surah.ayahs.filter(function(a){ return a.page == pKey; });
 
-  var html = '<div class="quran-page-indicator">صفحة ' + pKey + ' من ' + quranPageKeys.length + '</div>';
+  var html = '<div class="quran-page-indicator">سورة ' + surah.name + ' - صفحة ' + pKey + '</div>';
+  html += '<div class="quran-page-view" id="quranPageView">';
   ayahsOnPage.forEach(function(a) {
-    html += '<div class="quran-verse">' +
-      '<span class="verse-aya">' + a.text + '</span>' +
-      '<span class="verse-number">' + a.numberInSurah + '</span>' +
-      '<div class="verse-ref">' + surah.name + ' ' + a.numberInSurah + '</div>' +
-      '</div>';
+    html += '<span class="quran-verse">' +
+      '<span class="verse-text">' + a.text + ' </span>' +
+      '<span class="verse-number" data-ayah="' + a.numberInSurah + '">' + a.numberInSurah + '</span>' +
+      '</span> ';
   });
+  html += '</div>';
   document.getElementById('quranVerses').innerHTML = html;
 
   // Page navigation
@@ -2003,13 +2075,12 @@ function quranJumpToAyah() {
       input.value = '';
       // Scroll to the ayah
       setTimeout(function() {
-        var verses = document.querySelectorAll('#quranVerses .quran-verse');
-        for (var i = 0; i < verses.length; i++) {
-          var numEl = verses[i].querySelector('.verse-number');
-          if (numEl && numEl.textContent == String(val)) {
-            verses[i].scrollIntoView({behavior:'smooth', block:'center'});
-            verses[i].style.border = '2px solid var(--gold)';
-            setTimeout(function(){ verses[i].style.border = 'none'; }, 2000);
+        var numEls = document.querySelectorAll('#quranVerses .verse-number');
+        for (var i = 0; i < numEls.length; i++) {
+          if (numEls[i].textContent.trim() == String(val)) {
+            numEls[i].scrollIntoView({behavior:'smooth', block:'center'});
+            numEls[i].classList.add('highlighted');
+            setTimeout(function(){ numEls[i].classList.remove('highlighted'); }, 2500);
             break;
           }
         }
