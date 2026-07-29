@@ -767,7 +767,68 @@
         <h3><span>&#128172;</span> الدعم</h3>
         <div class="settings-row"><label>تواصل معنا</label><span style="font-size: 12px; color: #888;">support@fahemni-alquran.app</span></div>
       </div>
+      <div class="settings-section" style="cursor:pointer;" onclick="showPrivacyPolicy()">
+        <h3><span>&#128214;</span> سياسة الخصوصية</h3>
+        <div class="settings-row"><label>اضغط لعرض سياسة الخصوصية والأذونات</label></div>
+      </div>
       <div class="footer">جميع الحقوق محفوظة &copy; 2026</div>
+
+<!-- Privacy Policy Modal -->
+<div class="modal-overlay" id="privacyModal">
+  <div class="modal-content" style="max-height: 80vh; padding: 20px;">
+    <div class="modal-handle"></div>
+    <div style="text-align:left;"><button onclick="closePrivacyPolicy()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--primary);">&times;</button></div>
+    <div class="modal-title" style="margin-bottom:16px;">&#128214; سياسة الخصوصية</div>
+    <div style="font-size:14px;line-height:1.8;color:var(--text-dark);max-height:55vh;overflow-y:auto;padding-left:4px;">
+      <p style="margin-bottom:12px;"><strong>آخر تحديث:</strong> يوليو 2026</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">1. مقدمة</h4>
+      <p>تطبيق "فهمني القرآن" يحترم خصوصيتك. هذه السياسة توضح كيفية جمع واستخدام وحماية معلوماتك عند استخدام التطبيق.</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">2. المعلومات التي نجمعها</h4>
+      <p>نحن <strong>لا نجمع أي معلومات شخصية</strong> من المستخدمين. التطبيق لا يطلب منك إنشاء حساب أو إدخال بيانات شخصية.</p>
+      <p>المعلومات الوحيدة التي قد يتم الوصول إليها:</p>
+      <ul style="padding-right:20px;margin:8px 0;">
+        <li><strong>الموقع الجغرافي:</strong> يستخدم فقط لحساب اتجاه القبلة ومواقيت الصلاة بدقة. لا يتم تخزينه أو إرساله إلى أي خادم.</li>
+        <li><strong>الإشعارات:</strong> تُستخدم فقط لتنبيهك بمواقيت الصلاة إذا اخترت تفعيلها.</li>
+      </ul>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">3. كيفية استخدام المعلومات</h4>
+      <p>الموقع الجغرافي يُستخدم محلياً على جهازك فقط لحساب القبلة ومواقيت الصلاة. لا يتم إرسال هذه البيانات إلى أي جهة خارجية.</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">4. التخزين المحلي</h4>
+      <p>يستخدم التطبيق التخزين المحلي في المتصفح (localStorage) لحفظ تفضيلاتك مثل:</p>
+      <ul style="padding-right:20px;margin:8px 0;">
+        <li>المظهر (داكن/فاتح)</li>
+        <li>إعدادات تنبيهات الصلاة</li>
+        <li>حالة الأذكار والتسبيح</li>
+        <li>المفضلة</li>
+      </ul>
+      <p>جميع هذه البيانات تبقى على جهازك ويمكن مسحها بمسح بيانات المتصفح.</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">5. خدمات الطرف الثالث</h4>
+      <p>يستخدم التطبيق الخدمات التالية:</p>
+      <ul style="padding-right:20px;margin:8px 0;">
+        <li><strong>Aladhan API:</strong> لحساب مواقيت الصلاة. يتم إرسال إحداثيات موقعك (إذا سمحت) إلى Aladhan API لحساب الأوقات بدقة.</li>
+        <li><strong>GitHub:</strong> لاستضافة ملفات التطبيق والصوتيات.</li>
+        <li><strong>Google Fonts:</strong> لتحميل خط "Noto Naskh Arabic".</li>
+      </ul>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">6. ملفات الارتباط (Cookies)</h4>
+      <p>التطبيق لا يستخدم ملفات تعريف الارتباط (cookies).</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">7. تحديثات سياسة الخصوصية</h4>
+      <p>قد نقوم بتحديث هذه السياسة من وقت لآخر. سيتم إشعارك بأي تغييرات عبر تحديث تاريخ "آخر تحديث" في أعلى هذه الصفحة.</p>
+      
+      <h4 style="color:var(--gold);margin:16px 0 8px;">8. الاتصال بنا</h4>
+      <p>إذا كان لديك أي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر البريد الإلكتروني: support@fahemni-alquran.app</p>
+      
+      <div style="border-top:1px solid rgba(212,175,55,0.3);margin-top:16px;padding-top:12px;text-align:center;font-size:12px;color:#888;">
+        جميع الحقوق محفوظة &copy; 2026 - فهمني القرآن
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>
@@ -1553,6 +1614,20 @@ function showPrayerNotification(prayerName) {
     } catch(e) {}
   }
 }
+
+// ============ PRIVACY POLICY ============
+function showPrivacyPolicy() {
+  document.getElementById('privacyModal').classList.add('show');
+}
+function closePrivacyPolicy() {
+  document.getElementById('privacyModal').classList.remove('show');
+}
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('privacyModal');
+  if (modal && modal.classList.contains('show') && e.target === modal) {
+    modal.classList.remove('show');
+  }
+});
 
 // ============ Start App ============
 document.addEventListener('DOMContentLoaded', init);
