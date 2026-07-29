@@ -1,14 +1,18 @@
 ﻿{
+    "intro": {
+        "files": [
+            {
+                "url": "https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/%D8%A7%D9%84%D8%B3%D9%88%D8%B1%5C1%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9%5C%D8%AA%D9%88%D8%B6%D9%8A%D8%AD%20%D8%B9%D9%86%20%D8%A3%D9%87%D9%85%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B3%D9%84%D8%A9%20(%20%D9%81%D9%87%D9%85%D9%86%D9%8A%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%20)%20%E2%9C%8D%EF%B8%8F.aac",
+                "name": "توضيح عن أهمية سلسلة ( فهمني القرآن ) ✍️.aac",
+                "type":  "aac"
+            }
+        ]
+    },
     "surahs":  [
-                   {
-                       "files":  [
-                                     {
-                                         "url":  "https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/%D8%A7%D9%84%D8%B3%D9%88%D8%B1%5C1%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9%5C%D8%AA%D9%88%D8%B6%D9%8A%D8%AD%20%D8%B9%D9%86%20%D8%A3%D9%87%D9%85%D9%8A%D8%A9%20%D8%B3%D9%84%D8%B3%D9%84%D8%A9%20(%20%D9%81%D9%87%D9%85%D9%86%D9%8A%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%20)%20%E2%9C%8D%EF%B8%8F.aac",
-                                         "name":  "توضيح عن أهمية سلسلة ( فهمني القرآن ) ✍️.aac",
-                                         "type":  "aac"
-                                     },
-                                     {
-                                         "url":  "https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/%D8%A7%D9%84%D8%B3%D9%88%D8%B1%5C1%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9%5C%D8%B5%D9%81%D8%AD%D8%A9%20%D9%A1%20%3D%20%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9.aac",
+                    {
+                        "files":  [
+                                      {
+                                          "url":  "https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/%D8%A7%D9%84%D8%B3%D9%88%D8%B1%5C1%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9%5C%D8%B5%D9%81%D8%AD%D8%A9%20%D9%A1%20%3D%20%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%81%D8%A7%D8%AA%D8%AD%D8%A9.aac",
                                          "name":  "صفحة ١ =  سورة الفاتحة.aac",
                                          "type":  "aac"
                                      },
@@ -18,9 +22,9 @@
                                          "type":  "aac"
                                      }
                                  ],
-                       "name":  "1 سورة الفاتحة",
-                       "folder":  "1 سورة الفاتحة",
-                       "count":  3
+"name":  "1 سورة الفاتحة",
+                        "folder":  "1 سورة الفاتحة",
+                        "count":  2
                    },
                    {
                        "files":  [

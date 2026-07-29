@@ -4,14 +4,17 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fahemni_alquran/config/constants.dart';
 import 'package:fahemni_alquran/models/surah.dart';
+import 'package:fahemni_alquran/models/audio_item.dart';
 
 class ApiService extends ChangeNotifier {
   List<Surah> _surahs = [];
+  List<AudioItem> _introFiles = [];
   bool _isLoading = false;
   String? _error;
   String _dataSource = '';
 
   List<Surah> get surahs => _surahs;
+  List<AudioItem> get introFiles => _introFiles;
   bool get isLoading => _isLoading;
   String? get error => _error;
   String get dataSource => _dataSource;
@@ -35,6 +38,17 @@ class ApiService extends ChangeNotifier {
             .map((e) => Surah.fromJson(e as Map<String, dynamic>))
             .toList();
         _sortSurahs();
+
+        if (jsonData['intro'] != null) {
+          final introData = jsonData['intro'] as Map<String, dynamic>;
+          final introFilesJson = introData['files'] as List;
+          _introFiles = introFilesJson
+              .map((e) => AudioItem.fromJson(e as Map<String, dynamic>))
+              .toList();
+        } else {
+          _introFiles = [];
+        }
+
         _dataSource = 'online';
 
         // Cache the data
@@ -76,9 +90,21 @@ class ApiService extends ChangeNotifier {
       if (cached != null) {
         final Map<String, dynamic> jsonData = json.decode(cached);
         final List<dynamic> surahsJson = jsonData['surahs'];
-        return surahsJson
+        final surahs = surahsJson
             .map((e) => Surah.fromJson(e as Map<String, dynamic>))
             .toList();
+
+        if (jsonData['intro'] != null) {
+          final introData = jsonData['intro'] as Map<String, dynamic>;
+          final introFilesJson = introData['files'] as List;
+          _introFiles = introFilesJson
+              .map((e) => AudioItem.fromJson(e as Map<String, dynamic>))
+              .toList();
+        } else {
+          _introFiles = [];
+        }
+
+        return surahs;
       }
     } catch (_) {}
     return null;

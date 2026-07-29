@@ -7,6 +7,8 @@ import 'package:fahemni_alquran/services/api_service.dart';
 import 'package:fahemni_alquran/services/audio_player_service.dart';
 import 'package:fahemni_alquran/widgets/surah_card.dart';
 import 'package:fahemni_alquran/widgets/player_bar.dart';
+import 'package:fahemni_alquran/config/routes.dart';
+import 'package:fahemni_alquran/models/audio_item.dart';
 import 'package:fahemni_alquran/screens/favorites_screen.dart';
 import 'package:fahemni_alquran/screens/settings_screen.dart';
 
@@ -75,20 +77,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   return _buildEmptyView();
                 }
 
+                final hasIntro = apiService.introFiles.isNotEmpty &&
+                    (_searchQuery.isEmpty ||
+                        apiService.introFiles.any((f) =>
+                            f.name.toLowerCase().contains(_searchQuery.toLowerCase())));
+
                 return RefreshIndicator(
                   onRefresh: () => apiService.loadData(),
                   child: ListView.builder(
                     padding: const EdgeInsets.only(
                         left: 12, right: 12, top: 12, bottom: 100),
-                    itemCount: surahs.length,
+                    itemCount: surahs.length + (hasIntro ? 1 : 0),
                     itemBuilder: (context, index) {
+                      if (hasIntro && index == 0) {
+                        return _buildIntroCard(context, apiService.introFiles.first);
+                      }
+                      final surahIndex = hasIntro ? index - 1 : index;
                       return SurahCard(
-                        surah: surahs[index],
+                        surah: surahs[surahIndex],
                         onTap: () {
                           Navigator.pushNamed(
                             context,
                             AppRoutes.surahDetail,
-                            arguments: surahs[index],
+                            arguments: surahs[surahIndex],
                           );
                         },
                       );
@@ -137,6 +148,106 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'الإعدادات',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildIntroCard(BuildContext context, AudioItem introFile) {
+    final player = context.read<AudioPlayerService>();
+    final isPlaying = player.currentItem?.url == introFile.url && player.isPlaying;
+    final isCurrent = player.currentItem?.url == introFile.url;
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(color: AppTheme.gold, width: 1.5),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            AppRoutes.player,
+            arguments: {
+              'surahName': 'مقدمة السلسلة',
+              'files': [introFile],
+              'initialIndex': 0,
+            },
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              colors: [
+                AppTheme.gold.withValues(alpha: 0.08),
+                AppTheme.primaryGreen.withValues(alpha: 0.05),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppTheme.gold, Color(0xFFB8960C)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Center(
+                  child: Icon(Icons.star, color: Colors.white, size: 24),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      introFile.name,
+                      style: GoogleFonts.notoNaskhArabic(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.gold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      isCurrent
+                          ? (isPlaying ? 'جارٍ التشغيل' : 'متوقف')
+                          : 'اضغط للتشغيل',
+                      style: GoogleFonts.notoNaskhArabic(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: AppTheme.gold.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  isCurrent && isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: AppTheme.gold,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

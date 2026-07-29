@@ -1293,6 +1293,7 @@
 const state = {
   data: null,
   surahs: [],
+  intro: null,
   currentSurah: null,
   currentIndex: 0,
   currentFile: null,
@@ -1328,6 +1329,7 @@ async function init() {
 
     state.data = data;
     state.surahs = data.surahs || [];
+    state.intro = data.intro || null;
 
     const elapsed = Date.now() - startTime;
     const remaining = Math.max(0, 2000 - elapsed);
@@ -1414,18 +1416,41 @@ function renderSurahs(filter = '') {
 
   count.textContent = `${surahs.length} سورة`;
 
+  let html = '';
+
+  // Intro section at top
+  if (state.intro && state.intro.files && state.intro.files.length > 0 && (!filter || state.intro.files.some(f => f.name.toLowerCase().includes(filter.toLowerCase())))) {
+    state.intro.files.forEach((file, idx) => {
+      const isActive = state.currentFile && state.currentFile.url === file.url;
+      html += `
+        <div class="surah-card intro-card" onclick="playIntroFile(${idx})" style="border-color: var(--gold); background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(27,94,32,0.05));">
+          <div class="surah-number" style="background: linear-gradient(135deg, var(--gold), #B8960C); color: white;">&#9733;</div>
+          <div class="surah-info">
+            <div class="surah-name" style="color: var(--gold); font-size: 16px;">${file.name}</div>
+            <div class="surah-meta">
+              <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-11h2v6h-2zm0 8h2v2h-2z"/></svg>
+            ${isActive ? (state.isPlaying ? 'جارٍ التشغيل' : 'متوقف') : 'اضغط للتشغيل'}
+            </div>
+          </div>
+          <div class="surah-arrow" style="background: rgba(212,175,55,0.2);">${isActive && state.isPlaying ? '&#9646;&#9646;' : '&#9654;'}</div>
+        </div>
+      `;
+    });
+  }
+
   if (surahs.length === 0) {
-    grid.innerHTML = `
+    html += `
       <div class="empty-state">
         <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         <h3>لا توجد نتائج</h3>
         <p>لم يتم العثور على سور تطابق بحثك</p>
       </div>
     `;
+    grid.innerHTML = html;
     return;
   }
 
-  grid.innerHTML = surahs.map((surah, idx) => `
+  html += surahs.map((surah, idx) => `
     <div class="surah-card" onclick="openSurah(${state.surahs.indexOf(surah)})" style="animation: slideDown 0.3s ease ${idx * 0.05}s both;">
       <div class="surah-number">${surah.name.split(' ')[0]}</div>
       <div class="surah-info">
@@ -1438,6 +1463,8 @@ function renderSurahs(filter = '') {
       <div class="surah-arrow">&#8249;</div>
     </div>
   `).join('');
+
+  grid.innerHTML = html;
 }
 
 // ============ Open Surah ============
@@ -1512,11 +1539,11 @@ function playFile(index) {
   if (!state.audioElement) {
     state.audioElement = new Audio();
     state.audioElement.addEventListener('timeupdate', updateProgress);
-    state.audioElement.addEventListener('ended', onAudioEnd);
     state.audioElement.addEventListener('loadedmetadata', () => {
       document.getElementById('totalTime').textContent = formatTime(state.audioElement.duration);
     });
   }
+  state.audioElement.onended = onAudioEnd;
 
   state.audioElement.src = state.currentFile.url;
   state.audioElement.play().then(() => {
@@ -1536,6 +1563,49 @@ function playFile(index) {
       fileName: state.currentFile.name
     }));
   } catch(e) {}
+}
+
+function playIntroFile(index) {
+  if (!state.intro || !state.intro.files || !state.intro.files[index]) return;
+
+  const file = state.intro.files[index];
+
+  // Toggle if same file is already playing
+  if (state.currentFile && state.currentFile.url === file.url && state.isPlaying) {
+    togglePlayPause();
+    return;
+  }
+
+  state.currentFile = file;
+  state.currentIndex = index;
+  state.currentSurah = { name: 'مقدمة السلسلة', files: state.intro.files };
+
+  document.getElementById('playerBar').classList.add('show');
+  updatePlayerUI();
+  renderSurahs(state.searchQuery);
+
+  if (!state.audioElement) {
+    state.audioElement = new Audio();
+    state.audioElement.addEventListener('timeupdate', updateProgress);
+    state.audioElement.addEventListener('loadedmetadata', () => {
+      document.getElementById('totalTime').textContent = formatTime(state.audioElement.duration);
+    });
+  }
+  state.audioElement.onended = () => {
+    state.isPlaying = false;
+    updatePlayButtons();
+    renderSurahs(state.searchQuery);
+  };
+
+  state.audioElement.src = file.url;
+  state.audioElement.play().then(() => {
+    state.isPlaying = true;
+    updatePlayButtons();
+  }).catch(e => {
+    showToast('تعذر تشغيل الملف. تأكد من اتصالك بالإنترنت.');
+    state.isPlaying = false;
+    updatePlayButtons();
+  });
 }
 
 function togglePlayPause() {
@@ -1768,6 +1838,7 @@ function goHome() {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
   state.currentSurah = null;
+  renderSurahs(state.searchQuery);
 }
 
 function showPage(page) {
