@@ -711,7 +711,7 @@
           </div>
           <div class="settings-row">
             <div><label>معاينة الصوت</label></div>
-            <button class="back-btn" onclick="previewPrayerSound()" style="padding: 6px 14px; font-size: 12px;">&#9654; استماع</button>
+            <button class="back-btn preview-btn" onclick="togglePrayerPreview(this)" style="padding: 6px 14px; font-size: 12px;">&#9654; استماع</button>
           </div>
           <div class="settings-row">
             <div><label>التنبيه قبل الصلاة</label></div>
@@ -760,7 +760,7 @@
         </div>
         <div class="settings-row">
           <div><label>معاينة الصوت</label></div>
-          <button onclick="previewPrayerSound()" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
+          <button class="preview-btn" onclick="togglePrayerPreview(this)" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
         </div>
       </div>
       <div class="settings-section">
@@ -1456,16 +1456,16 @@ function getAdhanAudio(url) {
   return audio;
 }
 
-function stopPrayerPreview() {
-  if (state._previewAudio) {
+function togglePrayerPreview(btn) {
+  if (state._previewAudio && !state._previewAudio.paused) {
     state._previewAudio.pause();
+    state._previewAudio.currentTime = 0;
     state._previewAudio = null;
+    document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9654; استماع'; });
+    return;
   }
-}
-
-function previewPrayerSound() {
-  stopPrayerPreview();
   playPrayerNotificationSound(true);
+  document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9208; إيقاف'; });
 }
 
 function playPrayerNotificationSound(isPreview) {
@@ -1479,7 +1479,13 @@ function playPrayerNotificationSound(isPreview) {
       var audio = getAdhanAudio(audioUrl);
       audio.volume = 0.9;
       audio.play().catch(function(){});
-      if (isPreview) state._previewAudio = audio;
+      if (isPreview) {
+        state._previewAudio = audio;
+        audio.onended = function() {
+          state._previewAudio = null;
+          document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9654; استماع'; });
+        };
+      }
       return;
     } catch(e) {}
     showToast('تعذر تشغيل الصوت');
