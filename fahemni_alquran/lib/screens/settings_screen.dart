@@ -115,7 +115,7 @@ class SettingsScreen extends StatelessWidget {
                   style: GoogleFonts.notoNaskhArabic(fontSize: 16),
                 ),
                 subtitle: Text(
-                  'support@fahemni-alquran.app',
+                  'amn2asayed@gmail.com',
                   style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: Colors.grey),
                 ),
               ),
@@ -200,7 +200,7 @@ class SettingsScreen extends StatelessWidget {
                         _policySection('9. تحديثات سياسة الخصوصية',
                             'قد نقوم بتحديث هذه السياسة من وقت لآخر. سيتم إشعارك بأي تغييرات عبر تحديث تاريخ "آخر تحديث" في أعلى هذه الصفحة.'),
                         _policySection('10. الاتصال بنا',
-                            'إذا كان لديك أي استفسار، يمكنك التواصل معنا عبر البريد الإلكتروني: support@fahemni-alquran.app'),
+                            'إذا كان لديك أي استفسار، يمكنك التواصل معنا عبر البريد الإلكتروني: amn2asayed@gmail.com'),
                       ],
                     ),
                   ),
