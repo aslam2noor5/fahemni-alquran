@@ -1,0 +1,164 @@
+- generic [ref=f9e2]:
+  - generic [ref=f9e3]:
+    - link "Skip to content" [ref=f9e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f9e8]:
+      - generic [ref=f9e9]:
+        - generic [ref=f9e10]:
+          - button "Open menu" [ref=f9e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f9e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f9e18]:
+          - navigation "Breadcrumbs" [ref=f9e19]:
+            - list [ref=f9e20]:
+              - listitem [ref=f9e21]:
+                - link "aslam2noor5" [ref=f9e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=f9e24]:
+                - link "fahemni-alquran" [ref=f9e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=f9e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=f9e31] [cursor=pointer]:
+            - generic [ref=f9e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f9e34]:
+          - generic [ref=f9e35]:
+            - generic [ref=f9e38]:
+              - link "Chat with Copilot" [ref=f9e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f9e45] [cursor=pointer]
+            - button "Create new..." [ref=f9e47] [cursor=pointer]
+            - generic [ref=f9e49]:
+              - link "All issues" [ref=f9e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=f9e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f9e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f9e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f9e64] [cursor=pointer]:
+            - img "User avatar" [ref=f9e65]
+      - heading "Repository navigation" [level=2] [ref=f9e66]
+      - navigation "Repository" [ref=f9e67]:
+        - list [ref=f9e68]:
+          - listitem [ref=f9e69]:
+            - link "Code" [ref=f9e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=f9e72]:
+            - link "Issues" [ref=f9e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=f9e75]:
+            - link "Pull requests" [ref=f9e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=f9e78]:
+            - link "Agents" [ref=f9e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=f9e81]:
+            - link "Actions" [ref=f9e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=f9e84]:
+            - link "Projects" [ref=f9e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=f9e87]:
+            - link "Wiki" [ref=f9e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=f9e90]:
+            - link "Security and quality" [ref=f9e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=f9e93]:
+            - link "Insights" [ref=f9e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=f9e96]:
+            - link "Settings" [ref=f9e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=f9e102]:
+    - generic [ref=f9e321]:
+      - generic [ref=f9e325]:
+        - generic [ref=f9e326]:
+          - img "currently running:" [ref=f9e331]
+          - 'heading "pages build and deployment #3" [level=1] [ref=f9e335]'
+        - button "Cancel workflow" [ref=f9e340] [cursor=pointer]
+      - generic [ref=f9e341]:
+        - navigation "Workflow run" [ref=f9e428]:
+          - list [ref=f9e429]:
+            - listitem [ref=f9e430]:
+              - link "Summary" [ref=f9e431] [cursor=pointer]:
+                - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832
+            - generic [ref=f9e434]:
+              - heading "All jobs" [level=4] [ref=f9e435]
+              - button "Filter by job status" [ref=f9e436] [cursor=pointer]
+            - listitem [ref=f9e439]
+            - listitem [ref=f9e440]:
+              - list [ref=f9e441]:
+                - listitem [ref=f9e442]:
+                  - link "build" [ref=f9e443] [cursor=pointer]:
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832/job/90689257310
+                    - generic:
+                      - generic:
+                        - img "Currently running"
+            - listitem [ref=f9e446]
+            - listitem [ref=f9e447]:
+              - heading "Run details" [level=3] [ref=f9e449]
+              - list "Run details" [ref=f9e450]:
+                - listitem [ref=f9e451]:
+                  - link "Usage" [ref=f9e452] [cursor=pointer]:
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832/usage
+        - generic [ref=f9e344]:
+          - region "Workflow run summary" [ref=f9e345]:
+            - generic [ref=f9e346]:
+              - generic [ref=f9e347]:
+                - generic [ref=f9e348]: Triggered via dynamic July 29, 2026 22:383 minutes ago
+                - generic [ref=f9e349]:
+                  - link [ref=f9e350] [cursor=pointer]:
+                    - /url: /aslam2noor5
+                    - img "@aslam2noor5" [ref=f9e351]
+                    - text: aslam2noor5
+                  - generic [ref=f9e352]:
+                    - text: ⁠
+                    - link "a467fe3" [ref=f9e353] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/commit/a467fe3c054c234e9b5df32d85f0f46f0da531e8
+                  - link "master" [ref=f9e356] [cursor=pointer]:
+                    - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+              - generic [ref=f9e357]:
+                - generic [ref=f9e358]: Status
+                - text: In progress
+              - generic [ref=f9e359]:
+                - generic [ref=f9e360]: Total duration
+                - link "–" [ref=f9e361] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832/usage
+              - generic [ref=f9e362]:
+                - generic [ref=f9e363]: Artifacts
+                - text: –
+          - region "Workflow run graph" [ref=f9e364]:
+            - generic [ref=f9e366]:
+              - generic [ref=f9e368]:
+                - heading "pages-build-deployment" [level=2] [ref=f9e369]
+                - generic [ref=f9e370]: "on: dynamic"
+              - generic [ref=f9e372]:
+                - generic [ref=f9e373]:
+                  - 'link "currently running: build 3m 10s" [ref=f9e457] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832/job/90689257310
+                    - generic [ref=f9e379]:
+                      - img "currently running:" [ref=f9e382]
+                      - generic [ref=f9e386]: build
+                      - generic "Jul 29, 2026, 10:38 PM GMT+3" [ref=f9e389]: 3m 10s
+                  - generic [ref=f9e391]:
+                    - generic [ref=f9e392]: report-build-status
+                    - generic [ref=f9e402]: deploy
+                - generic [ref=f9e412]:
+                  - paragraph [ref=f9e413]: Oh hello! Nice to see you.
+                  - paragraph [ref=f9e414]:
+                    - text: Made with ❤️ by
+                    - link [ref=f9e415] [cursor=pointer]:
+                      - /url: https://actions.github.io/humans.txt
+                      - text: humans.txt
+              - generic [ref=f9e416]:
+                - button "Fit to window" [disabled] [ref=f9e417]
+                - generic [ref=f9e418]:
+                  - button "Zoom out" [disabled] [ref=f9e420]
+                  - button "Zoom in" [ref=f9e422] [cursor=pointer]
+          - region "Annotations"

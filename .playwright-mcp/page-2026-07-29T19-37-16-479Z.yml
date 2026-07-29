@@ -1,0 +1,259 @@
+- generic [ref=f7e2]:
+  - generic [ref=f7e3]:
+    - link "Skip to content" [ref=f7e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f7e8]:
+      - generic [ref=f7e9]:
+        - generic [ref=f7e10]:
+          - button "Open menu" [ref=f7e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f7e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f7e18]:
+          - navigation "Breadcrumbs" [ref=f7e19]:
+            - list [ref=f7e20]:
+              - listitem [ref=f7e21]:
+                - link "aslam2noor5" [ref=f7e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=f7e24]:
+                - link "fahemni-alquran" [ref=f7e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=f7e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=f7e31] [cursor=pointer]:
+            - generic [ref=f7e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f7e34]:
+          - generic [ref=f7e35]:
+            - generic [ref=f7e38]:
+              - link "Chat with Copilot" [ref=f7e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f7e45] [cursor=pointer]
+            - button "Create new..." [ref=f7e47] [cursor=pointer]
+            - generic [ref=f7e49]:
+              - link "All issues" [ref=f7e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=f7e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f7e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f7e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f7e64] [cursor=pointer]:
+            - img "User avatar" [ref=f7e65]
+      - heading "Repository navigation" [level=2] [ref=f7e66]
+      - navigation "Repository" [ref=f7e67]:
+        - list [ref=f7e68]:
+          - listitem [ref=f7e69]:
+            - link "Code" [ref=f7e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=f7e72]:
+            - link "Issues" [ref=f7e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=f7e75]:
+            - link "Pull requests" [ref=f7e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=f7e78]:
+            - link "Agents" [ref=f7e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=f7e81]:
+            - link "Actions" [ref=f7e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=f7e84]:
+            - link "Projects" [ref=f7e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=f7e87]:
+            - link "Wiki" [ref=f7e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=f7e90]:
+            - link "Security and quality" [ref=f7e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=f7e93]:
+            - link "Insights" [ref=f7e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=f7e96]:
+            - link "Settings" [ref=f7e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=f7e101]:
+    - generic [ref=f7e103]:
+      - 'heading "Settings: aslam2noor5/fahemni-alquran" [level=1] [ref=f7e104]'
+      - generic [ref=f7e106]:
+        - navigation "General settings" [ref=f7e109]:
+          - list [ref=f7e111]:
+            - listitem [ref=f7e112]:
+              - link "General" [ref=f7e113] [cursor=pointer]:
+                - /url: /aslam2noor5/fahemni-alquran/settings
+            - listitem [ref=f7e115]
+            - listitem [ref=f7e116]:
+              - generic [ref=f7e119]:
+                - heading "Access" [level=2] [ref=f7e121]
+                - list "Access" [ref=f7e122]:
+                  - listitem [ref=f7e123]:
+                    - link "Collaborators" [ref=f7e124] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/access
+                  - listitem [ref=f7e126]:
+                    - button "Moderation options" [ref=f7e127] [cursor=pointer]
+            - listitem [ref=f7e129]
+            - listitem [ref=f7e130]:
+              - generic [ref=f7e133]:
+                - heading "Code, planning, and automation" [level=2] [ref=f7e135]
+                - list "Code, planning, and automation" [ref=f7e136]:
+                  - listitem [ref=f7e137]:
+                    - link "Branches" [ref=f7e138] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/branches
+                  - listitem [ref=f7e140]:
+                    - link "Tags" [ref=f7e141] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/tag_protection
+                  - listitem [ref=f7e143]:
+                    - button "Rules" [ref=f7e144] [cursor=pointer]
+                  - listitem [ref=f7e146]:
+                    - button "Actions" [ref=f7e147] [cursor=pointer]
+                  - listitem [ref=f7e149]:
+                    - link "Webhooks" [ref=f7e150] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/hooks
+                  - listitem [ref=f7e152]:
+                    - button "Copilot" [ref=f7e153] [cursor=pointer]
+                  - listitem [ref=f7e155]:
+                    - button "Planning" [ref=f7e156] [cursor=pointer]
+                  - listitem [ref=f7e158]:
+                    - link "Environments" [ref=f7e159] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/environments
+                  - listitem [ref=f7e161]:
+                    - link "Codespaces" [ref=f7e162] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/codespaces
+                  - listitem [ref=f7e164]:
+                    - link "Pages" [ref=f7e165] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/pages
+            - listitem [ref=f7e167]
+            - listitem [ref=f7e168]:
+              - generic [ref=f7e171]:
+                - heading "Security and quality" [level=2] [ref=f7e173]
+                - list "Security and quality" [ref=f7e174]:
+                  - listitem [ref=f7e175]:
+                    - link "Advanced Security" [ref=f7e176] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/security_analysis
+                  - listitem [ref=f7e178]:
+                    - link "Deploy keys" [ref=f7e179] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/keys
+                  - listitem [ref=f7e181]:
+                    - button "Secrets and variables" [ref=f7e182] [cursor=pointer]
+            - listitem [ref=f7e184]
+            - listitem [ref=f7e185]:
+              - generic [ref=f7e188]:
+                - heading "Integrations" [level=2] [ref=f7e190]
+                - list "Integrations" [ref=f7e191]:
+                  - listitem [ref=f7e192]:
+                    - link "GitHub Apps" [ref=f7e193] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/installations
+                  - listitem [ref=f7e195]:
+                    - link "Email notifications" [ref=f7e196] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/settings/notifications
+        - generic [ref=f7e198]:
+          - heading "GitHub Pages" [level=2] [ref=f7e200]
+          - paragraph [ref=f7e201]:
+            - link "GitHub Pages" [ref=f7e202] [cursor=pointer]:
+              - /url: https://pages.github.com
+            - text: is designed to host your personal, organization, or project pages from a GitHub repository.
+          - heading "Build and deployment" [level=2] [ref=f7e203]
+          - generic [ref=f7e204]:
+            - generic [ref=f7e205]:
+              - text: Source
+              - button "Source Deploy from a branch" [ref=f7e209] [cursor=pointer]:
+                - generic [ref=f7e210]: Deploy from a branch
+            - generic [ref=f7e214]:
+              - strong [ref=f7e215]: Branch
+              - paragraph [ref=f7e216]:
+                - text: Your GitHub Pages site is currently being built from the
+                - code [ref=f7e217]: master
+                - text: branch.
+                - link "Learn more about configuring the publishing source for your site" [ref=f7e218] [cursor=pointer]:
+                  - /url: https://docs.github.com/articles/configuring-a-publishing-source-for-github-pages/
+                - text: .
+              - generic [ref=f7e219]:
+                - button "master" [ref=f7e223] [cursor=pointer]
+                - button "/ (root)" [ref=f7e229] [cursor=pointer]
+                - button "Save" [disabled] [ref=f7e232]
+              - paragraph [ref=f7e233]:
+                - text: Learn how to
+                - link "add a Jekyll theme" [ref=f7e234] [cursor=pointer]:
+                  - /url: https://docs.github.com/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
+                - text: to your site.
+          - heading "Custom domain" [level=3] [ref=f7e235]
+          - generic [ref=f7e236]:
+            - generic [ref=f7e238]:
+              - term [ref=f7e239]:
+                - generic [ref=f7e240]: Custom domain
+                - paragraph [ref=f7e241]:
+                  - text: Custom domains allow you to serve your site from a domain other than
+                  - code [ref=f7e242]: aslam2noor5.github.io
+                  - text: .
+                  - link "Learn more about configuring custom domains" [ref=f7e243] [cursor=pointer]:
+                    - /url: https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site
+                  - text: .
+              - definition [ref=f7e244]:
+                - generic [ref=f7e245]:
+                  - textbox "Custom domain" [ref=f7e247]
+                  - generic [ref=f7e248]:
+                    - button "Save" [disabled] [ref=f7e249]
+                    - button "Remove" [disabled] [ref=f7e250]
+                - paragraph
+            - separator [ref=f7e251]
+          - generic [ref=f7e253]:
+            - checkbox "Enforce HTTPS — Required for your site because you are using the default domain (aslam2noor5.github.io)" [checked] [disabled] [ref=f7e254]
+            - generic [ref=f7e255]:
+              - text: Enforce HTTPS
+              - generic [ref=f7e256]:
+                - text: — Required for your site because you are using the default domain (
+                - code [ref=f7e257]: aslam2noor5.github.io
+                - text: )
+            - paragraph [ref=f7e259]:
+              - text: HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site. When HTTPS is enforced, your site will only be served over HTTPS.
+              - link "Learn more about securing your GitHub Pages site with HTTPS" [ref=f7e260] [cursor=pointer]:
+                - /url: https://docs.github.com/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https
+              - text: .
+          - generic [ref=f7e261]:
+            - generic [ref=f7e262]:
+              - heading "Visibility" [level=3] [ref=f7e263]
+              - generic [ref=f7e264]: GitHub Enterprise
+            - paragraph [ref=f7e265]:
+              - text: With a GitHub Enterprise account, you can restrict access to your GitHub Pages site by publishing it privately. You can use privately published sites to share your internal documentation or knowledge base with members of your enterprise. You can try GitHub Enterprise risk-free for 30 days.
+              - link "Learn more about the visibility of your GitHub Pages site." [ref=f7e266] [cursor=pointer]:
+                - /url: https://docs.github.com/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site
+            - link "Start free for 30 days" [ref=f7e267] [cursor=pointer]:
+              - /url: /account/enterprises/new
+  - contentinfo [ref=f7e270]:
+    - heading "Footer" [level=2] [ref=f7e271]
+    - generic [ref=f7e272]:
+      - generic [ref=f7e273]:
+        - link "GitHub Homepage" [ref=f7e274] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f7e277]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f7e278]:
+        - heading "Footer navigation" [level=3] [ref=f7e279]
+        - list "Footer navigation" [ref=f7e280]:
+          - listitem [ref=f7e281]:
+            - link "Terms" [ref=f7e282] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f7e283]:
+            - link "Privacy" [ref=f7e284] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f7e285]:
+            - link "Security" [ref=f7e286] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f7e287]:
+            - link "Status" [ref=f7e288] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f7e289]:
+            - link "Community" [ref=f7e290] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f7e291]:
+            - link "Docs" [ref=f7e292] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f7e293]:
+            - link "Contact" [ref=f7e294] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f7e295]:
+            - button "Manage cookies" [ref=f7e297] [cursor=pointer]
+          - listitem [ref=f7e298]:
+            - button "Do not share my personal information" [ref=f7e300] [cursor=pointer]
