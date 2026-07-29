@@ -706,15 +706,8 @@
             </label>
             <label class="prayer-sound-option" onclick="selectPrayerSound('adhan2')">
               <input type="radio" name="prayerSound" value="adhan2">
-              <span>&#127925; أذان - أحمد النفيس</span>
+              <span>&#127925; أذان - الحرم المدني</span>
             </label>
-            <label class="prayer-sound-option" onclick="selectPrayerSound('custom')">
-              <input type="radio" name="prayerSound" value="custom">
-              <span>&#128279; رابط مخصص</span>
-            </label>
-          </div>
-          <div class="prayer-custom-url" id="prayerCustomUrl" style="display:none;">
-            <input class="search-box" id="prayerSoundUrl" type="url" placeholder="https://example.com/adhan.mp3" onchange="savePrayerSoundUrl(this.value)" style="font-size: 13px; padding: 10px 14px;">
           </div>
           <div class="settings-row">
             <div><label>معاينة الصوت</label></div>
@@ -762,8 +755,7 @@
           <div><label>صوت التنبيه</label><small>اختيار نغمة الأذان</small></div>
           <select onchange="selectPrayerSound(this.value)" style="font-family:'Noto Naskh Arabic',serif;padding:6px 10px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);background:transparent;color:var(--text-dark);">
             <option value="adhan1">أذان - مشاري العفاسي</option>
-            <option value="adhan2">أذان - أحمد النفيس</option>
-            <option value="custom">رابط مخصص</option>
+            <option value="adhan2">أذان - الحرم المدني</option>
           </select>
         </div>
         <div class="settings-row">
@@ -1376,7 +1368,7 @@ const prayerNames = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
 const prayerLabels = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
 
 function getPrayerNotifySettings() {
-  return JSON.parse(localStorage.getItem(PRAYER_NOTIFY_KEY) || '{"enabled":false,"sound":"adhan1","customUrl":"","before":0}');
+  return JSON.parse(localStorage.getItem(PRAYER_NOTIFY_KEY) || '{"enabled":false,"sound":"adhan1","before":0}');
 }
 function savePrayerNotifySettings(s) {
   localStorage.setItem(PRAYER_NOTIFY_KEY, JSON.stringify(s));
@@ -1396,12 +1388,6 @@ function renderPrayerNotifyUI() {
       el.classList.remove('selected');
     }
   });
-  const customUrlDiv = document.getElementById('prayerCustomUrl');
-  const urlInput = document.getElementById('prayerSoundUrl');
-  if (customUrlDiv && urlInput) {
-    customUrlDiv.style.display = s.sound === 'custom' ? 'block' : 'none';
-    if (s.customUrl) urlInput.value = s.customUrl;
-  }
   const beforeSelect = document.getElementById('prayerNotifyBefore');
   if (beforeSelect) beforeSelect.value = String(s.before);
   // Sync settings page sound select
@@ -1438,13 +1424,6 @@ function selectPrayerSound(sound) {
   s.sound = sound;
   savePrayerNotifySettings(s);
   renderPrayerNotifyUI();
-  const customUrlDiv = document.getElementById('prayerCustomUrl');
-  if (customUrlDiv) customUrlDiv.style.display = sound === 'custom' ? 'block' : 'none';
-}
-function savePrayerSoundUrl(url) {
-  const s = getPrayerNotifySettings();
-  s.customUrl = url;
-  savePrayerNotifySettings(s);
 }
 function savePrayerNotifyBefore(val) {
   const s = getPrayerNotifySettings();
@@ -1455,7 +1434,7 @@ function savePrayerNotifyBefore(val) {
 function preloadAdhanAudios() {
   const urls = [
     'https://cdn.aladhan.com/audio/adhans/a9.mp3',
-    'https://cdn.aladhan.com/audio/adhans/a1.mp3'
+    'https://raw.githubusercontent.com/Kiwifu/adhan-mp3/main/Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(%D8%A3%D8%B0%D8%A7%D9%86_%D8%A7%D9%84%D8%AD%D8%B1%D9%85_%D8%A7%D9%84%D9%85%D8%AF%D9%86%D9%8A_-_%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9_%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9).mp3'
   ];
   state._adhanAudios = {};
   urls.forEach(function(url) {
@@ -1493,8 +1472,7 @@ function playPrayerNotificationSound(isPreview) {
   const s = getPrayerNotifySettings();
   var audioUrl = null;
   if (s.sound === 'adhan1') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a9.mp3';
-  else if (s.sound === 'adhan2') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a1.mp3';
-  else if (s.sound === 'custom') audioUrl = s.customUrl;
+  else if (s.sound === 'adhan2') audioUrl = 'https://raw.githubusercontent.com/Kiwifu/adhan-mp3/main/Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(%D8%A3%D8%B0%D8%A7%D9%86_%D8%A7%D9%84%D8%AD%D8%B1%D9%85_%D8%A7%D9%84%D9%85%D8%AF%D9%86%D9%8A_-_%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9_%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9).mp3';
 
   if (audioUrl) {
     try {
