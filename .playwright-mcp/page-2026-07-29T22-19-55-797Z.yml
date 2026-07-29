@@ -1,0 +1,33 @@
+- generic [active] [ref=f29e1]:
+  - generic [ref=f29e2]:
+    - img "فهمني القرآن" [ref=f29e4]
+    - generic [ref=f29e5]: فهمني القرآن
+    - generic [ref=f29e6]: استمع إلى شرح القرآن الكريم
+  - generic [ref=f29e8]:
+    - generic [ref=f29e10]:
+      - generic [ref=f29e11]: القرآن الكريم
+      - generic [ref=f29e12]:
+        - button "🔍" [ref=f29e13] [cursor=pointer]
+        - button "♥" [ref=f29e14] [cursor=pointer]
+        - button "⚙" [ref=f29e15] [cursor=pointer]
+    - heading "اختر سورة للاستماع" [level=2] [ref=f29e18]
+    - text: ‹ ‹ ‹ ‹
+  - generic [ref=f29e20]:
+    - button "📖 تفسير القرآن" [ref=f29e21] [cursor=pointer]:
+      - generic [ref=f29e22]: 📖
+      - generic [ref=f29e23]: تفسير القرآن
+    - button "❥ أذكار" [ref=f29e24] [cursor=pointer]:
+      - generic [ref=f29e25]: ❥
+      - generic [ref=f29e26]: أذكار
+    - button "📖 تسبيح" [ref=f29e27] [cursor=pointer]:
+      - generic [ref=f29e28]: 📖
+      - generic [ref=f29e29]: تسبيح
+    - button "📖 المصحف" [ref=f29e30] [cursor=pointer]:
+      - generic [ref=f29e31]: 📖
+      - generic [ref=f29e32]: المصحف
+    - button "🕋 القبلة" [ref=f29e33] [cursor=pointer]:
+      - generic [ref=f29e34]: 🕋
+      - generic [ref=f29e35]: القبلة
+    - button "🛐 صلواتي" [ref=f29e36] [cursor=pointer]:
+      - generic [ref=f29e37]: 🛐
+      - generic [ref=f29e38]: صلواتي

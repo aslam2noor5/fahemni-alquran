@@ -1,0 +1,204 @@
+- generic [ref=f14e2]:
+  - generic [ref=f14e3]:
+    - link "Skip to content" [ref=f14e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f14e8]:
+      - generic [ref=f14e9]:
+        - generic [ref=f14e10]:
+          - button "Open menu" [ref=f14e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f14e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f14e18]:
+          - navigation "Breadcrumbs" [ref=f14e19]:
+            - list [ref=f14e20]:
+              - listitem [ref=f14e21]:
+                - link "aslam2noor5" [ref=f14e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=f14e24]:
+                - link "fahemni-alquran" [ref=f14e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=f14e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=f14e31] [cursor=pointer]:
+            - generic [ref=f14e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f14e34]:
+          - generic [ref=f14e35]:
+            - generic [ref=f14e38]:
+              - link "Chat with Copilot" [ref=f14e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f14e45] [cursor=pointer]
+            - button "Create new..." [ref=f14e47] [cursor=pointer]
+            - generic [ref=f14e49]:
+              - link "All issues" [ref=f14e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=f14e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f14e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f14e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f14e64] [cursor=pointer]:
+            - img "User avatar" [ref=f14e65]
+      - heading "Repository navigation" [level=2] [ref=f14e66]
+      - navigation "Repository" [ref=f14e67]:
+        - list [ref=f14e68]:
+          - listitem [ref=f14e69]:
+            - link "Code" [ref=f14e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=f14e72]:
+            - link "Issues" [ref=f14e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=f14e75]:
+            - link "Pull requests" [ref=f14e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=f14e78]:
+            - link "Agents" [ref=f14e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=f14e81]:
+            - link "Actions" [ref=f14e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=f14e84]:
+            - link "Projects" [ref=f14e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=f14e87]:
+            - link "Wiki" [ref=f14e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=f14e90]:
+            - link "Security and quality" [ref=f14e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=f14e93]:
+            - link "Insights" [ref=f14e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=f14e96]:
+            - link "Settings" [ref=f14e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=f14e102]:
+    - generic [ref=f14e108]:
+      - generic [ref=f14e112]:
+        - generic [ref=f14e113]:
+          - img "currently running:" [ref=f14e118]
+          - 'heading "pages build and deployment #5" [level=1] [ref=f14e122]'
+        - button "Cancel workflow" [ref=f14e127] [cursor=pointer]
+      - generic [ref=f14e128]:
+        - navigation "Workflow run" [ref=f14e134]:
+          - list [ref=f14e135]:
+            - listitem [ref=f14e136]:
+              - link "Summary" [ref=f14e137] [cursor=pointer]:
+                - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485783539
+            - generic [ref=f14e140]:
+              - heading "All jobs" [level=4] [ref=f14e141]
+              - button "Filter by job status" [ref=f14e142] [cursor=pointer]
+            - listitem [ref=f14e145]
+            - listitem [ref=f14e146]:
+              - list [ref=f14e147]:
+                - listitem [ref=f14e148]:
+                  - link "build" [ref=f14e149] [cursor=pointer]:
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720
+                    - generic:
+                      - generic:
+                        - img "Currently running"
+            - listitem [ref=f14e152]
+            - listitem [ref=f14e153]:
+              - heading "Run details" [level=3] [ref=f14e155]
+              - list "Run details" [ref=f14e156]:
+                - listitem [ref=f14e157]:
+                  - link "Usage" [ref=f14e158] [cursor=pointer]:
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485783539/usage
+        - region "Check run summary" [ref=f14e162]:
+          - generic [ref=f14e164]:
+            - generic [ref=f14e165]:
+              - generic [ref=f14e166]:
+                - link "build" [ref=f14e169] [cursor=pointer]:
+                  - /url: "#logs"
+                - generic [ref=f14e171]: Started 2026-07-29 22:45:08 3m 50s ago
+              - generic [ref=f14e172]:
+                - textbox "Search" [ref=f14e176]:
+                  - /placeholder: Search logs
+                - group [ref=f14e178]:
+                  - button [ref=f14e179] [cursor=pointer]:
+                    - img "Show options" [ref=f14e180]
+            - generic [ref=f14e183]:
+              - group [ref=f14e185]:
+                - generic "Set up job 1s" [ref=f14e186] [cursor=pointer]:
+                  - generic [ref=f14e187]:
+                    - generic [ref=f14e192]: Set up job
+                    - generic [ref=f14e194]: 1s
+              - group [ref=f14e196]:
+                - generic "In progress Checkout Started at 1785354310000 3m 48s" [ref=f14e298] [cursor=pointer]:
+                  - generic [ref=f14e198]:
+                    - img "In progress" [ref=f14e201]
+                    - generic [ref=f14e205]: Checkout
+                    - generic "Jul 29, 2026, 10:45 PM GMT+3" [ref=f14e208]: Started at 1785354310000 3m 48s
+                - generic [ref=f14e210]:
+                  - generic [ref=f14e212]:
+                    - generic [ref=f14e214]:
+                      - link "1" [ref=f14e215] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:1
+                      - generic [ref=f14e217]:
+                        - text: "Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see:"
+                        - link "https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/" [ref=f14e218] [cursor=pointer]:
+                          - /url: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+                    - generic [ref=f14e220]:
+                      - link "2" [ref=f14e221] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:2
+                      - group [ref=f14e223]:
+                        - generic "Run actions/checkout@v4" [ref=f14e224] [cursor=pointer]
+                    - generic [ref=f14e227]:
+                      - link "19" [ref=f14e228] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:20
+                      - generic [ref=f14e229]: "Syncing repository: aslam2noor5/fahemni-alquran"
+                    - generic [ref=f14e232]:
+                      - link "20" [ref=f14e233] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:21
+                      - group [ref=f14e235]:
+                        - generic "Getting Git version info" [ref=f14e236] [cursor=pointer]
+                    - generic [ref=f14e239]:
+                      - link "24" [ref=f14e240] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:26
+                      - generic [ref=f14e241]: Temporarily overriding HOME='/home/runner/work/_temp/68e71868-e210-4482-a187-089e82878653' before making global git config changes
+                    - generic [ref=f14e244]:
+                      - link "25" [ref=f14e245] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:27
+                      - generic [ref=f14e246]: Adding repository directory to the temporary git global config as a safe directory
+                    - generic [ref=f14e249]:
+                      - link "26" [ref=f14e250] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:28
+                      - generic [ref=f14e251]: /usr/bin/git config --global --add safe.directory /home/runner/work/fahemni-alquran/fahemni-alquran
+                    - generic [ref=f14e254]:
+                      - link "27" [ref=f14e255] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:29
+                      - generic [ref=f14e256]: Deleting the contents of '/home/runner/work/fahemni-alquran/fahemni-alquran'
+                    - generic [ref=f14e259]:
+                      - link "28" [ref=f14e260] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:30
+                      - group [ref=f14e262]:
+                        - generic "Initializing the repository" [ref=f14e263] [cursor=pointer]
+                    - generic [ref=f14e266]:
+                      - link "45" [ref=f14e267] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:48
+                      - group [ref=f14e269]:
+                        - generic "Disabling automatic garbage collection" [ref=f14e270] [cursor=pointer]
+                  - generic [ref=f14e273]:
+                    - generic [ref=f14e275]:
+                      - link "47" [ref=f14e276] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:51
+                      - group [ref=f14e278]:
+                        - generic "Setting up auth" [ref=f14e279] [cursor=pointer]
+                    - generic [ref=f14e282]:
+                      - link "55" [ref=f14e283] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:60
+                      - group [ref=f14e285]:
+                        - generic "Fetching the repository" [ref=f14e286] [cursor=pointer]
+                    - generic [ref=f14e289]:
+                      - link "56" [ref=f14e290] [cursor=pointer]:
+                        - /url: https://github.com/aslam2noor5/fahemni-alquran/actions/runs/30485783539/job/90690982720#step:2:61
+                      - generic [ref=f14e291]: /usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/master*:refs/remotes/origin/master* +refs/tags/master*:refs/tags/master*
+              - generic [ref=f14e293]:
+                - group:
+                  - generic "Upload artifact"
+              - generic [ref=f14e294]:
+                - group:
+                  - generic "Post Checkout"

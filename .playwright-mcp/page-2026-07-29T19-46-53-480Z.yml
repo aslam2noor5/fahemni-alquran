@@ -1,0 +1,250 @@
+- generic [ref=f13e2]:
+  - generic [ref=f13e3]:
+    - link "Skip to content" [ref=f13e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f13e8]:
+      - generic [ref=f13e9]:
+        - generic [ref=f13e10]:
+          - button "Open menu" [ref=f13e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f13e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f13e18]:
+          - navigation "Breadcrumbs" [ref=f13e19]:
+            - list [ref=f13e20]:
+              - listitem [ref=f13e21]:
+                - link "aslam2noor5" [ref=f13e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=f13e24]:
+                - link "fahemni-alquran" [ref=f13e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=f13e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=f13e31] [cursor=pointer]:
+            - generic [ref=f13e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f13e34]:
+          - generic [ref=f13e35]:
+            - generic [ref=f13e38]:
+              - link "Chat with Copilot" [ref=f13e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f13e45] [cursor=pointer]
+            - button "Create new..." [ref=f13e47] [cursor=pointer]
+            - generic [ref=f13e49]:
+              - link "All issues" [ref=f13e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=f13e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f13e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f13e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f13e64] [cursor=pointer]:
+            - img "User avatar" [ref=f13e65]
+      - heading "Repository navigation" [level=2] [ref=f13e66]
+      - navigation "Repository" [ref=f13e67]:
+        - list [ref=f13e68]:
+          - listitem [ref=f13e69]:
+            - link "Code" [ref=f13e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=f13e72]:
+            - link "Issues" [ref=f13e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=f13e75]:
+            - link "Pull requests" [ref=f13e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=f13e78]:
+            - link "Agents" [ref=f13e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=f13e81]:
+            - link "Actions" [ref=f13e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=f13e84]:
+            - link "Projects" [ref=f13e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=f13e87]:
+            - link "Wiki" [ref=f13e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=f13e90]:
+            - link "Security and quality" [ref=f13e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=f13e93]:
+            - link "Insights" [ref=f13e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=f13e96]:
+            - link "Settings" [ref=f13e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=f13e102]:
+    - generic [ref=f13e104]:
+      - 'heading "Actions: aslam2noor5/fahemni-alquran" [level=1] [ref=f13e105]'
+      - generic [ref=f13e108]:
+        - generic [ref=f13e109]:
+          - generic [ref=f13e110]:
+            - heading "Actions" [level=2] [ref=f13e111]
+            - link "New workflow" [ref=f13e112] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions/new
+          - navigation "Actions Workflows" [ref=f13e118]:
+            - list [ref=f13e120]:
+              - listitem [ref=f13e121]:
+                - link "All workflows" [ref=f13e122] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/actions
+              - listitem [ref=f13e124]
+              - listitem [ref=f13e125]:
+                - list "Workflows" [ref=f13e129]:
+                  - listitem [ref=f13e130]:
+                    - link "pages-build-deployment" [ref=f13e131] [cursor=pointer]:
+                      - /url: /aslam2noor5/fahemni-alquran/actions/workflows/pages/pages-build-deployment
+                    - button "Pin pages-build-deployment" [ref=f13e133] [cursor=pointer]
+              - listitem [ref=f13e134]
+              - listitem [ref=f13e135]:
+                - generic [ref=f13e138]:
+                  - heading "Management" [level=3] [ref=f13e140]
+                  - list "Management" [ref=f13e141]:
+                    - listitem [ref=f13e142]:
+                      - link "Caches" [ref=f13e143] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/actions/caches
+                    - listitem [ref=f13e145]:
+                      - link "Attestations" [ref=f13e146] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/attestations
+                    - listitem [ref=f13e148]:
+                      - link "Runners" [ref=f13e149] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/actions/runners
+                    - listitem [ref=f13e151]:
+                      - link "Usage metrics" [ref=f13e152] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/actions/metrics/usage
+                    - listitem [ref=f13e154]:
+                      - link "Performance metrics" [ref=f13e155] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/actions/metrics/performance
+        - generic [ref=f13e159]:
+          - generic [ref=f13e160]:
+            - generic [ref=f13e161]:
+              - heading "All workflows" [level=2] [ref=f13e163]
+              - search [ref=f13e169]:
+                - combobox "Filter workflow runs" [ref=f13e170]
+            - generic [ref=f13e171]: Showing runs from all workflows
+          - generic [ref=f13e174]:
+            - generic [ref=f13e179]:
+              - paragraph [ref=f13e180]: Help us improve GitHub Actions
+              - generic [ref=f13e181]: Tell us how to make GitHub Actions work better for you with three quick questions.
+            - generic [ref=f13e182]:
+              - button "Give feedback" [ref=f13e183] [cursor=pointer]
+              - button "Close GrowthBanner" [ref=f13e186] [cursor=pointer]
+          - generic [ref=f13e189]:
+            - generic [ref=f13e190]:
+              - strong [ref=f13e193]: 5 workflow runs
+              - generic [ref=f13e194]:
+                - button "Workflow" [ref=f13e198] [cursor=pointer]
+                - button "Event" [ref=f13e204] [cursor=pointer]
+                - button "Status" [ref=f13e210] [cursor=pointer]
+                - button "Branch" [ref=f13e216] [cursor=pointer]
+                - button "Actor" [ref=f13e222] [cursor=pointer]
+            - generic [ref=f13e225]:
+              - generic [ref=f13e227]:
+                - generic [ref=f13e228]:
+                  - 'link "currently running: Run 5 of pages-build-deployment. pages build and deployment" [ref=f13e229] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485783539
+                    - img "currently running:" [ref=f13e232]
+                    - generic [ref=f13e236]: pages build and deployment
+                  - generic [ref=f13e237]:
+                    - text: "pages-build-deployment #5:"
+                    - generic [ref=f13e238]:
+                      - text: by
+                      - link "aslam2noor5" [ref=f13e239] [cursor=pointer]:
+                        - /url: /aslam2noor5
+                - link "master" [ref=f13e241] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+                - generic [ref=f13e243]:
+                  - generic [ref=f13e244]:
+                    - generic "Jul 29, 2026, 10:45 PM GMT+3" [ref=f13e249]: 1 minute ago
+                    - generic [ref=f13e250]: In progress
+                  - group [ref=f13e254]:
+                    - img "Show options" [ref=f13e256] [cursor=pointer]
+              - generic [ref=f13e259]:
+                - generic [ref=f13e260]:
+                  - 'link "cancelled: Run 4 of pages-build-deployment. pages build and deployment" [ref=f13e261] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485673686
+                    - img "cancelled:" [ref=f13e263]
+                    - generic [ref=f13e265]: pages build and deployment
+                  - generic [ref=f13e266]:
+                    - text: "pages-build-deployment #4:"
+                    - generic [ref=f13e267]:
+                      - text: by
+                      - link "aslam2noor5" [ref=f13e268] [cursor=pointer]:
+                        - /url: /aslam2noor5
+                - link "master" [ref=f13e270] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+                - generic [ref=f13e272]:
+                  - generic [ref=f13e273]:
+                    - generic "Jul 29, 2026, 10:43 PM GMT+3" [ref=f13e278]: 3 minutes ago
+                    - generic [ref=f13e279]:
+                      - img "Run duration" [ref=f13e280]
+                      - text: 1m 34s
+                  - group [ref=f13e283]:
+                    - img "Show options" [ref=f13e285] [cursor=pointer]
+              - generic [ref=f13e288]:
+                - generic [ref=f13e289]:
+                  - 'link "cancelled: Run 3 of pages-build-deployment. pages build and deployment" [ref=f13e290] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30485265832
+                    - img "cancelled:" [ref=f13e292]
+                    - generic [ref=f13e294]: pages build and deployment
+                  - generic [ref=f13e295]:
+                    - text: "pages-build-deployment #3:"
+                    - generic [ref=f13e296]:
+                      - text: by
+                      - link "aslam2noor5" [ref=f13e297] [cursor=pointer]:
+                        - /url: /aslam2noor5
+                - link "master" [ref=f13e299] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+                - generic [ref=f13e301]:
+                  - generic [ref=f13e302]:
+                    - generic "Jul 29, 2026, 10:38 PM GMT+3" [ref=f13e307]: 8 minutes ago
+                    - generic [ref=f13e308]:
+                      - img "Run duration" [ref=f13e309]
+                      - text: 5m 37s
+                  - group [ref=f13e312]:
+                    - img "Show options" [ref=f13e314] [cursor=pointer]
+              - generic [ref=f13e317]:
+                - generic [ref=f13e318]:
+                  - 'link "cancelled: Run 2 of pages-build-deployment. pages build and deployment" [ref=f13e319] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30484853481
+                    - img "cancelled:" [ref=f13e321]
+                    - generic [ref=f13e323]: pages build and deployment
+                  - generic [ref=f13e324]:
+                    - text: "pages-build-deployment #2:"
+                    - generic [ref=f13e325]:
+                      - text: by
+                      - link "aslam2noor5" [ref=f13e326] [cursor=pointer]:
+                        - /url: /aslam2noor5
+                - link "master" [ref=f13e328] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+                - generic [ref=f13e330]:
+                  - generic [ref=f13e331]:
+                    - generic "Jul 29, 2026, 10:32 PM GMT+3" [ref=f13e336]: 14 minutes ago
+                    - generic [ref=f13e337]:
+                      - img "Run duration" [ref=f13e338]
+                      - text: 5m 42s
+                  - group [ref=f13e341]:
+                    - img "Show options" [ref=f13e343] [cursor=pointer]
+              - generic [ref=f13e346]:
+                - generic [ref=f13e347]:
+                  - 'link "cancelled: Run 1 of pages-build-deployment. pages build and deployment" [ref=f13e348] [cursor=pointer]':
+                    - /url: /aslam2noor5/fahemni-alquran/actions/runs/30484750526
+                    - img "cancelled:" [ref=f13e350]
+                    - generic [ref=f13e352]: pages build and deployment
+                  - generic [ref=f13e353]:
+                    - text: "pages-build-deployment #1:"
+                    - generic [ref=f13e354]:
+                      - text: by
+                      - link "aslam2noor5" [ref=f13e355] [cursor=pointer]:
+                        - /url: /aslam2noor5
+                - link "master" [ref=f13e357] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tree/refs/heads/master
+                - generic [ref=f13e359]:
+                  - generic [ref=f13e360]:
+                    - generic "Jul 29, 2026, 10:31 PM GMT+3" [ref=f13e365]: 15 minutes ago
+                    - generic [ref=f13e366]:
+                      - img "Run duration" [ref=f13e367]
+                      - text: 1m 29s
+                  - group [ref=f13e370]:
+                    - img "Show options" [ref=f13e372] [cursor=pointer]
