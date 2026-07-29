@@ -612,6 +612,38 @@
     background: rgba(212, 175, 55, 0.05);
     border-radius: var(--radius-sm);
   }
+  .quran-page-indicator {
+    text-align: center; padding: 8px; margin-bottom: 12px;
+    font-size: 14px; font-weight: 700; color: var(--gold);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: var(--radius-sm);
+  }
+  .quran-page-nav, .quran-surah-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px; padding: 8px 0;
+  }
+  .quran-page-nav button, .quran-surah-nav button {
+    background: var(--primary); color: var(--gold); border: none;
+    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px;
+    cursor: pointer; transition: var(--transition);
+    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap;
+  }
+  .quran-page-nav button:hover, .quran-surah-nav button:hover {
+    transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
+  }
+  .quran-page-nav button:disabled, .quran-surah-nav button:disabled {
+    opacity: 0.4; cursor: not-allowed; transform: none;
+  }
+  .quran-page-jump, .quran-ayah-jump {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .quran-page-jump input, .quran-ayah-jump input {
+    width: 60px !important;
+  }
+  .quran-page-jump button, .quran-ayah-jump button {
+    background: var(--gold) !important; color: var(--primary) !important;
+    padding: 6px 12px !important; font-size: 12px !important;
+  }
   @media (max-width: 600px) {
     .quran-verse { font-size: 18px; padding: 14px 16px; }
     .quran-surah-header .surah-name-ar { font-size: 24px; }
@@ -737,8 +769,11 @@
         <div class="surah-grid" id="quranGrid"></div>
       </div>
       <div id="quranSurahView" style="display:none;">
-        <div style="padding: 12px;">
-          <button class="back-btn" onclick="closeQuranSurah()" style="margin-bottom:8px;">&#8594; العودة للسور</button>
+        <div style="padding: 8px 12px;">
+          <button class="back-btn" onclick="closeQuranSurah()" style="margin-bottom:4px;">&#8594; العودة للسور</button>
+        </div>
+        <div class="search-container show" style="padding: 0 12px 8px;">
+          <input class="search-box" id="quranInSurahSearch" type="text" placeholder="ابحث عن آية (رقم الآية أو نص)...">
         </div>
         <div class="quran-surah-header" id="quranSurahHeader"></div>
         <div class="quran-verses" id="quranVerses"></div>
@@ -1781,54 +1816,201 @@ function openQuranSurah(num) {
     });
 }
 
+var quranCurrentPage = 0;
+var quranPageKeys = [];
+var quranSurahCache = null;
+var quranInSurahResults = null;
+
+// In-surah search listener
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('input', function(e) {
+    if (e.target && e.target.id === 'quranInSurahSearch') {
+      quranFilterInSurah(e.target.value);
+    }
+  });
+});
+
+function quranFilterInSurah(query) {
+  var surah = quranSurahCache;
+  if (!surah || !quranPageKeys.length) return;
+  var q = query.trim().toLowerCase();
+  if (!q) {
+    quranInSurahResults = null;
+    renderQuranPage();
+    return;
+  }
+
+  // Search by ayah number or text
+  var results = [];
+  surah.ayahs.forEach(function(a) {
+    if (a.numberInSurah == parseInt(q) || a.text.toLowerCase().includes(q)) {
+      results.push(a);
+    }
+  });
+
+  if (results.length === 0) {
+    document.getElementById('quranVerses').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">لا توجد نتائج</div>';
+    document.getElementById('quranNav').innerHTML = '<div style="text-align:center;padding:8px;"><button onclick="quranClearInSurahSearch()">مسح البحث</button></div>';
+    return;
+  }
+
+  quranInSurahResults = results;
+  var html = '';
+  results.forEach(function(a) {
+    html += '<div class="quran-verse">' +
+      '<span class="verse-aya">' + a.text + '</span>' +
+      '<span class="verse-number">' + a.numberInSurah + '</span>' +
+      '<div class="verse-ref">' + surah.name + ' ' + a.numberInSurah + ' (صفحة ' + a.page + ')</div>' +
+      '</div>';
+  });
+  document.getElementById('quranVerses').innerHTML = html;
+  document.getElementById('quranNav').innerHTML = '<div style="text-align:center;padding:8px;color:var(--gold);font-size:13px;">' + results.length + ' نتيجة | <span style="cursor:pointer;text-decoration:underline;" onclick="quranClearInSurahSearch()">مسح البحث</span></div>';
+}
+
+function quranClearInSurahSearch() {
+  var input = document.getElementById('quranInSurahSearch');
+  if (input) input.value = '';
+  quranInSurahResults = null;
+  renderQuranPage();
+}
+
 function renderQuranSurah(num) {
   var surah = quranCache[num];
   if (!surah) return;
+  quranSurahCache = surah;
   var typeAr = surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
 
   // Group ayahs by page
   var pages = {};
-  var totalPages = 0;
   surah.ayahs.forEach(function(a) {
-    if (!pages[a.page]) { pages[a.page] = []; totalPages++; }
+    if (!pages[a.page]) { pages[a.page] = []; }
     pages[a.page].push(a);
   });
-  var pageKeys = Object.keys(pages).sort(function(a,b){return parseInt(a)-parseInt(b);});
+  quranPageKeys = Object.keys(pages).sort(function(a,b){return parseInt(a)-parseInt(b);});
+  quranCurrentPage = 0;
 
   document.getElementById('quranSurahHeader').innerHTML =
     '<div class="surah-name-ar">' + surah.name + '</div>' +
     '<div class="surah-name-en">' + surah.englishName + ' (' + surah.englishNameTranslation + ')</div>' +
-    '<div class="surah-info-row"><span>' + typeAr + '</span><span> · </span><span>' + surah.numberOfAyahs + ' آية</span><span> · </span><span>' + totalPages + ' صفحة</span></div>';
+    '<div class="surah-info-row"><span>' + typeAr + '</span><span> · </span><span>' + surah.numberOfAyahs + ' آية</span><span> · </span><span>' + quranPageKeys.length + ' صفحة</span></div>';
 
-  var html = '';
-  pageKeys.forEach(function(p) {
-    html += '<div class="quran-page-sep">صفحة ' + p + '</div>';
-    pages[p].forEach(function(a) {
-      html += '<div class="quran-verse">' +
-        '<span class="verse-aya">' + a.text + '</span>' +
-        '<span class="verse-number">' + a.numberInSurah + '</span>' +
-        '<div class="verse-ref">' + surah.name + ' ' + a.numberInSurah + '</div>' +
-        '</div>';
-    });
+  renderQuranPage();
+}
+
+function renderQuranPage() {
+  var surah = quranSurahCache;
+  if (!surah) return;
+  var pKey = quranPageKeys[quranCurrentPage];
+  var ayahsOnPage = surah.ayahs.filter(function(a){ return a.page == pKey; });
+
+  var html = '<div class="quran-page-indicator">صفحة ' + pKey + ' من ' + quranPageKeys.length + '</div>';
+  ayahsOnPage.forEach(function(a) {
+    html += '<div class="quran-verse">' +
+      '<span class="verse-aya">' + a.text + '</span>' +
+      '<span class="verse-number">' + a.numberInSurah + '</span>' +
+      '<div class="verse-ref">' + surah.name + ' ' + a.numberInSurah + '</div>' +
+      '</div>';
   });
   document.getElementById('quranVerses').innerHTML = html;
 
-  var navHtml = '';
-  if (num > 1) {
-    navHtml += '<button onclick="openQuranSurah(' + (num - 1) + ')">&#9654; السورة السابقة</button>';
+  // Page navigation
+  var navHtml = '<div class="quran-page-nav">';
+  if (quranCurrentPage > 0) {
+    navHtml += '<button onclick="quranPrevPage()">&#9654; الصفحة السابقة</button>';
   } else {
-    navHtml += '<button disabled>&#9654; السورة السابقة</button>';
+    navHtml += '<button disabled>&#9654; الصفحة السابقة</button>';
   }
-  if (num < 114) {
-    navHtml += '<button onclick="openQuranSurah(' + (num + 1) + ')">السورة التالية &#9664;</button>';
+  navHtml += '<span class="quran-page-jump">';
+  navHtml += '<input type="number" id="quranPageJumpInput" min="1" max="' + quranPageKeys.length + '" placeholder="رقم الصفحة" style="width:70px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;">';
+  navHtml += '<button onclick="quranJumpToPage()">اذهب</button>';
+  navHtml += '</span>';
+  if (quranCurrentPage < quranPageKeys.length - 1) {
+    navHtml += '<button onclick="quranNextPage()">الصفحة التالية &#9664;</button>';
   } else {
-    navHtml += '<button disabled>السورة التالية &#9664;</button>';
+    navHtml += '<button disabled>الصفحة التالية &#9664;</button>';
   }
-  document.getElementById('quranNav').innerHTML = navHtml;
+  navHtml += '</div>';
+
+  // Surah navigation
+  var surahNavHtml = '<div class="quran-surah-nav">';
+  var suNum = currentQuranSurah;
+  if (suNum > 1) {
+    surahNavHtml += '<button onclick="openQuranSurah(' + (suNum - 1) + ')">&#9654; السورة السابقة</button>';
+  } else {
+    surahNavHtml += '<button disabled>&#9654; السورة السابقة</button>';
+  }
+  surahNavHtml += '<span class="quran-ayah-jump">';
+  surahNavHtml += '<input type="number" id="quranAyahJumpInput" min="1" max="' + surah.numberOfAyahs + '" placeholder="رقم الآية" style="width:70px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;">';
+  surahNavHtml += '<button onclick="quranJumpToAyah()">اذهب</button>';
+  surahNavHtml += '</span>';
+  if (suNum < 114) {
+    surahNavHtml += '<button onclick="openQuranSurah(' + (suNum + 1) + ')">السورة التالية &#9664;</button>';
+  } else {
+    surahNavHtml += '<button disabled>السورة التالية &#9664;</button>';
+  }
+  surahNavHtml += '</div>';
+
+  document.getElementById('quranNav').innerHTML = navHtml + surahNavHtml;
+
+  // Update page count in header
+  var header = document.querySelector('#quranSurahHeader .quran-info-row');
+  if (header) {
+    var oldHtml = header.innerHTML;
+    header.innerHTML = oldHtml.replace(/صفحة/g, 'صفحة ' + pKey + ' من ' + quranPageKeys.length);
+  }
+}
+
+function quranPrevPage() {
+  if (quranCurrentPage > 0) { quranCurrentPage--; renderQuranPage(); }
+}
+
+function quranNextPage() {
+  if (quranCurrentPage < quranPageKeys.length - 1) { quranCurrentPage++; renderQuranPage(); }
+}
+
+function quranJumpToPage() {
+  var input = document.getElementById('quranPageJumpInput');
+  var val = parseInt(input.value);
+  if (val >= 1 && val <= quranPageKeys.length) {
+    quranCurrentPage = val - 1;
+    renderQuranPage();
+    input.value = '';
+  }
+}
+
+function quranJumpToAyah() {
+  var input = document.getElementById('quranAyahJumpInput');
+  var val = parseInt(input.value);
+  var surah = quranSurahCache;
+  if (!surah || !val || val < 1 || val > surah.numberOfAyahs) return;
+  // Find which page this ayah is on
+  var targetAyah = surah.ayahs[val - 1];
+  if (targetAyah) {
+    var pageIndex = quranPageKeys.indexOf(String(targetAyah.page));
+    if (pageIndex >= 0) {
+      quranCurrentPage = pageIndex;
+      renderQuranPage();
+      input.value = '';
+      // Scroll to the ayah
+      setTimeout(function() {
+        var verses = document.querySelectorAll('#quranVerses .quran-verse');
+        for (var i = 0; i < verses.length; i++) {
+          var numEl = verses[i].querySelector('.verse-number');
+          if (numEl && numEl.textContent == String(val)) {
+            verses[i].scrollIntoView({behavior:'smooth', block:'center'});
+            verses[i].style.border = '2px solid var(--gold)';
+            setTimeout(function(){ verses[i].style.border = 'none'; }, 2000);
+            break;
+          }
+        }
+      }, 100);
+    }
+  }
 }
 
 function closeQuranSurah() {
   currentQuranSurah = null;
+  quranSurahCache = null;
   document.getElementById('quranSurahList').style.display = 'block';
   document.getElementById('quranSurahView').style.display = 'none';
 }
