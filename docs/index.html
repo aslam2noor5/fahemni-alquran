@@ -1424,6 +1424,7 @@ var qiblaAbsoluteAngle = null;
 var qiblaDeviceHeading = null;
 var qiblaOrientationHandler = null;
 var qiblaOrientationActive = false;
+var qiblaHeadingTimeout = null;
 
 function calcQibla(lat, lon) {
   var dLon = (KAABA.lon - lon) * Math.PI / 180;
@@ -1439,11 +1440,13 @@ function startOrientationListener() {
   if (qiblaOrientationHandler) {
     window.removeEventListener('deviceorientation', qiblaOrientationHandler);
   }
+  qiblaOrientationActive = false;
+  qiblaDeviceHeading = null;
   qiblaOrientationHandler = function(e) {
     var heading = null;
     if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) {
       heading = e.webkitCompassHeading;
-    } else if (e.alpha !== null) {
+    } else if (e.alpha !== null && e.alpha !== undefined) {
       heading = 360 - e.alpha;
       if (e.webkitCompassHeading === undefined && e.alpha !== null) {
         if (screen.orientation && screen.orientation.angle) {
@@ -1456,12 +1459,19 @@ function startOrientationListener() {
         qiblaOrientationActive = true;
         var st = document.getElementById('qiblaStatus');
         if (st) st.textContent = 'البوصلة نشطة - حرك جهازك';
+        if (qiblaHeadingTimeout) { clearTimeout(qiblaHeadingTimeout); qiblaHeadingTimeout = null; }
       }
       qiblaDeviceHeading = heading;
       updateQiblaNeedle();
     }
   };
   window.addEventListener('deviceorientation', qiblaOrientationHandler, true);
+  qiblaHeadingTimeout = setTimeout(function() {
+    if (!qiblaOrientationActive) {
+      var st = document.getElementById('qiblaStatus');
+      if (st) st.textContent = 'حساس التوجيه لا يستجيب - اعرض الزاوية الثابتة';
+    }
+  }, 5000);
 }
 
 function activateQiblaCompass() {
@@ -1475,7 +1485,8 @@ function activateQiblaCompass() {
         startOrientationListener();
         if (st) st.textContent = 'البوصلة نشطة - حرك جهازك';
       } else {
-        if (st) st.textContent = 'لم يتم السماح بالبوصلة - اعرض الزاوية الثابتة';
+        if (st) st.textContent = 'لم يتم السماح بالبوصلة';
+        if (btn) btn.style.display = 'block';
       }
     }).catch(function() {
       startOrientationListener();
@@ -1486,32 +1497,39 @@ function activateQiblaCompass() {
   }
 }
 
+function stopOrientationListener() {
+  if (qiblaOrientationHandler) {
+    window.removeEventListener('deviceorientation', qiblaOrientationHandler);
+    qiblaOrientationHandler = null;
+  }
+  if (qiblaHeadingTimeout) { clearTimeout(qiblaHeadingTimeout); qiblaHeadingTimeout = null; }
+}
+
 function initQibla() {
   var cityEl = document.getElementById('qiblaCity');
-  var st = document.getElementById('qiblaStatus');
   var btn = document.getElementById('qiblaActivateBtn');
+  var st = document.getElementById('qiblaStatus');
   if (!cityEl) return;
-  if (!navigator.geolocation) { cityEl.textContent = 'الموقع غير متاح على هذا الجهاز'; return; }
-  if (state.qiblaLat !== null) {
-    updateQiblaDisplay();
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    state.qiblaLat = pos.coords.latitude;
-    state.qiblaLon = pos.coords.longitude;
-    qiblaAbsoluteAngle = calcQibla(state.qiblaLat, state.qiblaLon);
-    updateQiblaDisplay();
-    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+  if (!navigator.geolocation) { cityEl.textContent = 'الموقع غير متاح'; if (btn) btn.style.display = 'block'; if (st) st.textContent = 'اضغط لتفعيل البوصلة'; return; }
+  if (state.qiblaLat === null) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      state.qiblaLat = pos.coords.latitude;
+      state.qiblaLon = pos.coords.longitude;
+      qiblaAbsoluteAngle = calcQibla(state.qiblaLat, state.qiblaLon);
+      updateQiblaDisplay();
       if (btn) btn.style.display = 'block';
       if (st) st.textContent = 'اضغط على الزر لتفعيل البوصلة';
-    } else {
-      startOrientationListener();
-      if (st) st.textContent = 'جاري تشغيل البوصلة...';
-    }
-  }, function() {
-    cityEl.textContent = 'الرجاء السماح بتحديد الموقع';
-    if (st) st.textContent = '';
-  }, { enableHighAccuracy: true, timeout: 10000 });
+    }, function() {
+      cityEl.textContent = 'الرجاء السماح بتحديد الموقع';
+      if (btn) btn.style.display = 'block';
+      if (st) st.textContent = 'اضغط لتفعيل البوصلة (سيستخدم الموقع الافتراضي)';
+    }, { enableHighAccuracy: true, timeout: 10000 });
+  } else {
+    qiblaAbsoluteAngle = calcQibla(state.qiblaLat, state.qiblaLon);
+    updateQiblaDisplay();
+    if (btn) btn.style.display = 'block';
+    if (st) st.textContent = 'اضغط على الزر لتفعيل البوصلة';
+  }
 }
 
 function updateQiblaDisplay() {
@@ -1521,7 +1539,7 @@ function updateQiblaDisplay() {
   var degEl = document.getElementById('qiblaDegrees');
   var cityEl = document.getElementById('qiblaCity');
   if (degEl) degEl.textContent = Math.round(qiblaAbsoluteAngle) + '°';
-  if (cityEl) cityEl.textContent = state.qiblaLat.toFixed(2) + '°, ' + state.qiblaLon.toFixed(2) + '°';
+  if (cityEl && state.qiblaLat !== null) cityEl.textContent = state.qiblaLat.toFixed(2) + '°, ' + state.qiblaLon.toFixed(2) + '°';
   updateQiblaNeedle();
 }
 
