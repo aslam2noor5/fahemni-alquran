@@ -608,11 +608,11 @@
   .quran-verse .verse-aya { font-family: 'Noto Naskh Arabic', serif; }
   .quran-verse .verse-ref { display: none; }
   .quran-nav {
-    display: flex; justify-content: space-between; padding: 12px 16px 20px;
+    display: flex; flex-direction: column; gap: 6px; padding: 12px 12px 20px;
   }
   .quran-nav button {
     background: var(--primary); color: var(--gold); border: none; border-radius: var(--radius);
-    padding: 12px 24px; font-size: 14px; cursor: pointer; transition: var(--transition);
+    padding: 10px 16px; font-size: 13px; cursor: pointer; transition: var(--transition);
     font-family: 'Noto Naskh Arabic', serif;
   }
   .quran-nav button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3); }
@@ -634,13 +634,13 @@
   }
   .quran-page-nav, .quran-surah-nav {
     display: flex; justify-content: space-between; align-items: center;
-    gap: 8px; padding: 8px 0;
+    gap: 6px; padding: 6px 0; flex-wrap: wrap;
   }
   .quran-page-nav button, .quran-surah-nav button {
     background: var(--primary); color: var(--gold); border: none;
-    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px;
+    border-radius: var(--radius-sm); padding: 7px 10px; font-size: 12px;
     cursor: pointer; transition: var(--transition);
-    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap;
+    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap; flex-shrink: 0;
   }
   .quran-page-nav button:hover, .quran-surah-nav button:hover {
     transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
