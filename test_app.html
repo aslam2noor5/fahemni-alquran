@@ -49,7 +49,6 @@
   body.dark-mode .tasbih-display {
     background: linear-gradient(135deg, #1a1a2a, #0D3B0E);
   }
-  body.dark-mode .qibla-compass { background: var(--dark-surface); }
   body.dark-mode .full-player-overlay { background: var(--dark-bg); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -400,35 +399,71 @@
   .tasbih-btn.reset { background: rgba(212, 175, 55, 0.12); color: var(--gold); }
   .tasbih-btn.dhikr-switch { background: rgba(27, 94, 32, 0.1); color: var(--primary); }
 
+
+
   /* === QIBLA SECTION === */
-  .qibla-page { padding: 16px; padding-bottom: 80px; }
-  .qibla-container { max-width: 360px; margin: 0 auto; text-align: center; }
-  .qibla-compass {
-    width: 280px; height: 280px; margin: 20px auto; border-radius: 50%;
-    background: white; box-shadow: 0 0 40px rgba(0,0,0,0.1);
-    display: flex; align-items: center; justify-content: center; position: relative;
-    border: 8px solid var(--gold);
+  .qibla-page { padding: 20px; padding-bottom: 80px; }
+  .qibla-header { text-align: center; }
+  .qibla-compass-wrap {
+    width: 260px; height: 260px; margin: 10px auto;
+    position: relative;
   }
-  .qibla-compass-inner {
+  .qibla-compass {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #1a2a1a, #0D3B0E);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; box-shadow: 0 0 60px rgba(212, 175, 55, 0.15),
+      0 0 0 4px var(--gold), 0 0 0 8px rgba(212, 175, 55, 0.15);
+  }
+  .qibla-ring {
+    position: absolute; width: 90%; height: 90%; border-radius: 50%;
+    border: 1.5px solid rgba(212, 175, 55, 0.2);
+    top: 5%; left: 5%;
+  }
+  .qibla-inner {
     width: 100%; height: 100%; border-radius: 50%; position: relative;
-    transition: transform 0.1s ease;
+    transition: transform 0.15s ease;
   }
   .qibla-needle {
-    position: absolute; top: 50%; left: 50%; width: 4px; height: 45%;
-    background: linear-gradient(to top, var(--gold), var(--primary));
+    position: absolute; top: 50%; left: 50%; width: 3px; height: 42%;
+    background: linear-gradient(to top, var(--gold), #FFD700);
     transform-origin: bottom center; border-radius: 2px;
     transform: translate(-50%, -100%) rotate(0deg);
-    transition: transform 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
   }
   .qibla-needle::after {
-    content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-    width: 0; height: 0; border-left: 8px solid transparent;
-    border-right: 8px solid transparent; border-bottom: 12px solid var(--gold);
+    content: ''; position: absolute; top: -6px; left: 50%;
+    transform: translateX(-50%); width: 0; height: 0;
+    border-left: 6px solid transparent; border-right: 6px solid transparent;
+    border-bottom: 10px solid var(--gold);
   }
-  .qibla-label { font-size: 14px; color: #888; margin-top: 16px; }
-  .qibla-degrees { font-size: 36px; font-weight: 700; color: var(--primary); }
-  .qibla-city { font-size: 16px; color: var(--gold); margin-top: 4px; }
-  .qibla-kaba { width: 60px; height: 60px; margin: 0 auto 10px; }
+  .qibla-center-dot {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 15px var(--gold);
+  }
+  .qibla-info { text-align: center; margin-top: 24px; }
+  .qibla-direction-label {
+    font-size: 14px; color: #888; letter-spacing: 1px;
+  }
+  .qibla-degrees {
+    font-size: 48px; font-weight: 800; color: var(--gold);
+    margin: 4px 0; text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+  }
+  .qibla-city {
+    font-size: 15px; color: var(--primary); font-weight: 600;
+    margin-top: 4px;
+  }
+  .qibla-tip {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 12px; padding: 12px 16px; margin-top: 20px;
+    font-size: 13px; color: #888;
+  }
+  body.dark-mode .qibla-compass { background: linear-gradient(135deg, #0a1a0a, #0D3B0E); }
+  body.dark-mode .qibla-city { color: #e0e0e0; }
 
   /* === PRAYER TIMES === */
   .prayer-page { padding: 12px; padding-bottom: 80px; }
@@ -581,19 +616,29 @@
     </div>
   </div>
 
+
   <!-- ===== QIBLA PAGE ===== -->
   <div class="page" id="page-qibla">
     <div class="qibla-page">
-      <div class="header" style="padding-right:0;"><h2>&#65021; اتجاه القبلة</h2></div>
-      <div class="qibla-container">
-        <div class="qibla-compass" id="qiblaCompass">
-          <div class="qibla-compass-inner" id="qiblaInner">
-            <div class="qibla-needle" id="qiblaNeedle"></div>
+      <div class="qibla-header">
+        <div class="qibla-compass-wrap">
+          <div class="qibla-compass" id="qiblaCompass">
+            <div class="qibla-ring"></div>
+            <div class="qibla-inner" id="qiblaInner">
+              <div class="qibla-needle" id="qiblaNeedle"></div>
+              <div class="qibla-center-dot"></div>
+            </div>
           </div>
         </div>
-        <div class="qibla-label">اتجاه القبلة</div>
-        <div class="qibla-degrees" id="qiblaDegrees">--°</div>
-        <div class="qibla-city" id="qiblaCity">جاري تحديد الموقع...</div>
+        <div class="qibla-info">
+          <div class="qibla-direction-label">اتجاه القبلة</div>
+          <div class="qibla-degrees" id="qiblaDegrees">--°</div>
+          <div class="qibla-city" id="qiblaCity">جاري تحديد الموقع...</div>
+        </div>
+      </div>
+      <div class="qibla-tip">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>حدد موقعك للحصول على اتجاه القبلة الدقيق</span>
       </div>
     </div>
   </div>
@@ -626,7 +671,7 @@
       <div class="settings-section">
         <h3><span>&#8505;</span> عن التطبيق</h3>
         <div class="settings-row"><div><label>فهمني القرآن</label><small>استمع إلى شرح القرآن الكريم</small></div></div>
-        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.1.0</span></div>
+        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.3.0</span></div>
         <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: #888; font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
       </div>
       <div class="settings-section">
@@ -699,9 +744,11 @@
   <button class="nav-item" onclick="navigateTo('tasbih')" data-page="tasbih">
     <span class="nav-icon">&#128214;</span><span>تسبيح</span>
   </button>
+
   <button class="nav-item" onclick="navigateTo('qibla')" data-page="qibla">
     <span class="nav-icon">&#65021;</span><span>القبلة</span>
   </button>
+
   <button class="nav-item" onclick="navigateTo('prayer')" data-page="prayer">
     <span class="nav-icon">&#128720;</span><span>صلواتي</span>
   </button>
@@ -818,6 +865,7 @@ function navigateTo(page) {
   if (page === 'azkar') { renderAzkar(); switchAzkarTab(state.azkarTab); }
   if (page === 'tasbih') { initTasbihDisplay(); }
   if (page === 'qibla') { initQibla(); }
+
   if (page === 'prayer') { renderPrayerTimes(); updateHijriDate(); }
 }
 
@@ -1085,70 +1133,40 @@ function tasbihNextDhikr() { state.tasbihIdx = (state.tasbihIdx + 1) % TASBIH_DH
 function tasbihPrevDhikr() { state.tasbihIdx = (state.tasbihIdx - 1 + TASBIH_DHIKRS.length) % TASBIH_DHIKRS.length; state.tasbihCount = 0; initTasbihDisplay(); }
 
 // ============ QIBLA ============
-const MECCA = { lat: 21.4225, lon: 39.8262 };
-let qiblaWatchId = null;
-
+const KAABA = { lat: 21.4225, lon: 39.8262 };
 function calcQibla(lat, lon) {
-  const dLon = (MECCA.lon - lon) * Math.PI / 180;
-  const lat1 = lat * Math.PI / 180;
-  const lat2 = MECCA.lat * Math.PI / 180;
-  const y = Math.sin(dLon);
-  const x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
-  let angle = Math.atan2(y, x) * 180 / Math.PI;
+  var dLon = (KAABA.lon - lon) * Math.PI / 180;
+  var lat1 = lat * Math.PI / 180;
+  var lat2 = KAABA.lat * Math.PI / 180;
+  var y = Math.sin(dLon);
+  var x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
+  var angle = Math.atan2(y, x) * 180 / Math.PI;
   return (angle + 360) % 360;
 }
-
 function initQibla() {
-  if (!navigator.geolocation) { document.getElementById('qiblaCity').textContent = 'الموقع غير متاح على هذا الجهاز'; return; }
+  var cityEl = document.getElementById('qiblaCity');
+  if (!cityEl) return;
+  if (!navigator.geolocation) { cityEl.textContent = 'الموقع غير متاح على هذا الجهاز'; return; }
   if (state.qiblaLat !== null) {
     updateQiblaDisplay();
     return;
   }
-  navigator.geolocation.getCurrentPosition(pos => {
+  navigator.geolocation.getCurrentPosition(function(pos) {
     state.qiblaLat = pos.coords.latitude;
     state.qiblaLon = pos.coords.longitude;
     updateQiblaDisplay();
-    startQiblaCompass();
-  }, () => {
-    document.getElementById('qiblaCity').textContent = 'الرجاء السماح بتحديد الموقع';
+  }, function() {
+    cityEl.textContent = 'الرجاء السماح بتحديد الموقع';
   }, { enableHighAccuracy: true, timeout: 10000 });
 }
 function updateQiblaDisplay() {
-  const qiblaAngle = calcQibla(state.qiblaLat, state.qiblaLon);
-  document.getElementById('qiblaDegrees').textContent = `${Math.round(qiblaAngle)}°`;
-  document.getElementById('qiblaCity').textContent = `${state.qiblaLat.toFixed(2)}°, ${state.qiblaLon.toFixed(2)}°`;
-  updateQiblaNeedle(qiblaAngle);
-}
-
-function startQiblaCompass() {
-  const qiblaAngle = calcQibla(state.qiblaLat, state.qiblaLon);
-  document.getElementById('qiblaCity').textContent = state.qiblaLat
-    ? `${state.qiblaLat.toFixed(2)}°, ${state.qiblaLon.toFixed(2)}°`
-    : 'الرجاء السماح بتحديد الموقع';
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', function handler(e) {
-      let alpha = e.alpha || 0;
-      if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) alpha = e.webkitCompassHeading;
-      const adjusted = (qiblaAngle - alpha + 360) % 360;
-      updateQiblaNeedle(adjusted);
-    }, true);
-    // Fallback timeout: if no deviceorientation event within 3s, show static direction
-    setTimeout(() => {
-      if (!state._compassActive) {
-        updateQiblaNeedle(qiblaAngle);
-        document.getElementById('qiblaCity').textContent += ' (البوصلة غير متاحة، استخدم الاتجاه الثابت)';
-      }
-    }, 3000);
-    state._compassActive = false;
-    window.addEventListener('deviceorientation', function() { state._compassActive = true; }, { once: true });
-  } else {
-    updateQiblaNeedle(qiblaAngle);
-  }
-}
-
-function updateQiblaNeedle(degrees) {
-  const needle = document.getElementById('qiblaNeedle');
-  if (needle) needle.style.transform = `translate(-50%, -100%) rotate(${degrees}deg)`;
+  var angle = calcQibla(state.qiblaLat, state.qiblaLon);
+  var degEl = document.getElementById('qiblaDegrees');
+  var cityEl = document.getElementById('qiblaCity');
+  var needle = document.getElementById('qiblaNeedle');
+  if (degEl) degEl.textContent = Math.round(angle) + '°';
+  if (cityEl) cityEl.textContent = state.qiblaLat.toFixed(2) + '°, ' + state.qiblaLon.toFixed(2) + '°';
+  if (needle) needle.style.transform = 'translate(-50%, -100%) rotate(' + angle + 'deg)';
 }
 
 // ============ PRAYER TIMES ============
