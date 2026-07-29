@@ -635,7 +635,13 @@
     opacity: 0.4; cursor: not-allowed; transform: none;
   }
   .quran-page-jump, .quran-ayah-jump {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .jump-row {
+    display: flex; align-items: center; gap: 4px;
+  }
+  .jump-label {
+    font-size: 10px; color: var(--gold); text-align: center;
   }
   .quran-page-jump input, .quran-ayah-jump input {
     width: 60px !important;
@@ -1842,7 +1848,7 @@ function quranFilterInSurah(query) {
 
   var results = [];
   surah.ayahs.forEach(function(a) {
-    if (a.numberInSurah == parseInt(q) || a.text.toLowerCase().includes(q)) {
+    if (a.numberInSurah == parseInt(q) || a.text.toLowerCase().includes(q) || String(a.page) === q) {
       results.push(a);
     }
   });
@@ -1918,8 +1924,8 @@ function renderQuranPage() {
     navHtml += '<button disabled>&#9654; الصفحة السابقة</button>';
   }
   navHtml += '<span class="quran-page-jump">';
-  navHtml += '<input type="number" id="quranPageJumpInput" min="1" max="' + quranPageKeys.length + '" placeholder="رقم الصفحة" style="width:70px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;">';
-  navHtml += '<button onclick="quranJumpToPage()">اذهب</button>';
+  navHtml += '<div class="jump-row"><input type="number" id="quranPageJumpInput" min="1" placeholder="..." style="width:60px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;"><button onclick="quranJumpToPage()">اذهب</button></div>';
+  navHtml += '<div class="jump-label">رقم الصفحة</div>';
   navHtml += '</span>';
   if (quranCurrentPage < quranPageKeys.length - 1) {
     navHtml += '<button onclick="quranNextPage()">الصفحة التالية &#9664;</button>';
@@ -1936,8 +1942,8 @@ function renderQuranPage() {
     surahNavHtml += '<button disabled>&#9654; السورة السابقة</button>';
   }
   surahNavHtml += '<span class="quran-ayah-jump">';
-  surahNavHtml += '<input type="number" id="quranAyahJumpInput" min="1" max="' + surah.numberOfAyahs + '" placeholder="رقم الآية" style="width:70px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;">';
-  surahNavHtml += '<button onclick="quranJumpToAyah()">اذهب</button>';
+  surahNavHtml += '<div class="jump-row"><input type="number" id="quranAyahJumpInput" min="1" max="' + surah.numberOfAyahs + '" placeholder="..." style="width:60px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;"><button onclick="quranJumpToAyah()">اذهب</button></div>';
+  surahNavHtml += '<div class="jump-label">رقم الآية</div>';
   surahNavHtml += '</span>';
   if (suNum < 114) {
     surahNavHtml += '<button onclick="openQuranSurah(' + (suNum + 1) + ')">السورة التالية &#9664;</button>';
@@ -1959,9 +1965,11 @@ function quranNextPage() {
 
 function quranJumpToPage() {
   var input = document.getElementById('quranPageJumpInput');
-  var val = parseInt(input.value);
-  if (val >= 1 && val <= quranPageKeys.length) {
-    quranCurrentPage = val - 1;
+  var val = input.value.trim();
+  if (!val) return;
+  var idx = quranPageKeys.indexOf(val);
+  if (idx >= 0) {
+    quranCurrentPage = idx;
     renderQuranPage();
     input.value = '';
   }

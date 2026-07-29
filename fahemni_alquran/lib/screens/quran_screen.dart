@@ -253,6 +253,7 @@ class _SurahViewScreenState extends State<_SurahViewScreen> {
       var ayahNum = int.tryParse(query);
       _searchResults = _surah['ayahs'].where((a) {
         if (ayahNum != null && a['numberInSurah'] == ayahNum) return true;
+        if ('${a['page']}' == query) return true;
         return a['text'].toString().toLowerCase().contains(query.toLowerCase());
       }).toList();
     });
@@ -467,27 +468,33 @@ class _SurahViewScreenState extends State<_SurahViewScreen> {
               else
                 const Expanded(child: SizedBox()),
               const SizedBox(width: 8),
-              SizedBox(
-                width: 80, height: 36,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: '${_currentPageIdx + 1}',
-                    hintStyle: GoogleFonts.notoNaskhArabic(fontSize: 12, color: AppTheme.gold),
-                    filled: true,
-                    fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.darkCard : Colors.white,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.gold.withValues(alpha: 0.3))),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 80, height: 36,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: '...',
+                        hintStyle: GoogleFonts.notoNaskhArabic(fontSize: 12, color: AppTheme.gold),
+                        filled: true,
+                        fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.darkCard : Colors.white,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.gold.withValues(alpha: 0.3))),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      ),
+                      style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: AppTheme.gold),
+                      onSubmitted: (v) {
+                        var idx = _pageKeys.indexOf(v.trim());
+                        if (idx >= 0) {
+                          setState(() { _currentPageIdx = idx; });
+                        }
+                      },
+                    ),
                   ),
-                  style: GoogleFonts.notoNaskhArabic(fontSize: 12, color: AppTheme.gold),
-                  onSubmitted: (v) {
-                    var val = int.tryParse(v);
-                    if (val != null && val >= 1 && val <= _pageKeys.length) {
-                      setState(() { _currentPageIdx = val - 1; });
-                    }
-                  },
-                ),
+                  Text('رقم الصفحة', style: GoogleFonts.notoNaskhArabic(fontSize: 9, color: AppTheme.gold)),
+                ],
               ),
               const SizedBox(width: 8),
               if (_currentPageIdx < _pageKeys.length - 1)
@@ -523,27 +530,33 @@ class _SurahViewScreenState extends State<_SurahViewScreen> {
               else
                 const Expanded(child: SizedBox()),
               const SizedBox(width: 8),
-              SizedBox(
-                width: 80, height: 36,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'رقم الآية',
-                    hintStyle: GoogleFonts.notoNaskhArabic(fontSize: 11, color: Colors.grey),
-                    filled: true,
-                    fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.darkCard : Colors.white,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.gold.withValues(alpha: 0.3))),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 80, height: 36,
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: '...',
+                        hintStyle: GoogleFonts.notoNaskhArabic(fontSize: 11, color: Colors.grey),
+                        filled: true,
+                        fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.darkCard : Colors.white,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.gold.withValues(alpha: 0.3))),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      ),
+                      style: GoogleFonts.notoNaskhArabic(fontSize: 11),
+                      onSubmitted: (v) {
+                        var val = int.tryParse(v);
+                        if (val != null && val >= 1 && val <= (_surah?['numberOfAyahs'] ?? 0)) {
+                          _jumpToAyah(val);
+                        }
+                      },
+                    ),
                   ),
-                  style: GoogleFonts.notoNaskhArabic(fontSize: 11),
-                  onSubmitted: (v) {
-                    var val = int.tryParse(v);
-                    if (val != null && val >= 1 && val <= (_surah?['numberOfAyahs'] ?? 0)) {
-                      _jumpToAyah(val);
-                    }
-                  },
-                ),
+                  Text('رقم الآية', style: GoogleFonts.notoNaskhArabic(fontSize: 9, color: AppTheme.gold)),
+                ],
               ),
               const SizedBox(width: 8),
               if (widget.surahData['number'] < 114)
