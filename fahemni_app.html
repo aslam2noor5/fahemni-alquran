@@ -491,6 +491,37 @@
   .prayer-card.current .prayer-name, .prayer-card.current .prayer-time { color: var(--gold); }
   .prayer-card .prayer-icon { font-size: 20px; }
 
+  /* Prayer Notification Settings */
+  .prayer-notify-section {
+    margin-top: 16px; border-radius: var(--radius);
+    border: 1.5px solid rgba(212, 175, 55, 0.15);
+    overflow: hidden; box-shadow: var(--card-shadow);
+  }
+  body.dark-mode .prayer-notify-section { background: var(--dark-card); border-color: rgba(212, 175, 55, 0.2); }
+  .prayer-notify-header {
+    padding: 14px 16px; display: flex; align-items: center; gap: 8px;
+    cursor: pointer; font-size: 14px; font-weight: 700; color: var(--primary);
+    background: rgba(212, 175, 55, 0.06); user-select: none;
+  }
+  body.dark-mode .prayer-notify-header { color: var(--gold); }
+  .prayer-notify-toggle-arrow {
+    margin-right: auto; font-size: 12px; transition: transform 0.3s ease;
+  }
+  .prayer-notify-toggle-arrow.open { transform: rotate(180deg); }
+  .prayer-notify-body { padding: 0 16px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+  .prayer-notify-body.open { max-height: 500px; padding: 16px; }
+  .prayer-notify-body .settings-row { padding: 8px 0; }
+  .prayer-sound-options { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+  .prayer-sound-option {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    border-radius: 10px; cursor: pointer; font-size: 14px;
+    border: 1.5px solid rgba(212, 175, 55, 0.1); transition: var(--transition);
+  }
+  .prayer-sound-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+  .prayer-sound-option.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+  .prayer-sound-option input[type="radio"] { accent-color: var(--gold); }
+  body.dark-mode select { background: var(--dark-card) !important; color: #e0e0e0 !important; }
+
   /* Settings page */
   .settings-page { padding: 16px; padding-bottom: 80px; }
   .settings-section { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.08); }
@@ -654,6 +685,57 @@
         <div class="next-prayer-time" id="nextPrayerTime">--</div>
       </div>
       <div class="prayer-times" id="prayerTimesList"></div>
+      <div class="prayer-notify-section" id="prayerNotifySection">
+        <div class="prayer-notify-header" onclick="togglePrayerNotifySettings()">
+          <span>&#128276;</span>
+          <span>تنبيهات الصلاة</span>
+          <span class="prayer-notify-toggle-arrow" id="notifyArrow">&#9660;</span>
+        </div>
+        <div class="prayer-notify-body" id="prayerNotifyBody">
+          <div class="settings-row">
+            <div><label>تفعيل التنبيهات</label><small>إشعار عند دخول وقت الصلاة</small></div>
+            <div class="toggle" id="prayerNotifyToggle" onclick="togglePrayerNotify()"></div>
+          </div>
+          <div class="settings-row">
+            <div><label>صوت التنبيه</label></div>
+          </div>
+          <div class="prayer-sound-options" id="prayerSoundOptions">
+            <label class="prayer-sound-option" onclick="selectPrayerSound('adhan1')">
+              <input type="radio" name="prayerSound" value="adhan1">
+              <span>&#127925; أذان مكي</span>
+            </label>
+            <label class="prayer-sound-option" onclick="selectPrayerSound('adhan2')">
+              <input type="radio" name="prayerSound" value="adhan2">
+              <span>&#127925; أذان مدني</span>
+            </label>
+            <label class="prayer-sound-option" onclick="selectPrayerSound('beep')">
+              <input type="radio" name="prayerSound" value="beep">
+              <span>&#128264; نغمة قصيرة</span>
+            </label>
+            <label class="prayer-sound-option" onclick="selectPrayerSound('custom')">
+              <input type="radio" name="prayerSound" value="custom">
+              <span>&#128279; رابط مخصص</span>
+            </label>
+          </div>
+          <div class="prayer-custom-url" id="prayerCustomUrl" style="display:none;">
+            <input class="search-box" id="prayerSoundUrl" type="url" placeholder="https://example.com/adhan.mp3" onchange="savePrayerSoundUrl(this.value)" style="font-size: 13px; padding: 10px 14px;">
+          </div>
+          <div class="settings-row">
+            <div><label>معاينة الصوت</label></div>
+            <button class="back-btn" onclick="previewPrayerSound()" style="padding: 6px 14px; font-size: 12px;">&#9654; استماع</button>
+          </div>
+          <div class="settings-row">
+            <div><label>التنبيه قبل الصلاة</label></div>
+            <select id="prayerNotifyBefore" onchange="savePrayerNotifyBefore(this.value)" style="font-family: 'Noto Naskh Arabic', serif; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); background: transparent; color: var(--text-dark);">
+              <option value="0">في وقت الصلاة</option>
+              <option value="5">قبل 5 دقائق</option>
+              <option value="10">قبل 10 دقائق</option>
+              <option value="15">قبل 15 دقيقة</option>
+              <option value="30">قبل 30 دقيقة</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -671,8 +753,28 @@
       <div class="settings-section">
         <h3><span>&#8505;</span> عن التطبيق</h3>
         <div class="settings-row"><div><label>فهمني القرآن</label><small>استمع إلى شرح القرآن الكريم</small></div></div>
-        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.3.0</span></div>
+        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.5.0</span></div>
         <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: #888; font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
+      </div>
+      <div class="settings-section">
+        <h3><span>&#128276;</span> تنبيهات الصلاة</h3>
+        <div class="settings-row">
+          <div><label>تفعيل التنبيهات</label><small>إشعار عند دخول وقت الصلاة</small></div>
+          <div class="toggle" id="settingsNotifyToggle" onclick="togglePrayerNotify(); this.classList.toggle('active');"></div>
+        </div>
+        <div class="settings-row">
+          <div><label>صوت التنبيه</label><small>اختيار نغمة الأذان</small></div>
+          <select onchange="selectPrayerSound(this.value)" style="font-family:'Noto Naskh Arabic',serif;padding:6px 10px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);background:transparent;color:var(--text-dark);">
+            <option value="adhan1">أذان مكي</option>
+            <option value="adhan2">أذان مدني</option>
+            <option value="beep">نغمة قصيرة</option>
+            <option value="custom">رابط مخصص</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div><label>معاينة الصوت</label></div>
+          <button onclick="previewPrayerSound()" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
+        </div>
       </div>
       <div class="settings-section">
         <h3><span>&#128172;</span> الدعم</h3>
@@ -784,26 +886,16 @@ const AZKAR_DATA = {
     { text: 'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', count: 100, ref: 'مائة مرة في اليوم' }
   ],
   evening: [
-    { text: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ ﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾', count: 1, ref: 'آية الكرسي - البقرة 255' },
-    { text: '﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾', count: 3, ref: 'الإخلاص' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾', count: 3, ref: 'الفلق' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾', count: 3, ref: 'الناس' },
-    { text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيرَ مَا بَعْدَهَا ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ', count: 1, ref: 'المساء' },
-    { text: 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ', count: 1, ref: 'المساء' },
-    { text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنوبَ إِلاَّ أَنْتَ', count: 1, ref: 'سيد الاستغفار' },
-    { text: 'اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ، وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلاَئِكَتِكَ، وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلاَّ أَنْتَ وَحْدَكَ لاَ شَرِيكَ لَكَ، وَأَنَّ مُحَمَّداً عَبْدُكَ وَرَسُولُكَ', count: 4, ref: 'المساء - أربع مرات' },
-    { text: 'اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لاَ شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ', count: 1, ref: 'المساء' },
-    { text: 'اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لاَ إِلَهَ إِلاَّ أَنْتَ. اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ، وَالفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ القَبْرِ، لاَ إِلَهَ إِلاَّ أَنْتَ', count: 3, ref: 'ثلاث مرات' },
-    { text: 'حَسْبِيَ اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ عَلَيهِ تَوَكَّلتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ', count: 7, ref: 'سبع مرات' },
-    { text: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ: فِي دِينِي وَدُنْيَايَ وَأَهْلِي، وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي، وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَينِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي', count: 1, ref: 'المساء' },
-    { text: 'اللَّهُمَّ عَالِمَ الغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطانِ وَشَرَكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءاً، أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ', count: 1, ref: 'المساء' },
-    { text: 'بِسْمِ اللَّهِ الَّذِي لاَ يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلاَ فِي السّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', count: 3, ref: 'ثلاث مرات' },
-    { text: 'رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلاَمِ دِيناً، وَبِمُحَمَّدٍ صلى الله عليه وسلم نَبِيّاً', count: 3, ref: 'ثلاث مرات' },
-    { text: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغيثُ أَصْلِحْ لِي شَأْنِيَ كُلَّهُ وَلاَ تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ', count: 1, ref: 'المساء' },
-    { text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُـمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ اللَّيْلَةِ: فَتْحَهَا، وَنَصْرَهَا، وَنورَهَا، وَبَرَكَتَهَا، وَهُدَاهَا، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهَا وَشَرِّ مَا بَعْدَهَا', count: 1, ref: 'المساء' },
-    { text: 'أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلاَمِ، وَعَلَى كَلِمَةِ الْإِخْلاَصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صلى الله عليه وسلم، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ، حَنِيفاً مُسْلِماً وَمَا كَانَ مِنَ الْمُشرِكِينَ', count: 1, ref: 'المساء' },
-    { text: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ', count: 3, ref: 'ثلاث مرات - المساء' },
-    { text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبَيِّنَا مُحَمَّدٍ', count: 10, ref: 'عشر مرات' }
+    { text: 'بسمِ اللهِ الذي لا يَضرُ مع اسمِه شيءٌ في الأرضِ ولا في السماءِ وهو السميعُ العليمِ', count: 3, ref: 'ثلاث مرات' },
+    { text: 'رَضِيتُ بِاللهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا، إِلَّا كَانَ حَقًّا عَلَى اللهِ أَنْ يُرْضِيَهُ يَوْمَ الْقِيَامَةِ', count: 3, ref: 'ثلاث مرات' },
+    { text: 'اللَّهمَّ بِكَ أمسَينا وبِكَ أصبَحنا وبِكَ نحيا وبِكَ نموتُ وإليكَ المصير', count: 1, ref: 'المساء' },
+    { text: 'سبحانَ اللَّهِ وبحمدِهِ', count: 100, ref: 'مئة مرة' },
+    { text: 'سُبْحَانَ اللهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ وَرِضَا نَفْسِهِ وَزِنَةَ عَرْشِهِ وَمِدَادَ كَلِمَاتِهِ', count: 3, ref: 'ثلاث مرات' },
+    { text: 'اللَّهُمَّ إنِّي أمسيت أُشهِدُك، وأُشهِدُ حَمَلةَ عَرشِكَ، ومَلائِكَتَك، وجميعَ خَلقِكَ: أنَّكَ أنتَ اللهُ لا إلهَ إلَّا أنتَ، وأنَّ مُحمَّدًا عبدُكَ ورسولُكَ', count: 4, ref: 'المساء' },
+    { text: 'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ على نَبِيِّنَا مُحمَّد', count: 10, ref: 'عشر مرات' },
+    { text: 'لا إلهَ إلَّا اللهُ وحدَه لا شريكَ له له الملكُ وله الحمدُ وهو على كلِّ شيءٍ قديرٌ', count: 10, ref: 'عشر مرات' },
+    { text: 'أمسَيْنا على فِطرةِ الإسلامِ وعلى كَلِمةِ الإخلاصِ وعلى دينِ نبيِّنا محمَّدٍ صلَّى اللهُ عليه وسلَّم وعلى مِلَّةِ أبينا إبراهيمَ حنيفًا مسلمًا وما كان مِنَ المشركينَ', count: 1, ref: 'المساء' },
+    { text: 'اللَّهمَّ ما أمسى بي مِن نعمةٍ أو بأحَدٍ مِن خَلقِكَ، فمنكَ وحدَكَ لا شريكَ لكَ، فلَكَ الحمدُ ولكَ الشُّكرُ', count: 1, ref: 'المساء' }
   ]
 };
 
@@ -849,6 +941,7 @@ async function init() {
     renderSurahs(); renderFavorites();
     renderAzkar(); renderPrayerTimes(); updateHijriDate();
     initQibla(); initTasbih(); setupAzkarEvents();
+    initPrayerNotificationChecker();
   }, Math.max(0, 2000 - elapsed));
 }
 
@@ -1224,6 +1317,7 @@ function renderPrayerTimes() {
 }
 
 function doRenderPrayer(times) {
+  state._lastPrayerTimes = times;
   const prayerNames = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   const prayerLabels = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
   const prayerIcons = ['🌙', '☀️', '☀️', '🌤', '🌅', '🌙'];
@@ -1256,6 +1350,7 @@ function doRenderPrayer(times) {
     const isCurrent = i === nextIdx;
     return `<div class="prayer-card ${isCurrent ? 'current' : ''}"><span class="prayer-icon">${prayerIcons[i]}</span><span class="prayer-name">${prayerLabels[i]}</span><span class="prayer-time">${to12h(timeMap[name])}</span></div>`;
   }).join('');
+  renderPrayerNotifyUI();
 }
 
 function updateHijriDate() {
@@ -1277,6 +1372,222 @@ function updateHijriDate() {
   
   document.getElementById('hijriDate').textContent = `${hDay} ${hijriMonths[hMonths]} ${hYear} هـ`;
   document.getElementById('gregDate').textContent = `${day} ${gregMonths[month - 1]} ${year} م`;
+}
+
+// ============ PRAYER NOTIFICATIONS ============
+const PRAYER_NOTIFY_KEY = 'prayerNotifySettings';
+const prayerNames = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+const prayerLabels = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
+
+function getPrayerNotifySettings() {
+  return JSON.parse(localStorage.getItem(PRAYER_NOTIFY_KEY) || '{"enabled":false,"sound":"adhan1","customUrl":"","before":0}');
+}
+function savePrayerNotifySettings(s) {
+  localStorage.setItem(PRAYER_NOTIFY_KEY, JSON.stringify(s));
+}
+function renderPrayerNotifyUI() {
+  const s = getPrayerNotifySettings();
+  const toggle = document.getElementById('prayerNotifyToggle');
+  if (toggle) toggle.classList.toggle('active', s.enabled);
+  const settingsToggle = document.getElementById('settingsNotifyToggle');
+  if (settingsToggle) settingsToggle.classList.toggle('active', s.enabled);
+  document.querySelectorAll('.prayer-sound-option').forEach(el => {
+    const radio = el.querySelector('input');
+    if (radio && radio.value === s.sound) {
+      radio.checked = true;
+      el.classList.add('selected');
+    } else if (el) {
+      el.classList.remove('selected');
+    }
+  });
+  const customUrlDiv = document.getElementById('prayerCustomUrl');
+  const urlInput = document.getElementById('prayerSoundUrl');
+  if (customUrlDiv && urlInput) {
+    customUrlDiv.style.display = s.sound === 'custom' ? 'block' : 'none';
+    if (s.customUrl) urlInput.value = s.customUrl;
+  }
+  const beforeSelect = document.getElementById('prayerNotifyBefore');
+  if (beforeSelect) beforeSelect.value = String(s.before);
+  // Sync settings page sound select
+  const settingsSoundSelect = document.querySelector('.settings-section select');
+  if (settingsSoundSelect) settingsSoundSelect.value = s.sound;
+}
+function togglePrayerNotifySettings() {
+  const body = document.getElementById('prayerNotifyBody');
+  const arrow = document.getElementById('notifyArrow');
+  if (!body || !arrow) return;
+  const isOpen = body.classList.toggle('open');
+  arrow.classList.toggle('open', isOpen);
+}
+function togglePrayerNotify() {
+  const s = getPrayerNotifySettings();
+  s.enabled = !s.enabled;
+  savePrayerNotifySettings(s);
+  renderPrayerNotifyUI();
+  // Sync settings page toggle
+  const settingsToggle = document.getElementById('settingsNotifyToggle');
+  if (settingsToggle) settingsToggle.classList.toggle('active', s.enabled);
+  if (s.enabled) {
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+    initPrayerNotificationChecker();
+    showToast('تم تفعيل تنبيهات الصلاة');
+  } else {
+    showToast('تم إيقاف تنبيهات الصلاة');
+  }
+}
+function selectPrayerSound(sound) {
+  const s = getPrayerNotifySettings();
+  s.sound = sound;
+  savePrayerNotifySettings(s);
+  renderPrayerNotifyUI();
+  const customUrlDiv = document.getElementById('prayerCustomUrl');
+  if (customUrlDiv) customUrlDiv.style.display = sound === 'custom' ? 'block' : 'none';
+}
+function savePrayerSoundUrl(url) {
+  const s = getPrayerNotifySettings();
+  s.customUrl = url;
+  savePrayerNotifySettings(s);
+}
+function savePrayerNotifyBefore(val) {
+  const s = getPrayerNotifySettings();
+  s.before = parseInt(val) || 0;
+  savePrayerNotifySettings(s);
+}
+
+function stopPrayerPreview() {
+  if (state._previewAudio) {
+    state._previewAudio.pause();
+    state._previewAudio = null;
+  }
+}
+
+function previewPrayerSound() {
+  stopPrayerPreview();
+  playPrayerNotificationSound(true);
+}
+
+function playPrayerNotificationSound(isPreview) {
+  const s = getPrayerNotifySettings();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  if (s.sound === 'beep') {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+    if (isPreview) return;
+    setTimeout(() => {
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.connect(gain2); gain2.connect(audioCtx.destination);
+      osc2.frequency.value = 1100;
+      gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+      osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
+    }, 600);
+    return;
+  }
+
+  if (s.sound === 'custom') {
+    if (s.customUrl) {
+      try {
+        const audio = new Audio(s.customUrl);
+        audio.volume = 0.8;
+        audio.play().catch(() => {});
+        if (isPreview) state._previewAudio = audio;
+        return;
+      } catch(e) {}
+    }
+    showToast('الرجاء إدخال رابط صوت صحيح');
+    return;
+  }
+
+  // Adhan melodies
+  const notes = s.sound === 'adhan1'
+    ? [262, 330, 392, 330, 392, 523, 392, 330, 262, 330, 392, 330]
+    : [294, 370, 440, 370, 440, 587, 440, 370, 294, 370, 440, 370];
+  const durations = [0.3, 0.3, 0.4, 0.2, 0.3, 0.6, 0.3, 0.3, 0.3, 0.3, 0.4, 0.5];
+  const times = [];
+  let t = audioCtx.currentTime;
+  for (let i = 0; i < notes.length; i++) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.frequency.value = notes[i];
+    gain.gain.setValueAtTime(0.25, t);
+    gain.gain.setValueAtTime(0.25, t + durations[i] - 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + durations[i]);
+    osc.start(t); osc.stop(t + durations[i]);
+    t += durations[i];
+  }
+}
+
+let _prayerCheckInterval = null;
+
+function initPrayerNotificationChecker() {
+  if (_prayerCheckInterval) return;
+  _prayerCheckInterval = setInterval(checkPrayerNotifications, 30000);
+  setTimeout(checkPrayerNotifications, 1000);
+}
+
+function parseTimeToMin(str) {
+  const parts = str.split(':');
+  if (parts.length !== 2) return -1;
+  const h = parseInt(parts[0]), m = parseInt(parts[1]);
+  if (isNaN(h) || isNaN(m)) return -1;
+  return h * 60 + m;
+}
+
+function checkPrayerNotifications() {
+  const s = getPrayerNotifySettings();
+  if (!s.enabled) return;
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const today = now.toDateString();
+  const lastNotified = JSON.parse(localStorage.getItem('prayerLastNotified') || '{}');
+
+  // Get stored prayer times from the last fetch
+  const storedTimes = state._lastPrayerTimes;
+  if (!storedTimes) return;
+
+  for (let i = 0; i < prayerNames.length; i++) {
+    const pName = prayerNames[i];
+    if (pName === 'Sunrise') continue; // skip sunrise
+    const t = storedTimes[pName];
+    if (!t) continue;
+    const prayerMin = parseTimeToMin(t) - (s.before || 0);
+    if (prayerMin < 0) continue;
+
+    const lastKey = today + '_' + pName;
+    if (lastNotified[lastKey]) continue;
+
+    if (nowMin >= prayerMin && nowMin < prayerMin + 3) {
+      lastNotified[lastKey] = true;
+      localStorage.setItem('prayerLastNotified', JSON.stringify(lastNotified));
+      showPrayerNotification(prayerLabels[i]);
+      playPrayerNotificationSound(false);
+      break;
+    }
+  }
+}
+
+function showPrayerNotification(prayerName) {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') {
+    try {
+      new Notification('حان وقت صلاة ' + prayerName, {
+        body: 'حان الآن وقت صلاة ' + prayerName + ' - فهمني القرآن',
+        icon: 'https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/fahemni_alquran/assets/images/logo.png'
+      });
+    } catch(e) {}
+  }
 }
 
 // ============ Start App ============
