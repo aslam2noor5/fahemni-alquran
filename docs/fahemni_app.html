@@ -33,43 +33,80 @@
   body.dark-mode { background: var(--dark-bg); color: #e0e0e0; }
   body.dark-mode .surah-card, body.dark-mode .file-item, body.dark-mode .settings-section,
   body.dark-mode .azkar-card, body.dark-mode .prayer-card, body.dark-mode .hijri-card {
-    background: var(--dark-card); border-color: rgba(212, 175, 55, 0.2);
+    background: var(--dark-card); border: 1.5px solid rgba(212, 175, 55, 0.2);
   }
   body.dark-mode .surah-card .surah-name, body.dark-mode .file-item .file-name,
   body.dark-mode .settings-section label, body.dark-mode .azkar-card .azkar-text,
-  body.dark-mode .prayer-card .prayer-name, body.dark-mode .prayer-card .prayer-time {
+  body.dark-mode .prayer-card .prayer-name {
     color: #e0e0e0;
   }
-  body.dark-mode .player-bar { background: linear-gradient(135deg, #0D3B0E, #1a1a1a); }
-  body.dark-mode .search-box { background: var(--dark-card); color: #e0e0e0; }
+  body.dark-mode .app-bar { background: var(--dark-surface); }
+  body.dark-mode .app-bar-title { color: var(--gold); }
+  body.dark-mode .app-bar-btn { color: var(--gold); }
+  body.dark-mode .search-box { background: var(--dark-card); color: #e0e0e0; border-color: rgba(212, 175, 55, 0.2); }
   body.dark-mode .search-box::placeholder { color: #888; }
   body.dark-mode .splash-screen { background: linear-gradient(135deg, #0D3B0E, #1a1a1a); }
   body.dark-mode .splash-screen .subtitle { color: #F0D060; }
-  body.dark-mode .azkar-count-btn, body.dark-mode .tab-btn {
-    background: var(--dark-surface);
-  }
+  body.dark-mode .azkar-count-btn, body.dark-mode .tab-btn { background: var(--dark-surface); }
   body.dark-mode .settings-row label { color: #fff; }
   body.dark-mode .settings-row small { color: rgba(255,255,255,0.5); }
   body.dark-mode .player-bar { background: linear-gradient(135deg, #0D3B0E, #1a1a1a); border-top: none; }
-  body.dark-mode .bottom-nav { background: var(--nav-bg); backdrop-filter: blur(20px); box-shadow: 0 -4px 30px rgba(0,0,0,0.2), 0 0 0 1px var(--glass-border); }
-  body.dark-mode .nav-item { color: rgba(255,255,255,0.45); }
+  body.dark-mode .player-bar-file { color: white; }
+  body.dark-mode .player-bar-surah { color: var(--gold-light); }
+  body.dark-mode .player-bar-play-btn { background: var(--gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+  body.dark-mode .player-bar-next { color: rgba(255,255,255,0.7); }
+  body.dark-mode .bottom-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-radius: 20px; border: 1px solid var(--glass-border); box-shadow: 0 -4px 30px rgba(0,0,0,0.2); }
+  body.dark-mode .nav-item { color: rgba(255,255,255,0.45); border-radius: 14px; }
   body.dark-mode .nav-item.active { color: var(--gold); background: rgba(212, 175, 55, 0.12); }
+  body.dark-mode .nav-item.active::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 24px; height: 3px; background: var(--gold); border-radius: 0 0 4px 4px; }
   body.dark-mode .nav-item:hover { color: var(--gold-light); }
   body.dark-mode .toast { background: var(--gold); color: var(--primary-dark); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-  body.dark-mode .prayer-card.current { background: rgba(212, 175, 55, 0.08); }
+  body.dark-mode .prayer-card.current { border: 2px solid var(--gold); background: rgba(212, 175, 55, 0.08); }
   body.dark-mode .prayer-card .prayer-time { color: var(--gold); }
-  body.dark-mode .qibla-activate-btn { background: linear-gradient(135deg, var(--gold), #B8960C) !important; color: var(--primary-dark) !important; }
-  body.dark-mode .tasbih-display {
-    background: linear-gradient(135deg, #1a1a2a, #0D3B0E);
-  }
-  body.dark-mode .full-player-overlay { background: var(--dark-bg); }
-  body.dark-mode .azkar-ref { color: rgba(255,255,255,0.5); }
+  body.dark-mode .qibla-compass { background: linear-gradient(135deg, #0a1a0a, #0D3B0E); box-shadow: 0 0 60px rgba(212, 175, 55, 0.15), 0 0 0 4px var(--gold), 0 0 0 8px rgba(212, 175, 55, 0.15); }
+  body.dark-mode .qibla-direction-label { color: #fff; }
+  body.dark-mode .qibla-degrees { color: var(--gold); text-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
+  body.dark-mode .qibla-needle { background: linear-gradient(to top, var(--gold), #FFD700); box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+  body.dark-mode .qibla-city { color: #e0e0e0; }
   body.dark-mode .qibla-tip { background: var(--dark-card); border-color: rgba(212,175,55,0.15); color: rgba(255,255,255,0.6); }
-  body.dark-mode .player-bar-play-btn { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  body.dark-mode .qibla-activate-btn { background: linear-gradient(135deg, var(--gold), #B8960C) !important; color: var(--primary-dark) !important; }
+  body.dark-mode .tasbih-display { background: linear-gradient(135deg, #1a1a2a, #0D3B0E); }
+  body.dark-mode .full-player-overlay { background: var(--dark-bg); }
+  body.dark-mode .full-player-header button { color: var(--gold); }
+  body.dark-mode .player-art { box-shadow: 0 0 50px rgba(0,0,0,0.3); }
+  body.dark-mode .player-file-name { color: #e0e0e0; }
+  body.dark-mode .player-surah-name { color: var(--gold); }
+  body.dark-mode .player-time-row { color: #aaa; }
+  body.dark-mode .player-progress-bar { background: rgba(255,255,255,0.1); }
+  body.dark-mode .player-progress-bar::-webkit-slider-thumb { background: var(--gold); box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4); }
+  body.dark-mode .player-control-btn { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
+  body.dark-mode .player-main-btn { background: linear-gradient(135deg, var(--gold), #B8960C); color: var(--primary-dark); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+  body.dark-mode .player-fav-btn { border-color: rgba(212, 175, 55, 0.4); color: var(--gold); }
+  body.dark-mode .player-fav-btn:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+  body.dark-mode .azkar-tab { border-color: var(--gold); color: var(--gold); }
+  body.dark-mode .azkar-tab.active { background: var(--gold); color: var(--primary-dark); }
+  body.dark-mode .azkar-tab:hover { background: rgba(212, 175, 55, 0.12); color: var(--gold); }
+  body.dark-mode .azkar-ref { color: rgba(255,255,255,0.5); }
+  body.dark-mode .azkar-count-btn.completed { border-color: var(--gold); background: rgba(212, 175, 55, 0.18); color: var(--gold); }
+  body.dark-mode .modal-content { background: var(--dark-card); }
+  body.dark-mode .modal-handle { background: rgba(255,255,255,0.2); }
+  body.dark-mode .prayer-notify-section { background: var(--dark-card); border-color: rgba(212, 175, 55, 0.2); }
+  body.dark-mode .prayer-notify-header { color: var(--gold); background: rgba(212, 175, 55, 0.06); }
+  body.dark-mode .prayer-notify-toggle-arrow { color: var(--gold); }
+  body.dark-mode .prayer-sound-option { border-color: rgba(212, 175, 55, 0.2); }
+  body.dark-mode .prayer-sound-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+  body.dark-mode .prayer-sound-option.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+  body.dark-mode .prayer-sound-option input[type="radio"] { accent-color: var(--gold); }
+  body.dark-mode .quran-page-view { background: var(--dark-card); color: #e0e0e0; margin-top: 0; }
   body.dark-mode .quran-page-view .verse-number { background: var(--gold); }
+  body.dark-mode .quran-surah-header { border: 1px solid rgba(212, 175, 55, 0.2); }
+  body.dark-mode .quran-surah-header .surah-name-en { color: var(--gold-light); }
   body.dark-mode .quran-page-nav button, body.dark-mode .quran-surah-nav button,
   body.dark-mode .quran-nav button { color: var(--gold); }
   body.dark-mode .quran-page-sep { background: rgba(212, 175, 55, 0.05); color: var(--gold); border-color: rgba(212, 175, 55, 0.3); }
+  body.dark-mode .back-btn { background: linear-gradient(135deg, var(--gold), #B8960C); color: var(--primary-dark); }
+  body.dark-mode .back-btn:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  body.dark-mode .footer { color: rgba(255,255,255,0.4); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
@@ -304,7 +341,7 @@
   .nav-item.active {
     color: var(--primary); background: rgba(30, 111, 79, 0.08);
   }
-  .nav-item.active::before { display: none; }
+  /* light mode hides the gold bar - dark mode restores it */
   .nav-item:hover { color: var(--primary); }
   .nav-item:active { transform: scale(0.95); }
 
