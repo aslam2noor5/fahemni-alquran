@@ -841,7 +841,7 @@
     <div class="modal-handle"></div>
     <div style="text-align:left;"><button onclick="closePrivacyPolicy()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--primary);">&times;</button></div>
     <div class="modal-title" style="margin-bottom:16px;">&#128214; سياسة الخصوصية</div>
-    <div style="font-size:14px;line-height:1.8;color:var(--text-dark);max-height:55vh;overflow-y:auto;padding-left:4px;">
+    <div style="font-size:14px;line-height:1.8;color:#e0e0e0;max-height:55vh;overflow-y:auto;padding-left:4px;">
       <p style="margin-bottom:12px;"><strong>آخر تحديث:</strong> يوليو 2026</p>
       
       <h4 style="color:var(--gold);margin:16px 0 8px;">1. مقدمة</h4>
@@ -1088,7 +1088,7 @@ function showPage(page) {
 function generateDemoData() {
   const names = ['1 سورة الفاتحة','2 سورة البقرة','3 سورة آل عمران','4 سورة النساء','5 سورة المائدة','6 سورة الأنعام','7 سورة الأعراف','8 سورة الأنفال','9 سورة التوبة','10 سورة يونس','11 سورة هود','12 سورة يوسف','13 سورة الرعد','14 سورة إبراهيم','15 سورة الحجر','16 سورة النحل','17 سورة الإسراء','18 سورة الكهف','19 سورة مريم','20 سورة طه','21 سورة الأنبياء','22 سورة الحج','23 سورة المؤمنون','24 سورة النور','25 سورة الفرقان','26 سورة الشعراء','27 سورة النمل','28 سورة القصص','29 سورة العنكبوت','30 سورة الروم','31 سورة لقمان','32 سورة السجدة','33 سورة الأحزاب','34 سورة سبأ','35 سورة فاطر','36 سورة يس','37 سورة الصافات','38 سورة ص','39 سورة الزمر','40 سورة غافر','41 سورة فصلت','42 سورة الشورى','43 سورة الزخرف','44 سورة الدخان','45 سورة الجاثية','46 جزء الأحقاف','51 جزء الذاريات','58 جزء قد سمع','67 جزء تبارك','78 جزء عم'];
   const surahs = names.map(name => ({ name, folder: name, files: [{ name: `صفحة ١ - ${name}`, url: 'https://example.com/audio.mp3', type: 'mp3' }], count: 1 }));
-  return { surahs, total_surahs: surahs.length, total_files: surahs.length };
+  return { surahs, total_surahs: 114, total_files: surahs.length };
 }
 
 // ============ Render Surahs ============
@@ -1097,7 +1097,7 @@ function renderSurahs(filter = '') {
   const count = document.getElementById('surahCount');
   let surahs = state.surahs;
   if (filter) { const q = filter.toLowerCase(); surahs = surahs.filter(s => s.name.toLowerCase().includes(q) || s.files.some(f => f.name.toLowerCase().includes(q))); }
-  count.textContent = `${surahs.length} سورة`;
+  count.textContent = `114 سورة`;
   let html = '';
   if (state.intro && state.intro.files && state.intro.files.length > 0 && (!filter || state.intro.files.some(f => f.name.toLowerCase().includes(filter.toLowerCase())))) {
     state.intro.files.forEach((file, idx) => {
