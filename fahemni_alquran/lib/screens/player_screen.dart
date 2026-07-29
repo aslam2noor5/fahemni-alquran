@@ -95,7 +95,7 @@ class _PlayerScreenState extends State<PlayerScreen>
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  // Album art - Quran book with rotation
+                  // Album art - logo with rotation
                   AnimatedBuilder(
                     animation: _rotationAnimation,
                     builder: (context, child) {
@@ -106,35 +106,24 @@ class _PlayerScreenState extends State<PlayerScreen>
                           height: 200,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              colors: [AppTheme.primaryGreen, AppTheme.darkGreen],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                            border: Border.all(
+                              color: AppTheme.gold,
+                              width: 3,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppTheme.primaryGreen.withValues(alpha: 0.4),
+                                color: AppTheme.gold.withValues(alpha: 0.4),
                                 blurRadius: 30,
                                 spreadRadius: 5,
                               ),
                             ],
                           ),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.menu_book,
-                                    size: 70, color: AppTheme.gold),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'فهمني القرآن',
-                                  style: GoogleFonts.notoNaskhArabic(
-                                    color: AppTheme.goldLight,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
