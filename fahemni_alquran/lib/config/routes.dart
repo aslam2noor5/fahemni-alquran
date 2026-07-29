@@ -5,6 +5,7 @@ import 'package:fahemni_alquran/screens/surah_detail_screen.dart';
 import 'package:fahemni_alquran/screens/player_screen.dart';
 import 'package:fahemni_alquran/screens/favorites_screen.dart';
 import 'package:fahemni_alquran/screens/settings_screen.dart';
+import 'package:fahemni_alquran/screens/quran_screen.dart';
 import 'package:fahemni_alquran/models/surah.dart';
 import 'package:fahemni_alquran/models/audio_item.dart';
 
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String player = '/player';
   static const String favorites = '/favorites';
   static const String settings = '/settings';
+  static const String quran = '/quran';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,6 +46,9 @@ class AppRoutes {
 
       case settings:
         return _buildRoute(const SettingsScreen(), settings);
+
+      case quran:
+        return _buildRoute(const QuranScreen(), settings);
 
       default:
         return _buildRoute(const SplashScreen(), settings);

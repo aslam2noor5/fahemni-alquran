@@ -127,9 +127,12 @@ class _HomeScreenState extends State<HomeScreen> {
             case 0:
               break;
             case 1:
-              Navigator.pushNamed(context, AppRoutes.favorites);
+              Navigator.pushNamed(context, AppRoutes.quran);
               break;
             case 2:
+              Navigator.pushNamed(context, AppRoutes.favorites);
+              break;
+            case 3:
               Navigator.pushNamed(context, AppRoutes.settings);
               break;
           }
@@ -138,6 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'السور',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book),
+            label: 'المصحف',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
@@ -303,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Consumer<ApiService>(
               builder: (context, api, _) {
                 return Text(
-                  '${api.surahs.length} سورة',
+                  '114 سورة',
                   style: GoogleFonts.notoNaskhArabic(
                     fontSize: 12,
                     color: AppTheme.gold,
