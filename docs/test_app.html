@@ -9,22 +9,24 @@
 <meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --primary: #1B5E20; --primary-dark: #0D3B0E; --primary-light: #2E7D32;
-    --gold: #D4AF37; --gold-light: #F0D060; --cream: #FFF8F0;
+    --primary: #1E6F4F; --primary-dark: #16573E; --primary-light: #2E8B6A;
+    --gold: #D4AF37; --gold-light: #F0D060; --cream: #F8FBF8;
     --dark-bg: #121212; --dark-card: #1E1E1E; --dark-surface: #252525;
-    --text-dark: #1A1A2E; --text-light: #FFFFFF;
-    --shadow: 0 4px 20px rgba(27, 94, 32, 0.15); --radius: 16px; --radius-sm: 10px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --nav-bg: rgba(13, 59, 14, 0.85); --glass-border: rgba(255,255,255,0.08);
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --text-dark: #1E1E1E; --text-light: #FFFFFF; --text-secondary: #666666;
+    --border-color: #E7ECE8;
+    --shadow: 0 2px 16px rgba(30, 111, 79, 0.08); --radius: 20px; --radius-sm: 12px; --radius-full: 100px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --nav-bg: rgba(255,255,255,0.95); --glass-border: rgba(30, 111, 79, 0.08);
+    --card-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    --ripple: rgba(30, 111, 79, 0.12);
   }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Noto Naskh Arabic', serif; background: var(--cream); color: var(--text-dark);
+    font-family: 'Cairo', 'Noto Naskh Arabic', serif; background: var(--cream); color: var(--text-dark);
     direction: rtl; min-height: 100vh; width: 100%; overflow-x: hidden; font-size: 16px;
     -webkit-text-size-adjust: 100%;
   }
@@ -47,10 +49,27 @@
     background: var(--dark-surface);
   }
   body.dark-mode .settings-row label { color: #fff; }
+  body.dark-mode .settings-row small { color: rgba(255,255,255,0.5); }
+  body.dark-mode .player-bar { background: linear-gradient(135deg, #0D3B0E, #1a1a1a); border-top: none; }
+  body.dark-mode .bottom-nav { background: var(--nav-bg); backdrop-filter: blur(20px); box-shadow: 0 -4px 30px rgba(0,0,0,0.2), 0 0 0 1px var(--glass-border); }
+  body.dark-mode .nav-item { color: rgba(255,255,255,0.45); }
+  body.dark-mode .nav-item.active { color: var(--gold); background: rgba(212, 175, 55, 0.12); }
+  body.dark-mode .nav-item:hover { color: var(--gold-light); }
+  body.dark-mode .toast { background: var(--gold); color: var(--primary-dark); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  body.dark-mode .prayer-card.current { background: rgba(212, 175, 55, 0.08); }
+  body.dark-mode .prayer-card .prayer-time { color: var(--gold); }
+  body.dark-mode .qibla-activate-btn { background: linear-gradient(135deg, var(--gold), #B8960C) !important; color: var(--primary-dark) !important; }
   body.dark-mode .tasbih-display {
     background: linear-gradient(135deg, #1a1a2a, #0D3B0E);
   }
   body.dark-mode .full-player-overlay { background: var(--dark-bg); }
+  body.dark-mode .azkar-ref { color: rgba(255,255,255,0.5); }
+  body.dark-mode .qibla-tip { background: var(--dark-card); border-color: rgba(212,175,55,0.15); color: rgba(255,255,255,0.6); }
+  body.dark-mode .player-bar-play-btn { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  body.dark-mode .quran-page-view .verse-number { background: var(--gold); }
+  body.dark-mode .quran-page-nav button, body.dark-mode .quran-surah-nav button,
+  body.dark-mode .quran-nav button { color: var(--gold); }
+  body.dark-mode .quran-page-sep { background: rgba(212, 175, 55, 0.05); color: var(--gold); border-color: rgba(212, 175, 55, 0.3); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
@@ -88,103 +107,107 @@
   }
   .app-container.show { opacity: 1; }
 
-  /* App Bar */
+  /* App Bar - Light Mode */
   .app-bar {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    padding: 16px 20px; color: white; position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 4px 20px rgba(27, 94, 32, 0.3);
+    background: #FFFFFF; padding: 14px 20px; color: var(--primary); position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 0 var(--border-color); border-bottom: 1px solid var(--border-color);
+  }
+  .app-bar::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 20L35 25L30 35L25 25L15 20L25 15Z' fill='%231E6F4F' opacity='0.03'/%3E%3Cpath d='M30 0L33 8L40 10L33 12L30 20L27 12L20 10L27 8Z' fill='%231E6F4F' opacity='0.02'/%3E%3C/svg%3E") repeat;
+    pointer-events: none; z-index: 0;
   }
   .app-bar-content {
     max-width: 800px; width: 100%; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1;
   }
-  .app-bar-title { font-size: 18px; font-weight: 700; }
-  .app-bar-actions { display: flex; gap: 6px; }
+  .app-bar-title { font-size: 17px; font-weight: 700; color: var(--primary); flex: 1; text-align: center; }
+  .app-bar-actions { display: flex; gap: 4px; }
   .app-bar-btn {
-    background: none; border: none; color: var(--gold); font-size: 20px;
+    background: rgba(30, 111, 79, 0.06); border: none; color: var(--primary); font-size: 18px;
     cursor: pointer; padding: 6px; border-radius: 50%; transition: var(--transition);
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center; width: 34px; height: 34px;
   }
-  .app-bar-btn:hover { background: rgba(255,255,255,0.1); }
+  .app-bar-btn:hover { background: rgba(30, 111, 79, 0.12); }
+  .app-bar-btn:active { transform: scale(0.92); }
 
   /* Search */
   .search-container { padding: 12px 16px; display: none; }
   .search-container.show { display: block; animation: slideDown 0.3s ease; }
   @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
   .search-box {
-    width: 100%; padding: 12px 20px; border: 2px solid rgba(212, 175, 55, 0.3);
-    border-radius: 30px; font-family: 'Noto Naskh Arabic', serif; font-size: 15px;
-    background: white; color: var(--text-dark); outline: none; transition: var(--transition);
+    width: 100%; padding: 12px 20px; border: 2px solid var(--border-color);
+    border-radius: var(--radius-full); font-family: 'Cairo', 'Noto Naskh Arabic', serif; font-size: 15px;
+    background: #FFFFFF; color: var(--text-dark); outline: none; transition: var(--transition);
   }
-  .search-box:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  .search-box:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 111, 79, 0.08); }
+  .search-box::placeholder { color: #999; }
 
   /* Header */
   .header { padding: 16px 20px 8px; display: flex; align-items: center; justify-content: space-between; color: var(--primary); }
-  .header h2 { font-size: 14px; font-weight: 500; }
-  .header .count { font-size: 12px; color: var(--gold); }
+  .header h2 { font-size: 15px; font-weight: 700; }
+  .header .count { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
 
   /* Surah Grid */
-  .surah-grid { padding: 8px 12px 80px; }
+  .surah-grid { padding: 8px 16px 80px; }
 
   /* Surah Card */
   .surah-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.15);
-    border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: #FFFFFF; border: none;
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
     cursor: pointer; transition: var(--transition); box-shadow: var(--card-shadow);
   }
-  .surah-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(27, 94, 32, 0.12); border-color: var(--gold); }
-  .surah-card:active { transform: scale(0.97); }
+  .surah-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(30, 111, 79, 0.08); }
+  .surah-card:active { transform: scale(0.98); }
   .surah-number {
-    width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    color: var(--gold); font-weight: 700; font-size: 15px; flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+    width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-weight: 700; font-size: 14px; flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(30, 111, 79, 0.2);
   }
   .surah-info { flex: 1; }
-  .surah-name { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-  .surah-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #fff; }
+  .surah-name { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+  .surah-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
   .surah-arrow {
-    width: 36px; height: 36px; background: rgba(212, 175, 55, 0.1);
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    color: var(--gold); font-size: 16px; flex-shrink: 0;
+    width: 36px; height: 36px; background: rgba(30, 111, 79, 0.06);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 16px; flex-shrink: 0;
   }
   .back-btn {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border: none; color: white; font-size: 14px; font-weight: 600;
-    cursor: pointer; padding: 10px 22px; border-radius: var(--radius-sm);
+    background: var(--primary); border: none; color: #FFFFFF; font-size: 14px; font-weight: 600;
+    cursor: pointer; padding: 10px 24px; border-radius: var(--radius-full);
     transition: var(--transition);
-    display: inline-flex; align-items: center; gap: 6px; font-family: 'Noto Naskh Arabic', serif;
-    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.25);
+    display: inline-flex; align-items: center; gap: 8px; font-family: 'Cairo', 'Noto Naskh Arabic', serif;
   }
-  .back-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27, 94, 32, 0.35); }
+  .back-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 111, 79, 0.2); }
   .back-btn:active { transform: translateY(0) scale(0.97); }
   .back-btn::before { content: '\2039'; font-size: 20px; line-height: 1; }
 
   /* Surah Detail */
   .surah-detail-header {
-    margin: 12px; padding: 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: 20px; text-align: center; color: white;
-    box-shadow: 0 8px 30px rgba(27, 94, 32, 0.3);
+    margin: 12px; padding: 28px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: var(--radius); text-align: center; color: white;
+    box-shadow: 0 8px 30px rgba(30, 111, 79, 0.25);
   }
   .surah-detail-header .icon { font-size: 40px; margin-bottom: 10px; }
   .surah-detail-header .name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
   .surah-detail-header .files-count {
-    display: inline-block; padding: 4px 16px; background: rgba(212, 175, 55, 0.2);
-    border-radius: 20px; font-size: 13px; color: var(--gold-light);
+    display: inline-block; padding: 4px 16px; background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-full); font-size: 13px; color: var(--gold-light);
   }
-  .files-list { padding: 8px 12px 80px; }
+  .files-list { padding: 8px 16px 80px; }
   .file-item {
-    background: white; border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: 14px; padding: 10px 16px; margin-bottom: 8px;
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    cursor: pointer; transition: var(--transition);
+    background: #FFFFFF; border: none;
+    border-radius: var(--radius); padding: 12px 18px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    cursor: pointer; transition: var(--transition); box-shadow: var(--card-shadow);
   }
-  .file-item:hover { border-color: var(--gold); transform: translateX(-3px); }
-  .file-item.active { border-color: var(--gold); border-width: 2px; box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+  .file-item:hover { box-shadow: 0 4px 16px rgba(30, 111, 79, 0.06); transform: translateX(-2px); }
+  .file-item.active { box-shadow: 0 0 0 2px var(--primary), 0 4px 16px rgba(30, 111, 79, 0.1); }
   .file-index {
-    width: 32px; height: 32px; background: rgba(27, 94, 32, 0.1);
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; background: rgba(30, 111, 79, 0.08);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700; color: var(--primary); flex-shrink: 0;
   }
   .file-item.active .file-index { background: var(--primary); color: white; }
@@ -195,97 +218,94 @@
   }
   .file-item.active .file-name { font-weight: 700; color: var(--primary); }
   .file-play-btn {
-    width: 44px; height: 44px; border-radius: 50%; border: none;
-    background: rgba(212, 175, 55, 0.12); color: var(--primary); font-size: 20px;
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: rgba(30, 111, 79, 0.08); color: var(--primary); font-size: 18px;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: var(--transition); flex-shrink: 0; margin: 0 4px;
+    transition: var(--transition); flex-shrink: 0;
   }
-  .file-play-btn:hover { background: var(--primary); color: var(--gold); }
-  .file-item.active .file-play-btn { background: var(--primary); color: var(--gold); }
+  .file-play-btn:hover { background: var(--primary); color: #FFFFFF; }
+  .file-item.active .file-play-btn { background: var(--primary); color: #FFFFFF; }
 
   /* Player Bar */
   .player-bar {
     position: fixed; bottom: 0; left: 0; right: 0; max-width: 800px; margin: 0 auto;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    padding: 10px 16px; display: none; z-index: 200;
-    box-shadow: 0 -8px 30px rgba(27, 94, 32, 0.4);
+    background: #FFFFFF; padding: 10px 16px; display: none; z-index: 200;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.06); border-top: 1px solid var(--border-color);
   }
   .player-bar.show { display: block; }
   .player-bar-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
   .player-bar-start {
-    display: flex; align-items: center; gap: 8px; min-width: 0; cursor: pointer; justify-self: start;
+    display: flex; align-items: center; gap: 10px; min-width: 0; cursor: pointer; justify-self: start;
   }
   .player-bar-play-btn {
-    width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold);
-    background: var(--gold); color: var(--primary); font-size: 22px; cursor: pointer;
+    width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: var(--primary); color: #FFFFFF; font-size: 20px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: var(--transition); justify-self: center;
+    transition: var(--transition); justify-self: center; box-shadow: 0 4px 12px rgba(30, 111, 79, 0.25);
   }
   .player-bar-play-btn:hover { transform: scale(1.05); }
   .player-bar-info { display: flex; flex-direction: column; min-width: 0; }
-  .player-bar-file { font-size: 13px; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .player-bar-surah { font-size: 11px; color: var(--gold-light); }
-  .player-bar-progress { width: 50px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; }
-  .player-bar-progress-fill { height: 100%; background: var(--gold); border-radius: 2px; width: 0%; transition: width 0.5s linear; }
-  .player-bar-next { background: none; border: none; color: white; font-size: 24px; cursor: pointer; padding: 4px; justify-self: end; }
+  .player-bar-file { font-size: 13px; font-weight: 700; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .player-bar-surah { font-size: 11px; color: var(--text-secondary); }
+  .player-bar-progress { width: 50px; height: 4px; background: var(--border-color); border-radius: 2px; }
+  .player-bar-progress-fill { height: 100%; background: var(--primary); border-radius: 2px; width: 0%; transition: width 0.5s linear; }
+  .player-bar-next { background: none; border: none; color: var(--text-secondary); font-size: 22px; cursor: pointer; padding: 4px; justify-self: end; }
 
-  /* Full Player */
+  /* Full Player - Light Mode */
   .full-player-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0; max-width: 800px; margin: 0 auto;
     background: var(--cream); z-index: 300; display: none; flex-direction: column; direction: rtl;
   }
   .full-player-overlay.show { display: flex; }
   .full-player-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .full-player-header button { background: none; border: none; color: var(--primary); font-size: 18px; cursor: pointer; padding: 8px; font-family: 'Noto Naskh Arabic', serif; }
+  .full-player-header button { background: none; border: none; color: var(--text-dark); font-size: 18px; cursor: pointer; padding: 8px; font-family: 'Cairo', 'Noto Naskh Arabic', serif; }
   .full-player-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
   .player-art {
     width: 200px; height: 200px; border-radius: 50%;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     display: flex; align-items: center; justify-content: center; margin-bottom: 30px;
-    box-shadow: 0 0 50px rgba(27, 94, 32, 0.3);
+    box-shadow: 0 0 50px rgba(30, 111, 79, 0.25);
   }
   .player-art.playing { animation: rotate 20s linear infinite; }
   .player-art img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
   @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .player-file-name { font-size: 20px; font-weight: 700; color: var(--primary); text-align: center; margin-bottom: 8px; }
-  .player-surah-name { font-size: 14px; color: var(--gold); margin-bottom: 30px; }
+  .player-file-name { font-size: 20px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 8px; }
+  .player-surah-name { font-size: 14px; color: var(--text-secondary); margin-bottom: 30px; }
   .player-progress-container { width: 100%; max-width: 400px; margin-bottom: 30px; }
-  .player-time-row { display: flex; justify-content: space-between; font-size: 12px; color: #fff; margin-bottom: 8px; }
+  .player-time-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
   .player-progress-bar {
     width: 100%; height: 6px; -webkit-appearance: none; appearance: none;
-    background: rgba(27, 94, 32, 0.15); border-radius: 3px; outline: none; cursor: pointer;
+    background: var(--border-color); border-radius: 3px; outline: none; cursor: pointer;
   }
-  .player-progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4); }
+  .player-progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--primary); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 8px rgba(30, 111, 79, 0.25); }
   .player-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 30px; }
-  .player-control-btn { width: 50px; height: 50px; border-radius: 50%; border: none; background: rgba(27, 94, 32, 0.1); color: var(--primary); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-  .player-main-btn { width: 72px; height: 72px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--gold); font-size: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(27, 94, 32, 0.3); }
-  .player-fav-btn { background: none; border: 2px solid rgba(212, 175, 55, 0.4); border-radius: 30px; padding: 10px 24px; color: var(--gold); font-family: 'Noto Naskh Arabic', serif; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .player-control-btn { width: 48px; height: 48px; border-radius: 50%; border: none; background: rgba(30, 111, 79, 0.06); color: var(--primary); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+  .player-main-btn { width: 68px; height: 68px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #FFFFFF; font-size: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(30, 111, 79, 0.3); }
+  .player-fav-btn { background: none; border: 2px solid var(--border-color); border-radius: var(--radius-full); padding: 10px 24px; color: var(--text-dark); font-family: 'Cairo', 'Noto Naskh Arabic', serif; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
+  .player-fav-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-  /* Bottom Navigation */
+  /* Bottom Navigation - Light Mode */
   .bottom-nav {
     position: fixed; bottom: 12px; left: 12px; right: 12px; max-width: 800px; margin: 0 auto;
-    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    display: flex; z-index: 150; padding: 6px 4px;
-    padding-bottom: max(6px, env(safe-area-inset-bottom));
-    box-shadow: 0 -4px 30px rgba(0,0,0,0.2), 0 0 0 1px var(--glass-border);
-    border-radius: 20px; border: 1px solid var(--glass-border);
+    background: #FFFFFF; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    display: flex; z-index: 150; padding: 4px;
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px var(--border-color);
+    border-radius: 16px;
   }
   .nav-item {
-    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 8px 2px; border: none; background: none; color: rgba(255,255,255,0.45);
-    font-family: 'Noto Naskh Arabic', serif; font-size: 10px; cursor: pointer;
-    transition: var(--transition); border-radius: 14px; position: relative;
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 8px 2px; border: none; background: none; color: var(--text-secondary);
+    font-family: 'Cairo', 'Noto Naskh Arabic', serif; font-size: 10px; cursor: pointer;
+    transition: var(--transition); border-radius: 12px; position: relative;
   }
   .nav-item .nav-icon { font-size: 20px; line-height: 1; transition: transform 0.2s ease; }
-  .nav-item.active .nav-icon { transform: scale(1.15); }
+  .nav-item.active .nav-icon { transform: scale(1.1); }
   .nav-item.active {
-    color: var(--gold); background: rgba(212, 175, 55, 0.12);
+    color: var(--primary); background: rgba(30, 111, 79, 0.08);
   }
-  .nav-item.active::before {
-    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 24px; height: 3px; background: var(--gold); border-radius: 0 0 4px 4px;
-  }
-  .nav-item:hover { color: var(--gold-light); }
+  .nav-item.active::before { display: none; }
+  .nav-item:hover { color: var(--primary); }
   .nav-item:active { transform: scale(0.95); }
 
   /* Pages */
@@ -293,70 +313,64 @@
   .page.active { display: block; }
 
   /* Favorites */
-  .fav-list { padding: 8px 12px 80px; }
+  .fav-list { padding: 8px 16px 80px; }
   .empty-state { text-align: center; padding: 60px 20px; }
   .empty-state h3 { font-size: 20px; color: var(--primary); margin-bottom: 8px; }
-  .empty-state p { font-size: 14px; color: #888; }
+  .empty-state p { font-size: 14px; color: var(--text-secondary); }
 
   /* Loading */
   .loading-container { text-align: center; padding: 60px 20px; }
-  .loading-spinner { width: 50px; height: 50px; border: 4px solid rgba(27, 94, 32, 0.1); border-top: 4px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+  .loading-spinner { width: 50px; height: 50px; border: 4px solid var(--border-color); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
 
   /* Toast */
   .toast {
     position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
     background: var(--primary); color: white; padding: 12px 24px;
-    border-radius: 30px; font-family: 'Noto Naskh Arabic', serif; font-size: 14px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 500; display: none;
+    border-radius: var(--radius-full); font-family: 'Cairo', 'Noto Naskh Arabic', serif; font-size: 14px;
+    box-shadow: 0 4px 20px rgba(30, 111, 79, 0.3); z-index: 500; display: none;
   }
   .toast.show { display: block; }
 
   /* === AZKAR SECTION === */
-  .azkar-page { padding: 12px; padding-bottom: 80px; }
+  .azkar-page { padding: 12px 16px; padding-bottom: 80px; }
   .azkar-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
   .azkar-tab {
-    flex: 1; padding: 12px; border: 2px solid var(--gold); border-radius: var(--radius-sm);
-    background: transparent; color: var(--gold); font-family: 'Noto Naskh Arabic', serif;
-    font-size: 15px; font-weight: 700; cursor: pointer; transition: var(--transition);
+    flex: 1; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-full);
+    background: #FFFFFF; color: var(--text-secondary); font-family: 'Cairo', 'Noto Naskh Arabic', serif;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: var(--transition);
     position: relative; overflow: hidden;
   }
-  .azkar-tab::after {
-    content: ''; position: absolute; inset: 0; background: var(--gold);
-    opacity: 0; transition: opacity 0.3s ease;
-  }
-  .azkar-tab.active { background: var(--gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-  .azkar-tab:hover { background: rgba(212, 175, 55, 0.12); }
+  .azkar-tab::after { display: none; }
+  .azkar-tab.active { background: var(--primary); color: #FFFFFF; border-color: var(--primary); box-shadow: 0 4px 12px rgba(30, 111, 79, 0.2); }
+  .azkar-tab:hover { border-color: var(--primary); color: var(--primary); }
   .azkar-tab:active { transform: scale(0.97); }
   .azkar-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.12);
-    border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+    background: #FFFFFF; border: none;
+    border-radius: var(--radius); padding: 20px; margin-bottom: 14px;
     box-shadow: var(--card-shadow); position: relative;
     transition: var(--transition);
   }
-  .azkar-card:hover { box-shadow: 0 6px 25px rgba(27, 94, 32, 0.08); }
+  .azkar-card:hover { box-shadow: 0 6px 20px rgba(30, 111, 79, 0.06); }
   .azkar-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .azkar-badge {
-    background: linear-gradient(135deg, var(--gold), #B8960C);
-    color: white; padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    background: var(--primary); color: #FFFFFF; padding: 4px 14px; border-radius: var(--radius-full); font-size: 11px; font-weight: 600;
   }
   .azkar-text {
     font-size: 17px; line-height: 2; color: var(--text-dark); text-align: center;
-    font-weight: 500; margin-bottom: 12px;
+    font-weight: 500; margin-bottom: 12px; font-family: 'Noto Naskh Arabic', serif;
   }
   .azkar-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .azkar-ref { font-size: 11px; color: #fff; }
+  .azkar-ref { font-size: 11px; color: var(--text-secondary); }
   .azkar-count-btn {
     display: flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, rgba(27, 94, 32, 0.08), rgba(27, 94, 32, 0.04));
-    border: 2px solid var(--primary); border-radius: 30px;
+    background: #FFFFFF; border: 2px solid var(--primary); border-radius: var(--radius-full);
     padding: 8px 20px; cursor: pointer; transition: var(--transition);
-    font-family: 'Noto Naskh Arabic', serif; font-size: 14px; color: var(--primary);
-    flex-shrink: 0; font-weight: 600; box-shadow: 0 2px 8px rgba(27, 94, 32, 0.08);
+    font-family: 'Cairo', 'Noto Naskh Arabic', serif; font-size: 14px; color: var(--primary);
+    flex-shrink: 0; font-weight: 600;
   }
-  .azkar-count-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.15); }
+  .azkar-count-btn:hover { background: rgba(30, 111, 79, 0.04); }
   .azkar-count-btn:active { transform: scale(0.95); }
-  .azkar-count-btn.completed { border-color: var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.08)); color: var(--gold); box-shadow: 0 2px 12px rgba(212, 175, 55, 0.2); }
+  .azkar-count-btn.completed { border-color: var(--gold); background: rgba(212, 175, 55, 0.06); color: var(--gold); }
   .azkar-count-btn .count-num { font-weight: 700; font-size: 18px; min-width: 24px; text-align: center; }
   .azkar-sub-list.azkar-hidden { display: none !important; }
   .azkar-sub-list { display: block; }
@@ -366,27 +380,27 @@
   .tasbih-container {
     max-width: 360px; margin: 0 auto; text-align: center;
   }
+  .tasbih-dhikr { font-size: 24px; font-weight: 700; color: var(--primary); margin: 12px 0; font-family: 'Noto Naskh Arabic', serif; }
   .tasbih-display {
     width: 280px; height: 280px; margin: 20px auto; border-radius: 50%;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    box-shadow: 0 0 60px rgba(27, 94, 32, 0.3); position: relative;
+    box-shadow: 0 0 60px rgba(30, 111, 79, 0.2); position: relative;
     transition: transform 0.1s ease; cursor: pointer;
     -webkit-user-select: none; user-select: none;
   }
   .tasbih-display:active { transform: scale(0.96); }
-  .tasbih-display .count-main { font-size: 64px; font-weight: 700; color: var(--gold); line-height: 1; }
-  .tasbih-display .count-label { font-size: 16px; color: var(--gold-light); margin-top: 8px; }
+  .tasbih-display .count-main { font-size: 64px; font-weight: 700; color: #FFFFFF; line-height: 1; }
+  .tasbih-display .count-label { font-size: 16px; color: rgba(255,255,255,0.8); margin-top: 8px; }
   .tasbih-display .count-target { position: absolute; bottom: 30px; font-size: 13px; color: rgba(255,255,255,0.4); }
   .tasbih-ripple {
-    position: absolute; border-radius: 50%; background: rgba(212, 175, 55, 0.2);
+    position: absolute; border-radius: 50%; background: rgba(255,255,255,0.15);
     width: 100%; height: 100%; animation: rippleAnim 0.5s ease-out forwards;
     pointer-events: none;
   }
   @keyframes rippleAnim { from { transform: scale(0.8); opacity: 1; } to { transform: scale(1.3); opacity: 0; } }
-  .tasbih-dhikr { font-size: 24px; font-weight: 700; color: var(--primary); margin: 12px 0; }
   .tasbih-progress {
-    width: 100%; height: 6px; background: rgba(27, 94, 32, 0.1);
+    width: 100%; height: 6px; background: var(--border-color);
     border-radius: 3px; overflow: hidden; margin: 16px 0;
   }
   .tasbih-progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--primary)); border-radius: 3px; transition: width 0.3s ease; }
@@ -397,12 +411,10 @@
     font-size: 22px; cursor: pointer; transition: var(--transition);
   }
   .tasbih-btn:hover { transform: scale(1.1); }
-  .tasbih-btn.reset { background: rgba(212, 175, 55, 0.12); color: var(--gold); }
-  .tasbih-btn.dhikr-switch { background: rgba(27, 94, 32, 0.1); color: var(--primary); }
+  .tasbih-btn.reset { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
+  .tasbih-btn.dhikr-switch { background: rgba(30, 111, 79, 0.08); color: var(--primary); }
 
-
-
-  /* === QIBLA SECTION === */
+  /* === QIBLA SECTION - Light Mode === */
   .qibla-page { padding: 20px; padding-bottom: 80px; }
   .qibla-header { text-align: center; }
   .qibla-compass-wrap {
@@ -411,14 +423,14 @@
   }
   .qibla-compass {
     width: 100%; height: 100%; border-radius: 50%;
-    background: linear-gradient(135deg, #1a2a1a, #0D3B0E);
+    background: #FFFFFF;
     display: flex; align-items: center; justify-content: center;
-    position: relative; box-shadow: 0 0 60px rgba(212, 175, 55, 0.15),
-      0 0 0 4px var(--gold), 0 0 0 8px rgba(212, 175, 55, 0.15);
+    position: relative; box-shadow: 0 0 40px rgba(30, 111, 79, 0.08),
+      0 0 0 3px var(--primary), 0 0 0 7px rgba(30, 111, 79, 0.06);
   }
   .qibla-ring {
     position: absolute; width: 90%; height: 90%; border-radius: 50%;
-    border: 1.5px solid rgba(212, 175, 55, 0.2);
+    border: 1.5px solid rgba(30, 111, 79, 0.1);
     top: 5%; left: 5%;
   }
   .qibla-inner {
@@ -427,11 +439,10 @@
   }
   .qibla-needle {
     position: absolute; top: 50%; left: 50%; width: 3px; height: 42%;
-    background: linear-gradient(to top, var(--gold), #FFD700);
+    background: linear-gradient(to top, var(--primary), #2A8F6A);
     transform-origin: bottom center; border-radius: 2px;
     transform: translate(-50%, -100%) rotate(0deg);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
   }
   .qibla-needle::after {
     content: ''; position: absolute; top: -6px; left: 50%;
@@ -442,71 +453,74 @@
   .qibla-center-dot {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 12px; height: 12px; border-radius: 50%;
-    background: var(--gold); box-shadow: 0 0 15px var(--gold);
+    background: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
   }
   .qibla-info { text-align: center; margin-top: 24px; }
   .qibla-direction-label {
-    font-size: 14px; color: #fff; letter-spacing: 1px;
+    font-size: 14px; color: var(--text-secondary);
   }
   .qibla-degrees {
-    font-size: 48px; font-weight: 800; color: var(--gold);
-    margin: 4px 0; text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+    font-size: 48px; font-weight: 800; color: var(--primary);
+    margin: 4px 0;
   }
   .qibla-city {
-    font-size: 15px; color: var(--primary); font-weight: 600;
+    font-size: 15px; color: var(--text-dark); font-weight: 600;
     margin-top: 4px;
   }
   .qibla-tip {
     display: flex; align-items: center; gap: 8px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: 12px; padding: 12px 16px; margin-top: 20px;
-    font-size: 13px; color: #fff;
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius); padding: 12px 16px; margin-top: 20px;
+    font-size: 13px; color: var(--text-secondary); box-shadow: var(--card-shadow);
   }
-  body.dark-mode .qibla-compass { background: linear-gradient(135deg, #0a1a0a, #0D3B0E); }
+  body.dark-mode .qibla-compass { background: linear-gradient(135deg, #0a1a0a, #0D3B0E); box-shadow: 0 0 60px rgba(212, 175, 55, 0.15), 0 0 0 4px var(--gold), 0 0 0 8px rgba(212, 175, 55, 0.15); }
   body.dark-mode .qibla-city { color: #e0e0e0; }
+  body.dark-mode .qibla-direction-label { color: #fff; }
+  body.dark-mode .qibla-degrees { color: var(--gold); text-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
+  body.dark-mode .qibla-needle { background: linear-gradient(to top, var(--gold), #FFD700); box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
 
-  /* === PRAYER TIMES === */
+  /* === PRAYER TIMES - Light Mode === */
   .prayer-page { padding: 12px; padding-bottom: 80px; }
   .prayer-header {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: 20px; padding: 20px; text-align: center; color: white;
-    margin-bottom: 16px; box-shadow: 0 8px 30px rgba(27, 94, 32, 0.3);
+    border-radius: var(--radius); padding: 20px; text-align: center; color: white;
+    margin-bottom: 16px; box-shadow: 0 8px 30px rgba(30, 111, 79, 0.25);
   }
-  .prayer-header .date-hijri { font-size: 14px; color: var(--gold-light); margin-bottom: 4px; }
+  .prayer-header .date-hijri { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
   .prayer-header .date-gregorian { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
-  .prayer-header .next-prayer { font-size: 16px; color: var(--gold-light); }
-  .prayer-header .next-prayer-name { font-size: 22px; font-weight: 700; color: var(--gold); }
-  .prayer-header .next-prayer-time { font-size: 14px; color: rgba(255,255,255,0.8); }
+  .prayer-header .next-prayer { font-size: 16px; color: rgba(255,255,255,0.8); }
+  .prayer-header .next-prayer-name { font-size: 22px; font-weight: 700; color: #FFFFFF; }
+  .prayer-header .next-prayer-time { font-size: 14px; color: rgba(255,255,255,0.7); }
   .prayer-times { display: flex; flex-direction: column; gap: 8px; }
   .prayer-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.12);
-    border-radius: 14px; padding: 16px 20px; display: flex;
+    background: #FFFFFF; border: none;
+    border-radius: var(--radius); padding: 16px 20px; display: flex;
     align-items: center; justify-content: space-between; box-shadow: var(--card-shadow);
     transition: var(--transition);
   }
-  .prayer-card:hover { box-shadow: 0 6px 20px rgba(27, 94, 32, 0.08); }
-  .prayer-card.current { border-color: var(--gold); border-width: 2px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03)); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15); }
-  .prayer-card .prayer-name { font-size: 16px; font-weight: 700; color: var(--primary); }
-  .prayer-card .prayer-time { font-size: 16px; color: var(--text-dark); font-weight: 500; }
-  .prayer-card.current .prayer-name, .prayer-card.current .prayer-time { color: var(--gold); }
+  .prayer-card:hover { box-shadow: 0 4px 16px rgba(30, 111, 79, 0.06); }
+  .prayer-card.current { background: linear-gradient(135deg, rgba(30, 111, 79, 0.04), rgba(30, 111, 79, 0.02)); box-shadow: 0 0 0 2px var(--primary), 0 4px 16px rgba(30, 111, 79, 0.06); }
+  .prayer-card .prayer-name { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+  .prayer-card .prayer-time { font-size: 16px; color: var(--primary); font-weight: 600; }
+  .prayer-card.current .prayer-name, .prayer-card.current .prayer-time { color: var(--primary); }
   .prayer-card .prayer-icon { font-size: 20px; }
 
   /* Prayer Notification Settings */
   .prayer-notify-section {
     margin-top: 16px; border-radius: var(--radius);
-    border: 1.5px solid rgba(212, 175, 55, 0.15);
-    overflow: hidden; box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden; box-shadow: var(--card-shadow); background: #FFFFFF;
   }
   body.dark-mode .prayer-notify-section { background: var(--dark-card); border-color: rgba(212, 175, 55, 0.2); }
   .prayer-notify-header {
     padding: 14px 16px; display: flex; align-items: center; gap: 8px;
-    cursor: pointer; font-size: 14px; font-weight: 700; color: var(--primary);
-    background: rgba(212, 175, 55, 0.06); user-select: none;
+    cursor: pointer; font-size: 14px; font-weight: 700; color: var(--text-dark);
+    user-select: none;
   }
-  body.dark-mode .prayer-notify-header { color: var(--gold); }
+  body.dark-mode .prayer-notify-header { color: var(--gold); background: rgba(212, 175, 55, 0.06); }
   .prayer-notify-toggle-arrow {
-    margin-right: auto; font-size: 12px; transition: transform 0.3s ease;
+    margin-right: auto; font-size: 12px; transition: transform 0.3s ease; color: var(--text-secondary);
   }
   .prayer-notify-toggle-arrow.open { transform: rotate(180deg); }
   .prayer-notify-body { padding: 0 16px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
@@ -515,34 +529,34 @@
   .prayer-sound-options { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
   .prayer-sound-option {
     display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-    border-radius: 10px; cursor: pointer; font-size: 14px;
-    border: 1.5px solid rgba(212, 175, 55, 0.1); transition: var(--transition);
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 14px;
+    border: 1.5px solid var(--border-color); transition: var(--transition);
   }
-  .prayer-sound-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
-  .prayer-sound-option.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
-  .prayer-sound-option input[type="radio"] { accent-color: var(--gold); }
-  body.dark-mode select { background: var(--dark-card) !important; color: #e0e0e0 !important; }
+  .prayer-sound-option:hover { border-color: var(--primary); background: rgba(30, 111, 79, 0.03); }
+  .prayer-sound-option.selected { border-color: var(--primary); background: rgba(30, 111, 79, 0.06); }
+  .prayer-sound-option input[type="radio"] { accent-color: var(--primary); }
+  body.dark-mode select { background: var(--dark-card) !important; color: #e0e0e0 !important; border-color: rgba(212, 175, 55, 0.3) !important; }
 
-  /* Settings page */
+  /* Settings page - Light Mode */
   .settings-page { padding: 16px; padding-bottom: 80px; }
-  .settings-section { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.08); }
+  .settings-section { background: #FFFFFF; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--card-shadow); }
   .settings-section h3 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-  .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+  .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
   .settings-row:last-child { border-bottom: none; }
   .settings-row label { font-size: 15px; color: var(--text-dark); }
-  .settings-row small { display: block; font-size: 11px; color: #fff; margin-top: 2px; }
-  .toggle { position: relative; width: 50px; height: 26px; background: #ccc; border-radius: 13px; cursor: pointer; transition: var(--transition); }
+  .settings-row small { display: block; font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .toggle { position: relative; width: 50px; height: 26px; background: var(--border-color); border-radius: 13px; cursor: pointer; transition: var(--transition); }
   .toggle.active { background: var(--primary); }
   .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: var(--transition); }
   .toggle.active::after { right: 27px; }
-  .footer { text-align: center; padding: 20px; color: #fff; font-size: 12px; }
+  .footer { text-align: center; padding: 20px; color: var(--text-secondary); font-size: 12px; }
 
-  /* Modal */
-  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 400; display: none; align-items: flex-end; justify-content: center; }
+  /* Modal - Light Mode */
+  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 400; display: none; align-items: flex-end; justify-content: center; }
   .modal-overlay.show { display: flex; }
-  .modal-content { background: var(--cream); width: 100%; max-width: 800px; max-height: 60vh; border-radius: 20px 20px 0 0; padding: 16px; overflow-y: auto; }
+  .modal-content { background: #FFFFFF; width: 100%; max-width: 800px; max-height: 60vh; border-radius: var(--radius) var(--radius) 0 0; padding: 16px; overflow-y: auto; }
   body.dark-mode .modal-content { background: var(--dark-card); }
-  .modal-handle { width: 40px; height: 4px; background: #ccc; border-radius: 2px; margin: 0 auto 16px; }
+  .modal-handle { width: 40px; height: 4px; background: var(--border-color); border-radius: 2px; margin: 0 auto 16px; }
   .modal-title { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
 
   @media (max-width: 600px) {
@@ -552,14 +566,14 @@
     .player-art { width: 180px; height: 180px; }
     .player-file-name { font-size: 19px; }
     .file-item { padding: 12px 14px; } .file-index { width: 36px; height: 36px; font-size: 14px; }
-    .file-name { font-size: 15px; } .file-play-btn { width: 44px; height: 44px; font-size: 20px; }
+    .file-name { font-size: 15px; } .file-play-btn { width: 40px; height: 40px; font-size: 18px; }
     .app-bar { padding: 14px 16px; } .app-bar-title { font-size: 17px; }
     .search-box { font-size: 16px; padding: 14px 20px; }
     .header h2 { font-size: 15px; }
     .azkar-text { font-size: 16px; }
     .tasbih-display { width: 230px; height: 230px; }
     .tasbih-display .count-main { font-size: 52px; }
-    .qibla-compass { width: 230px; height: 230px; }
+    .qibla-compass-wrap { width: 230px; height: 230px; }
     .prayer-card { padding: 12px 14px; }
     .prayer-card .prayer-name { font-size: 14px; }
     .nav-item .nav-icon { font-size: 18px; }
@@ -571,18 +585,17 @@
   .quran-surah-header {
     text-align: center; padding: 20px; margin: 0 16px 16px;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: var(--radius); color: var(--gold); box-shadow: 0 8px 25px rgba(27, 94, 32, 0.3);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius); color: white; box-shadow: 0 8px 25px rgba(30, 111, 79, 0.25);
   }
   .quran-surah-header .surah-name-ar { font-size: 28px; font-weight: 700; font-family: 'Noto Naskh Arabic', serif; }
-  .quran-surah-header .surah-name-en { font-size: 14px; opacity: 0.8; margin-top: 4px; }
-  .quran-surah-header .surah-info-row { display: flex; justify-content: center; gap: 16px; margin-top: 8px; font-size: 12px; opacity: 0.7; }
+  .quran-surah-header .surah-name-en { font-size: 14px; opacity: 0.8; margin-top: 4px; color: rgba(255,255,255,0.8); }
+  .quran-surah-header .surah-info-row { display: flex; justify-content: center; gap: 16px; margin-top: 8px; font-size: 12px; opacity: 0.7; color: rgba(255,255,255,0.7); }
   .quran-verses {
     padding: 0 16px 20px; direction: rtl;
   }
   .quran-page-view {
-    background: white; border-radius: var(--radius); padding: 24px 28px;
-    box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.12);
+    background: #FFFFFF; border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--card-shadow); border: none;
     line-height: 2.6; text-align: justify;
   }
   body.dark-mode .quran-page-view { background: var(--dark-card); color: #e0e0e0; }
@@ -590,19 +603,19 @@
     font-family: 'Noto Naskh Arabic', serif; font-size: 22px;
   }
   .quran-page-view .verse-number {
-    display: inline-block; background: var(--gold); color: white; border-radius: 50%;
+    display: inline-block; background: var(--primary); color: white; border-radius: 50%;
     width: 26px; height: 26px; line-height: 26px; font-size: 10px; text-align: center;
     margin: 0 4px; font-family: sans-serif; vertical-align: middle; cursor: pointer;
     transition: transform 0.2s ease; position: relative;
   }
   .quran-page-view .verse-number:hover { transform: scale(1.15); }
   .quran-page-view .verse-number.highlighted {
-    box-shadow: 0 0 0 3px var(--gold), 0 0 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 0 3px var(--gold), 0 0 15px rgba(212, 175, 55, 0.3);
     transform: scale(1.2);
   }
   .quran-page-view .verse-number::after {
     content: '۝'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); font-size: 14px; opacity: 0.3;
+    transform: translate(-50%, -50%); font-size: 14px; opacity: 0.3; color: rgba(255,255,255,0.3);
   }
   .quran-verse { display: inline; }
   .quran-verse .verse-aya { font-family: 'Noto Naskh Arabic', serif; }
@@ -611,42 +624,42 @@
     display: flex; flex-direction: column; gap: 6px; padding: 12px 12px 20px;
   }
   .quran-nav button {
-    background: var(--primary); color: var(--gold); border: none; border-radius: var(--radius);
+    background: var(--primary); color: #FFFFFF; border: none; border-radius: var(--radius);
     padding: 10px 16px; font-size: 13px; cursor: pointer; transition: var(--transition);
-    font-family: 'Noto Naskh Arabic', serif;
+    font-family: 'Cairo', 'Noto Naskh Arabic', serif;
   }
-  .quran-nav button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3); }
+  .quran-nav button:hover { box-shadow: 0 4px 12px rgba(30, 111, 79, 0.2); }
   .quran-nav button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
   .quran-verse.loading { opacity: 0.5; }
   .quran-page-sep {
     text-align: center; padding: 10px; margin: 16px 0 8px;
-    font-size: 13px; font-weight: 700; color: var(--gold);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    border-top: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(212, 175, 55, 0.05);
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    background: var(--cream);
     border-radius: var(--radius-sm);
   }
   .quran-page-indicator {
     text-align: center; padding: 8px; margin-bottom: 12px;
-    font-size: 14px; font-weight: 700; color: var(--gold);
+    font-size: 14px; font-weight: 700; color: white;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     border-radius: var(--radius-sm);
   }
   .quran-page-nav, .quran-surah-nav {
     display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px;
-    align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    align-items: center; padding: 8px 0;
   }
   .quran-surah-nav { border-bottom: none; }
   .quran-page-nav button, .quran-surah-nav button {
-    background: var(--primary); color: var(--gold); border: none;
+    background: var(--primary); color: #FFFFFF; border: none;
     border-radius: var(--radius-sm); padding: 8px; font-size: 12px;
     cursor: pointer; transition: var(--transition);
-    font-family: 'Noto Naskh Arabic', serif; white-space: nowrap;
+    font-family: 'Cairo', 'Noto Naskh Arabic', serif; white-space: nowrap;
   }
   .quran-page-nav button:first-child, .quran-surah-nav button:first-child { text-align: left; }
   .quran-page-nav button:last-child, .quran-surah-nav button:last-child { text-align: right; }
   .quran-page-nav button:hover, .quran-surah-nav button:hover {
-    transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 111, 79, 0.2);
   }
   .quran-page-nav button:disabled, .quran-surah-nav button:disabled {
     opacity: 0.4; cursor: not-allowed; transform: none;
@@ -658,13 +671,13 @@
     display: flex; align-items: center; gap: 4px;
   }
   .jump-label {
-    font-size: 10px; color: var(--gold); text-align: center;
+    font-size: 10px; color: var(--text-secondary); text-align: center;
   }
   .quran-page-jump input, .quran-ayah-jump input {
     width: 60px !important;
   }
   .quran-page-jump button, .quran-ayah-jump button {
-    background: var(--gold) !important; color: var(--primary) !important;
+    background: var(--gold) !important; color: var(--primary-dark) !important;
     padding: 6px 12px !important; font-size: 12px !important;
   }
   @media (max-width: 600px) {
@@ -754,7 +767,7 @@
     <div class="tasbih-page">
       <div class="header" style="padding-right:0;"><h2>&#128214; سبحة رقمية</h2></div>
       <div class="tasbih-container">
-        <div style="font-size: 13px; color: #888; margin-bottom: 4px;" id="tasbihDhikrLabel">التسبيح الحالي:</div>
+        <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;" id="tasbihDhikrLabel">التسبيح الحالي:</div>
         <div class="tasbih-dhikr" id="tasbihDhikr">سُبْحَانَ اللَّهِ</div>
         <div class="tasbih-display" id="tasbihDisplay" onclick="tasbihCount()">
           <div class="count-main" id="tasbihCount">0</div>
@@ -792,7 +805,7 @@
           <div class="qibla-status" id="qiblaStatus" style="font-size:12px;color:#888;margin-top:6px;"></div>
         </div>
       </div>
-      <button class="qibla-activate-btn" id="qiblaActivateBtn" style="display:none;width:100%;padding:14px;margin-top:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--gold);border:none;border-radius:14px;font-family:'Noto Naskh Arabic',serif;font-size:16px;font-weight:700;cursor:pointer;" onclick="activateQiblaCompass()">
+      <button class="qibla-activate-btn" id="qiblaActivateBtn" style="display:none;width:100%;padding:14px;margin-top:12px;background:var(--primary);color:#FFFFFF;border:none;border-radius:var(--radius-full);font-family:'Cairo','Noto Naskh Arabic',serif;font-size:16px;font-weight:700;cursor:pointer;" onclick="activateQiblaCompass()">
         &#128205; اضغط لتفعيل البوصلة
       </button>
       <div class="qibla-tip">
@@ -867,7 +880,7 @@
           </div>
           <div class="settings-row">
             <div><label>التنبيه قبل الصلاة</label></div>
-            <select id="prayerNotifyBefore" onchange="savePrayerNotifyBefore(this.value)" style="font-family: 'Noto Naskh Arabic', serif; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); background: transparent; color: var(--text-dark);">
+            <select id="prayerNotifyBefore" onchange="savePrayerNotifyBefore(this.value)" style="font-family: 'Cairo', 'Noto Naskh Arabic', serif; padding: 6px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: #FFFFFF; color: var(--text-dark);">
               <option value="0">في وقت الصلاة</option>
               <option value="5">قبل 5 دقائق</option>
               <option value="10">قبل 10 دقائق</option>
@@ -895,7 +908,7 @@
         <h3><span>&#8505;</span> عن التطبيق</h3>
         <div class="settings-row"><div><label>فهمني القرآن</label><small>استمع إلى شرح القرآن الكريم</small></div></div>
         <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.5.0</span></div>
-        <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: #888; font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
+        <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: var(--text-secondary); font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
       </div>
       <div class="settings-section">
         <h3><span>&#128276;</span> تنبيهات الصلاة</h3>
@@ -905,19 +918,19 @@
         </div>
         <div class="settings-row">
           <div><label>صوت التنبيه</label><small>اختيار نغمة الأذان</small></div>
-          <select onchange="selectPrayerSound(this.value)" style="font-family:'Noto Naskh Arabic',serif;padding:6px 10px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);background:transparent;color:var(--text-dark);">
+          <select onchange="selectPrayerSound(this.value)" style="font-family:'Cairo','Noto Naskh Arabic',serif;padding:6px 10px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:#FFFFFF;color:var(--text-dark);">
             <option value="adhan1">أذان - مشاري العفاسي</option>
             <option value="adhan2">أذان - الحرم المدني</option>
           </select>
         </div>
         <div class="settings-row">
           <div><label>معاينة الصوت</label></div>
-          <button class="preview-btn" onclick="togglePrayerPreview(this)" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
+          <button class="preview-btn" onclick="togglePrayerPreview(this)" style="background:var(--primary);border:none;color:white;padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;font-family:'Cairo','Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
         </div>
       </div>
       <div class="settings-section">
         <h3><span>&#128172;</span> الدعم</h3>
-        <div class="settings-row"><label>تواصل معنا</label><span style="font-size: 12px; color: #888;">amn2asayed@gmail.com</span></div>
+        <div class="settings-row"><label>تواصل معنا</label><span style="font-size: 12px; color: var(--text-secondary);">amn2asayed@gmail.com</span></div>
       </div>
       <div class="settings-section" style="cursor:pointer;" onclick="showPrivacyPolicy()">
         <h3><span>&#128214;</span> سياسة الخصوصية</h3>
@@ -931,7 +944,7 @@
     <div class="modal-handle"></div>
     <div style="text-align:left;"><button onclick="closePrivacyPolicy()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--primary);">&times;</button></div>
     <div class="modal-title" style="margin-bottom:16px;">&#128214; سياسة الخصوصية</div>
-    <div style="font-size:14px;line-height:1.8;color:#e0e0e0;max-height:55vh;overflow-y:auto;padding-left:4px;">
+    <div style="font-size:14px;line-height:1.8;color:var(--text-dark);max-height:55vh;overflow-y:auto;padding-left:4px;">
       <p style="margin-bottom:12px;"><strong>آخر تحديث:</strong> يوليو 2026</p>
       
       <h4 style="color:var(--gold);margin:16px 0 8px;">1. مقدمة</h4>
