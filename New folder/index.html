@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>فهمني القرآن</title>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,10 +14,7 @@
     --gold: #D4AF37; --gold-light: #F0D060; --cream: #FFF8F0;
     --dark-bg: #121212; --dark-card: #1E1E1E; --dark-surface: #252525;
     --text-dark: #1A1A2E; --text-light: #FFFFFF;
-    --shadow: 0 4px 20px rgba(27, 94, 32, 0.15); --radius: 16px; --radius-sm: 10px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --nav-bg: rgba(13, 59, 14, 0.85); --glass-border: rgba(255,255,255,0.08);
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow: 0 4px 20px rgba(27, 94, 32, 0.15); --radius: 16px; --transition: all 0.3s ease;
   }
   html { scroll-behavior: smooth; }
   body {
@@ -34,8 +28,7 @@
     background: var(--dark-card); border-color: rgba(212, 175, 55, 0.2);
   }
   body.dark-mode .surah-card .surah-name, body.dark-mode .file-item .file-name,
-  body.dark-mode .settings-section label, body.dark-mode .azkar-card .azkar-text,
-  body.dark-mode .prayer-card .prayer-name, body.dark-mode .prayer-card .prayer-time {
+  body.dark-mode .settings-section label, body.dark-mode .azkar-card .azkar-text {
     color: #e0e0e0;
   }
   body.dark-mode .player-bar { background: linear-gradient(135deg, #0D3B0E, #1a1a1a); }
@@ -49,6 +42,7 @@
   body.dark-mode .tasbih-display {
     background: linear-gradient(135deg, #1a1a2a, #0D3B0E);
   }
+  body.dark-mode .qibla-compass { background: var(--dark-surface); }
   body.dark-mode .full-player-overlay { background: var(--dark-bg); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -127,13 +121,13 @@
 
   /* Surah Card */
   .surah-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.15);
+    background: white; border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    cursor: pointer; transition: var(--transition); box-shadow: var(--card-shadow);
+    cursor: pointer; transition: var(--transition); box-shadow: var(--shadow);
   }
-  .surah-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(27, 94, 32, 0.12); border-color: var(--gold); }
-  .surah-card:active { transform: scale(0.97); }
+  .surah-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(27, 94, 32, 0.2); border-color: var(--gold); }
+  .surah-card:active { transform: scale(0.98); }
   .surah-number {
     width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     border-radius: 14px; display: flex; align-items: center; justify-content: center;
@@ -149,15 +143,11 @@
     color: var(--gold); font-size: 16px; flex-shrink: 0;
   }
   .back-btn {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border: none; color: white; font-size: 14px; font-weight: 600;
-    cursor: pointer; padding: 10px 22px; border-radius: var(--radius-sm);
-    transition: var(--transition);
+    background: var(--primary); border: none; color: white; font-size: 15px; font-weight: 600;
+    cursor: pointer; padding: 8px 20px; border-radius: 10px; transition: var(--transition);
     display: inline-flex; align-items: center; gap: 6px; font-family: 'Noto Naskh Arabic', serif;
-    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.25);
   }
-  .back-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27, 94, 32, 0.35); }
-  .back-btn:active { transform: translateY(0) scale(0.97); }
+  .back-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
   .back-btn::before { content: '\2039'; font-size: 20px; line-height: 1; }
 
   /* Surah Detail */
@@ -262,30 +252,20 @@
 
   /* Bottom Navigation */
   .bottom-nav {
-    position: fixed; bottom: 12px; left: 12px; right: 12px; max-width: 800px; margin: 0 auto;
-    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    display: flex; z-index: 150; padding: 6px 4px;
-    padding-bottom: max(6px, env(safe-area-inset-bottom));
-    box-shadow: 0 -4px 30px rgba(0,0,0,0.2), 0 0 0 1px var(--glass-border);
-    border-radius: 20px; border: 1px solid var(--glass-border);
+    position: fixed; bottom: 0; left: 0; right: 0; max-width: 800px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--primary-dark), #0a2e0b);
+    display: flex; z-index: 150; padding: 6px 4px; padding-bottom: max(6px, env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
   }
   .nav-item {
-    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 8px 2px; border: none; background: none; color: rgba(255,255,255,0.45);
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 6px 2px; border: none; background: none; color: rgba(255,255,255,0.5);
     font-family: 'Noto Naskh Arabic', serif; font-size: 10px; cursor: pointer;
-    transition: var(--transition); border-radius: 14px; position: relative;
+    transition: var(--transition); border-radius: 10px;
   }
-  .nav-item .nav-icon { font-size: 20px; line-height: 1; transition: transform 0.2s ease; }
-  .nav-item.active .nav-icon { transform: scale(1.15); }
-  .nav-item.active {
-    color: var(--gold); background: rgba(212, 175, 55, 0.12);
-  }
-  .nav-item.active::before {
-    content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 24px; height: 3px; background: var(--gold); border-radius: 0 0 4px 4px;
-  }
+  .nav-item .nav-icon { font-size: 20px; line-height: 1; }
+  .nav-item.active { color: var(--gold); background: rgba(212, 175, 55, 0.1); }
   .nav-item:hover { color: var(--gold-light); }
-  .nav-item:active { transform: scale(0.95); }
 
   /* Pages */
   .page { display: none; }
@@ -314,30 +294,21 @@
   .azkar-page { padding: 12px; padding-bottom: 80px; }
   .azkar-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
   .azkar-tab {
-    flex: 1; padding: 12px; border: 2px solid var(--gold); border-radius: var(--radius-sm);
+    flex: 1; padding: 12px; border: 2px solid var(--gold); border-radius: 12px;
     background: transparent; color: var(--gold); font-family: 'Noto Naskh Arabic', serif;
     font-size: 15px; font-weight: 700; cursor: pointer; transition: var(--transition);
-    position: relative; overflow: hidden;
   }
-  .azkar-tab::after {
-    content: ''; position: absolute; inset: 0; background: var(--gold);
-    opacity: 0; transition: opacity 0.3s ease;
-  }
-  .azkar-tab.active { background: var(--gold); color: var(--primary-dark); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-  .azkar-tab:hover { background: rgba(212, 175, 55, 0.12); }
-  .azkar-tab:active { transform: scale(0.97); }
+  .azkar-tab.active { background: var(--gold); color: var(--primary-dark); }
+  .azkar-tab:hover { background: rgba(212, 175, 55, 0.15); }
   .azkar-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.12);
+    background: white; border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
-    box-shadow: var(--card-shadow); position: relative;
-    transition: var(--transition);
+    box-shadow: var(--shadow); position: relative;
   }
-  .azkar-card:hover { box-shadow: 0 6px 25px rgba(27, 94, 32, 0.08); }
   .azkar-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .azkar-badge {
     background: linear-gradient(135deg, var(--gold), #B8960C);
-    color: white; padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    color: white; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
   }
   .azkar-text {
     font-size: 17px; line-height: 2; color: var(--text-dark); text-align: center;
@@ -346,19 +317,14 @@
   .azkar-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .azkar-ref { font-size: 11px; color: #888; }
   .azkar-count-btn {
-    display: flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, rgba(27, 94, 32, 0.08), rgba(27, 94, 32, 0.04));
-    border: 2px solid var(--primary); border-radius: 30px;
-    padding: 8px 20px; cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(27, 94, 32, 0.08); border: 2px solid var(--primary);
+    border-radius: 30px; padding: 6px 16px; cursor: pointer; transition: var(--transition);
     font-family: 'Noto Naskh Arabic', serif; font-size: 14px; color: var(--primary);
-    flex-shrink: 0; font-weight: 600; box-shadow: 0 2px 8px rgba(27, 94, 32, 0.08);
+    flex-shrink: 0;
   }
-  .azkar-count-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.15); }
-  .azkar-count-btn:active { transform: scale(0.95); }
-  .azkar-count-btn.completed { border-color: var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(212, 175, 55, 0.08)); color: var(--gold); box-shadow: 0 2px 12px rgba(212, 175, 55, 0.2); }
-  .azkar-count-btn .count-num { font-weight: 700; font-size: 18px; min-width: 24px; text-align: center; }
-  .azkar-sub-list.azkar-hidden { display: none !important; }
-  .azkar-sub-list { display: block; }
+  .azkar-count-btn.completed { border-color: var(--gold); background: rgba(212, 175, 55, 0.15); color: var(--gold); }
+  .azkar-count-btn .count-num { font-weight: 700; font-size: 16px; min-width: 20px; text-align: center; }
 
   /* === TASBIH SECTION === */
   .tasbih-page { padding: 16px; padding-bottom: 80px; }
@@ -399,71 +365,35 @@
   .tasbih-btn.reset { background: rgba(212, 175, 55, 0.12); color: var(--gold); }
   .tasbih-btn.dhikr-switch { background: rgba(27, 94, 32, 0.1); color: var(--primary); }
 
-
-
   /* === QIBLA SECTION === */
-  .qibla-page { padding: 20px; padding-bottom: 80px; }
-  .qibla-header { text-align: center; }
-  .qibla-compass-wrap {
-    width: 260px; height: 260px; margin: 10px auto;
-    position: relative;
-  }
+  .qibla-page { padding: 16px; padding-bottom: 80px; }
+  .qibla-container { max-width: 360px; margin: 0 auto; text-align: center; }
   .qibla-compass {
-    width: 100%; height: 100%; border-radius: 50%;
-    background: linear-gradient(135deg, #1a2a1a, #0D3B0E);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; box-shadow: 0 0 60px rgba(212, 175, 55, 0.15),
-      0 0 0 4px var(--gold), 0 0 0 8px rgba(212, 175, 55, 0.15);
+    width: 280px; height: 280px; margin: 20px auto; border-radius: 50%;
+    background: white; box-shadow: 0 0 40px rgba(0,0,0,0.1);
+    display: flex; align-items: center; justify-content: center; position: relative;
+    border: 8px solid var(--gold);
   }
-  .qibla-ring {
-    position: absolute; width: 90%; height: 90%; border-radius: 50%;
-    border: 1.5px solid rgba(212, 175, 55, 0.2);
-    top: 5%; left: 5%;
-  }
-  .qibla-inner {
+  .qibla-compass-inner {
     width: 100%; height: 100%; border-radius: 50%; position: relative;
-    transition: transform 0.15s ease;
+    transition: transform 0.1s ease;
   }
   .qibla-needle {
-    position: absolute; top: 50%; left: 50%; width: 3px; height: 42%;
-    background: linear-gradient(to top, var(--gold), #FFD700);
+    position: absolute; top: 50%; left: 50%; width: 4px; height: 45%;
+    background: linear-gradient(to top, var(--gold), var(--primary));
     transform-origin: bottom center; border-radius: 2px;
     transform: translate(-50%, -100%) rotate(0deg);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    transition: transform 0.3s ease;
   }
   .qibla-needle::after {
-    content: ''; position: absolute; top: -6px; left: 50%;
-    transform: translateX(-50%); width: 0; height: 0;
-    border-left: 6px solid transparent; border-right: 6px solid transparent;
-    border-bottom: 10px solid var(--gold);
+    content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0; border-left: 8px solid transparent;
+    border-right: 8px solid transparent; border-bottom: 12px solid var(--gold);
   }
-  .qibla-center-dot {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--gold); box-shadow: 0 0 15px var(--gold);
-  }
-  .qibla-info { text-align: center; margin-top: 24px; }
-  .qibla-direction-label {
-    font-size: 14px; color: #888; letter-spacing: 1px;
-  }
-  .qibla-degrees {
-    font-size: 48px; font-weight: 800; color: var(--gold);
-    margin: 4px 0; text-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-  }
-  .qibla-city {
-    font-size: 15px; color: var(--primary); font-weight: 600;
-    margin-top: 4px;
-  }
-  .qibla-tip {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: 12px; padding: 12px 16px; margin-top: 20px;
-    font-size: 13px; color: #888;
-  }
-  body.dark-mode .qibla-compass { background: linear-gradient(135deg, #0a1a0a, #0D3B0E); }
-  body.dark-mode .qibla-city { color: #e0e0e0; }
+  .qibla-label { font-size: 14px; color: #888; margin-top: 16px; }
+  .qibla-degrees { font-size: 36px; font-weight: 700; color: var(--primary); }
+  .qibla-city { font-size: 16px; color: var(--gold); margin-top: 4px; }
+  .qibla-kaba { width: 60px; height: 60px; margin: 0 auto 10px; }
 
   /* === PRAYER TIMES === */
   .prayer-page { padding: 12px; padding-bottom: 80px; }
@@ -479,13 +409,11 @@
   .prayer-header .next-prayer-time { font-size: 14px; color: rgba(255,255,255,0.8); }
   .prayer-times { display: flex; flex-direction: column; gap: 8px; }
   .prayer-card {
-    background: white; border: 1.5px solid rgba(212, 175, 55, 0.12);
-    border-radius: 14px; padding: 16px 20px; display: flex;
-    align-items: center; justify-content: space-between; box-shadow: var(--card-shadow);
-    transition: var(--transition);
+    background: white; border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 14px; padding: 14px 18px; display: flex;
+    align-items: center; justify-content: space-between; box-shadow: var(--shadow);
   }
-  .prayer-card:hover { box-shadow: 0 6px 20px rgba(27, 94, 32, 0.08); }
-  .prayer-card.current { border-color: var(--gold); border-width: 2px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.03)); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15); }
+  .prayer-card.current { border-color: var(--gold); border-width: 2px; background: rgba(212, 175, 55, 0.05); }
   .prayer-card .prayer-name { font-size: 16px; font-weight: 700; color: var(--primary); }
   .prayer-card .prayer-time { font-size: 16px; color: var(--text-dark); font-weight: 500; }
   .prayer-card.current .prayer-name, .prayer-card.current .prayer-time { color: var(--gold); }
@@ -493,7 +421,7 @@
 
   /* Settings page */
   .settings-page { padding: 16px; padding-bottom: 80px; }
-  .settings-section { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.08); }
+  .settings-section { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--shadow); }
   .settings-section h3 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
   .settings-row:last-child { border-bottom: none; }
@@ -587,10 +515,7 @@
         <button class="azkar-tab active" id="azkarTabMor" onclick="switchAzkarTab('morning')">&#127749; أذكار الصباح</button>
         <button class="azkar-tab" id="azkarTabEve" onclick="switchAzkarTab('evening')">&#127769; أذكار المساء</button>
       </div>
-      <div id="azkarList">
-        <div id="azkarMorningList" class="azkar-sub-list"></div>
-        <div id="azkarEveningList" class="azkar-sub-list azkar-hidden"></div>
-      </div>
+      <div id="azkarList"></div>
     </div>
   </div>
 
@@ -616,29 +541,19 @@
     </div>
   </div>
 
-
   <!-- ===== QIBLA PAGE ===== -->
   <div class="page" id="page-qibla">
     <div class="qibla-page">
-      <div class="qibla-header">
-        <div class="qibla-compass-wrap">
-          <div class="qibla-compass" id="qiblaCompass">
-            <div class="qibla-ring"></div>
-            <div class="qibla-inner" id="qiblaInner">
-              <div class="qibla-needle" id="qiblaNeedle"></div>
-              <div class="qibla-center-dot"></div>
-            </div>
+      <div class="header" style="padding-right:0;"><h2>&#65021; اتجاه القبلة</h2></div>
+      <div class="qibla-container">
+        <div class="qibla-compass" id="qiblaCompass">
+          <div class="qibla-compass-inner" id="qiblaInner">
+            <div class="qibla-needle" id="qiblaNeedle"></div>
           </div>
         </div>
-        <div class="qibla-info">
-          <div class="qibla-direction-label">اتجاه القبلة</div>
-          <div class="qibla-degrees" id="qiblaDegrees">--°</div>
-          <div class="qibla-city" id="qiblaCity">جاري تحديد الموقع...</div>
-        </div>
-      </div>
-      <div class="qibla-tip">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        <span>حدد موقعك للحصول على اتجاه القبلة الدقيق</span>
+        <div class="qibla-label">اتجاه القبلة</div>
+        <div class="qibla-degrees" id="qiblaDegrees">--°</div>
+        <div class="qibla-city" id="qiblaCity">جاري تحديد الموقع...</div>
       </div>
     </div>
   </div>
@@ -671,8 +586,7 @@
       <div class="settings-section">
         <h3><span>&#8505;</span> عن التطبيق</h3>
         <div class="settings-row"><div><label>فهمني القرآن</label><small>استمع إلى شرح القرآن الكريم</small></div></div>
-        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.3.0</span></div>
-        <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: #888; font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
+        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;">2.0.0</span></div>
       </div>
       <div class="settings-section">
         <h3><span>&#128172;</span> الدعم</h3>
@@ -744,11 +658,9 @@
   <button class="nav-item" onclick="navigateTo('tasbih')" data-page="tasbih">
     <span class="nav-icon">&#128214;</span><span>تسبيح</span>
   </button>
-
   <button class="nav-item" onclick="navigateTo('qibla')" data-page="qibla">
-    <span class="nav-icon">&#x1F54B;</span><span>القبلة</span>
+    <span class="nav-icon">&#65021;</span><span>القبلة</span>
   </button>
-
   <button class="nav-item" onclick="navigateTo('prayer')" data-page="prayer">
     <span class="nav-icon">&#128720;</span><span>صلواتي</span>
   </button>
@@ -759,9 +671,9 @@
 const AZKAR_DATA = {
   morning: [
     { text: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ ﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾', count: 1, ref: 'آية الكرسي - البقرة 255' },
-    { text: '﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾', count: 3, ref: 'الإخلاص' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾', count: 3, ref: 'الفلق' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾', count: 3, ref: 'الناس' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾', count: 3, ref: 'الإخلاص' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾', count: 3, ref: 'الفلق' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾', count: 3, ref: 'الناس' },
     { text: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيرَ مَا بَعْدَهُ ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ', count: 1, ref: 'الصباح' },
     { text: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا ، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ', count: 1, ref: 'الصباح' },
     { text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنوبَ إِلاَّ أَنْتَ', count: 1, ref: 'سيد الاستغفار' },
@@ -785,9 +697,9 @@ const AZKAR_DATA = {
   ],
   evening: [
     { text: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيطَانِ الرَّجِيمِ ﴿اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَوَاتِ وَالْأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ﴾', count: 1, ref: 'آية الكرسي - البقرة 255' },
-    { text: '﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾', count: 3, ref: 'الإخلاص' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾', count: 3, ref: 'الفلق' },
-    { text: '﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾', count: 3, ref: 'الناس' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ هُوَ اللَّهُ أَحَدٌ* اللَّهُ الصَّمَدُ* لَمْ يَلِدْ وَلَمْ يُولَدْ* وَلَمْ يَكُن لَّهُ كُفُواً أَحَدٌ﴾', count: 3, ref: 'الإخلاص' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ* مِن شَرِّ مَا خَلَقَ* وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ* وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ* وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ﴾', count: 3, ref: 'الفلق' },
+    { text: 'بسم الله الرحمن الرحيم ﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ* مَلِكِ النَّاسِ* إِلَهِ النَّاسِ* مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ* الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ* مِنَ الْجِنَّةِ وَ النَّاسِ﴾', count: 3, ref: 'الناس' },
     { text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَهَ إلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيرَ مَا بَعْدَهَا ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ', count: 1, ref: 'المساء' },
     { text: 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ', count: 1, ref: 'المساء' },
     { text: 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لاَ يَغْفِرُ الذُّنوبَ إِلاَّ أَنْتَ', count: 1, ref: 'سيد الاستغفار' },
@@ -862,10 +774,9 @@ function navigateTo(page) {
   showPage(page);
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
-  if (page === 'azkar') { renderAzkar(); switchAzkarTab(state.azkarTab); }
+  if (page === 'azkar') renderAzkar();
   if (page === 'tasbih') { initTasbihDisplay(); }
   if (page === 'qibla') { initQibla(); }
-
   if (page === 'prayer') { renderPrayerTimes(); updateHijriDate(); }
 }
 
@@ -1046,52 +957,45 @@ if (localStorage.getItem('darkMode') === '0') { state.isDarkMode = false; } else
 function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
 
 // ============ AZKAR ============
-function renderAzkarList(containerId, dataArr, tab) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = dataArr.map((item, idx) => {
-    const key = tab + '_' + idx;
-    const done = state.azkarCounts[key] || 0;
-    const remaining = Math.max(0, item.count - done);
-    const completed = remaining === 0;
-    const text = item.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return '<div class="azkar-card">'
-      + '<div class="azkar-header"><span class="azkar-badge">' + (completed ? '✓ تم' : remaining + '/' + item.count) + '</span></div>'
-      + '<div class="azkar-text">' + text + '</div>'
-      + '<div class="azkar-footer"><span class="azkar-ref">' + item.ref + '</span>'
-      + '<button class="azkar-count-btn' + (completed ? ' completed' : '') + '" data-azkar-key="' + key + '" data-azkar-idx="' + idx + '">'
-      + '<span>عدد الذكر</span><span class="count-num">' + (completed ? '✓' : remaining) + '</span></button></div></div>';
-  }).join('');
-}
-function renderAzkar() {
-  renderAzkarList('azkarMorningList', AZKAR_DATA.morning, 'morning');
-  renderAzkarList('azkarEveningList', AZKAR_DATA.evening, 'evening');
-}
 function switchAzkarTab(tab) {
   state.azkarTab = tab;
-  var morBtn = document.getElementById('azkarTabMor');
-  var eveBtn = document.getElementById('azkarTabEve');
-  if (morBtn) morBtn.className = 'azkar-tab' + (tab === 'morning' ? ' active' : '');
-  if (eveBtn) eveBtn.className = 'azkar-tab' + (tab === 'evening' ? ' active' : '');
-  var ml = document.getElementById('azkarMorningList');
-  var el = document.getElementById('azkarEveningList');
-  if (ml) { ml.style.display = tab === 'morning' ? '' : 'none'; ml.classList.toggle('azkar-hidden', tab !== 'morning'); }
-  if (el) { el.style.display = tab === 'evening' ? '' : 'none'; el.classList.toggle('azkar-hidden', tab !== 'evening'); }
+  document.getElementById('azkarTabMor').className = `azkar-tab${tab === 'morning' ? ' active' : ''}`;
+  document.getElementById('azkarTabEve').className = `azkar-tab${tab === 'evening' ? ' active' : ''}`;
+  renderAzkar();
+}
+function azkarItemHTML(item, idx) {
+  const key = `${state.azkarTab}_${idx}`;
+  const done = state.azkarCounts[key] || 0;
+  const remaining = Math.max(0, item.count - done);
+  const completed = remaining === 0;
+  const text = item.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return '<div class="azkar-card">'
+    + '<div class="azkar-header"><span class="azkar-badge">' + (completed ? '✓ تم' : remaining + '/' + item.count) + '</span></div>'
+    + '<div class="azkar-text">' + text + '</div>'
+    + '<div class="azkar-footer"><span class="azkar-ref">' + item.ref + '</span>'
+    + '<button class="azkar-count-btn' + (completed ? ' completed' : '') + '" data-azkar-key="' + key + '" data-azkar-idx="' + idx + '">'
+    + '<span>عدد الذكر</span><span class="count-num">' + (completed ? '✓' : remaining) + '</span></button></div></div>';
+}
+function renderAzkar() {
+  const list = document.getElementById('azkarList');
+  if (!list) return;
+  const data = AZKAR_DATA[state.azkarTab];
+  if (!data || !data.length) { list.innerHTML = '<div class="empty-state"><h3>لا توجد أذكار</h3></div>'; return; }
+  list.innerHTML = data.map(azkarItemHTML).join('');
 }
 function setupAzkarEvents() {
   document.getElementById('azkarList').addEventListener('click', function(e) {
-    var btn = e.target.closest('[data-azkar-key]');
+    const btn = e.target.closest('[data-azkar-key]');
     if (!btn) return;
-    var key = btn.getAttribute('data-azkar-key');
-    var idx = parseInt(btn.getAttribute('data-azkar-idx'));
+    const key = btn.getAttribute('data-azkar-key');
+    const idx = parseInt(btn.getAttribute('data-azkar-idx'));
     if (isNaN(idx)) return;
-    var tab = key.split('_')[0];
-    var data = AZKAR_DATA[tab];
+    const tab = key.split('_')[0];
+    const data = AZKAR_DATA[tab];
     if (!data || !data[idx]) return;
-    var done = (state.azkarCounts[key] || 0) + 1;
+    const done = (state.azkarCounts[key] || 0) + 1;
     state.azkarCounts[key] = Math.min(done, data[idx].count);
     localStorage.setItem('azkarCounts', JSON.stringify(state.azkarCounts));
-    // Re-render both lists to update counts
     renderAzkar();
   });
 }
@@ -1133,40 +1037,70 @@ function tasbihNextDhikr() { state.tasbihIdx = (state.tasbihIdx + 1) % TASBIH_DH
 function tasbihPrevDhikr() { state.tasbihIdx = (state.tasbihIdx - 1 + TASBIH_DHIKRS.length) % TASBIH_DHIKRS.length; state.tasbihCount = 0; initTasbihDisplay(); }
 
 // ============ QIBLA ============
-const KAABA = { lat: 21.4225, lon: 39.8262 };
+const MECCA = { lat: 21.4225, lon: 39.8262 };
+let qiblaWatchId = null;
+
 function calcQibla(lat, lon) {
-  var dLon = (KAABA.lon - lon) * Math.PI / 180;
-  var lat1 = lat * Math.PI / 180;
-  var lat2 = KAABA.lat * Math.PI / 180;
-  var y = Math.sin(dLon);
-  var x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
-  var angle = Math.atan2(y, x) * 180 / Math.PI;
+  const dLon = (MECCA.lon - lon) * Math.PI / 180;
+  const lat1 = lat * Math.PI / 180;
+  const lat2 = MECCA.lat * Math.PI / 180;
+  const y = Math.sin(dLon);
+  const x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
+  let angle = Math.atan2(y, x) * 180 / Math.PI;
   return (angle + 360) % 360;
 }
+
 function initQibla() {
-  var cityEl = document.getElementById('qiblaCity');
-  if (!cityEl) return;
-  if (!navigator.geolocation) { cityEl.textContent = 'الموقع غير متاح على هذا الجهاز'; return; }
+  if (!navigator.geolocation) { document.getElementById('qiblaCity').textContent = 'الموقع غير متاح على هذا الجهاز'; return; }
   if (state.qiblaLat !== null) {
     updateQiblaDisplay();
     return;
   }
-  navigator.geolocation.getCurrentPosition(function(pos) {
+  navigator.geolocation.getCurrentPosition(pos => {
     state.qiblaLat = pos.coords.latitude;
     state.qiblaLon = pos.coords.longitude;
     updateQiblaDisplay();
-  }, function() {
-    cityEl.textContent = 'الرجاء السماح بتحديد الموقع';
+    startQiblaCompass();
+  }, () => {
+    document.getElementById('qiblaCity').textContent = 'الرجاء السماح بتحديد الموقع';
   }, { enableHighAccuracy: true, timeout: 10000 });
 }
 function updateQiblaDisplay() {
-  var angle = calcQibla(state.qiblaLat, state.qiblaLon);
-  var degEl = document.getElementById('qiblaDegrees');
-  var cityEl = document.getElementById('qiblaCity');
-  var needle = document.getElementById('qiblaNeedle');
-  if (degEl) degEl.textContent = Math.round(angle) + '°';
-  if (cityEl) cityEl.textContent = state.qiblaLat.toFixed(2) + '°, ' + state.qiblaLon.toFixed(2) + '°';
-  if (needle) needle.style.transform = 'translate(-50%, -100%) rotate(' + angle + 'deg)';
+  const qiblaAngle = calcQibla(state.qiblaLat, state.qiblaLon);
+  document.getElementById('qiblaDegrees').textContent = `${Math.round(qiblaAngle)}°`;
+  document.getElementById('qiblaCity').textContent = `${state.qiblaLat.toFixed(2)}°, ${state.qiblaLon.toFixed(2)}°`;
+  updateQiblaNeedle(qiblaAngle);
+}
+
+function startQiblaCompass() {
+  const qiblaAngle = calcQibla(state.qiblaLat, state.qiblaLon);
+  document.getElementById('qiblaCity').textContent = state.qiblaLat
+    ? `${state.qiblaLat.toFixed(2)}°, ${state.qiblaLon.toFixed(2)}°`
+    : 'الرجاء السماح بتحديد الموقع';
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', function handler(e) {
+      let alpha = e.alpha || 0;
+      if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) alpha = e.webkitCompassHeading;
+      const adjusted = (qiblaAngle - alpha + 360) % 360;
+      updateQiblaNeedle(adjusted);
+    }, true);
+    // Fallback timeout: if no deviceorientation event within 3s, show static direction
+    setTimeout(() => {
+      if (!state._compassActive) {
+        updateQiblaNeedle(qiblaAngle);
+        document.getElementById('qiblaCity').textContent += ' (البوصلة غير متاحة، استخدم الاتجاه الثابت)';
+      }
+    }, 3000);
+    state._compassActive = false;
+    window.addEventListener('deviceorientation', function() { state._compassActive = true; }, { once: true });
+  } else {
+    updateQiblaNeedle(qiblaAngle);
+  }
+}
+
+function updateQiblaNeedle(degrees) {
+  const needle = document.getElementById('qiblaNeedle');
+  if (needle) needle.style.transform = `translate(-50%, -100%) rotate(${degrees}deg)`;
 }
 
 // ============ PRAYER TIMES ============
