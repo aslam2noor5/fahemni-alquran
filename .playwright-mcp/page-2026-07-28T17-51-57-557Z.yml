@@ -1,0 +1,49 @@
+- generic [ref=f100e2]:
+  - link "Skip to content" [ref=f100e3] [cursor=pointer]:
+    - /url: "#start-of-content"
+  - generic [ref=f100e15]:
+    - heading "Device Activation" [level=2] [ref=f100e16]
+    - generic [ref=f100e17]:
+      - generic [ref=f100e19]:
+        - generic [ref=f100e20]:
+          - img "@aslam2noor5" [ref=f100e22]
+          - paragraph [ref=f100e24]:
+            - text: Signed in as
+            - strong [ref=f100e26]: aslam2noor5
+        - button "Continue as aslam2noor5" [ref=f100e29] [cursor=pointer]: Continue
+      - button "Use a different account" [ref=f100e30] [cursor=pointer]
+  - contentinfo [ref=f100e31]:
+    - heading "Footer" [level=2] [ref=f100e32]
+    - generic [ref=f100e33]:
+      - generic [ref=f100e34]:
+        - link "GitHub Homepage" [ref=f100e35] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f100e38]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f100e39]:
+        - heading "Footer navigation" [level=3] [ref=f100e40]
+        - list "Footer navigation" [ref=f100e41]:
+          - listitem [ref=f100e42]:
+            - link "Terms" [ref=f100e43] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f100e44]:
+            - link "Privacy" [ref=f100e45] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f100e46]:
+            - link "Security" [ref=f100e47] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f100e48]:
+            - link "Status" [ref=f100e49] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f100e50]:
+            - link "Community" [ref=f100e51] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f100e52]:
+            - link "Docs" [ref=f100e53] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f100e54]:
+            - link "Contact" [ref=f100e55] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f100e56]:
+            - button "Manage cookies" [ref=f100e58] [cursor=pointer]
+          - listitem [ref=f100e59]:
+            - button "Do not share my personal information" [ref=f100e61] [cursor=pointer]

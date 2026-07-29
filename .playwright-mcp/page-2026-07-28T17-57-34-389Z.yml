@@ -1,0 +1,106 @@
+- generic [ref=f108e2]:
+  - generic [ref=f108e3]:
+    - link "Skip to content" [ref=f108e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f108e8]:
+      - generic [ref=f108e9]:
+        - generic [ref=f108e10]:
+          - button "Open menu" [ref=f108e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f108e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f108e18]:
+          - navigation "Breadcrumbs" [ref=f108e19]:
+            - list [ref=f108e20]:
+              - listitem [ref=f108e21]:
+                - link "Settings" [ref=f108e22] [cursor=pointer]:
+                  - /url: /settings/profile
+              - listitem [ref=f108e24]:
+                - link "Developer Settings" [ref=f108e25] [cursor=pointer]:
+                  - /url: /settings/apps
+          - button "Search or jump to…" [ref=f108e29] [cursor=pointer]:
+            - generic [ref=f108e31]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f108e32]:
+          - generic [ref=f108e33]:
+            - generic [ref=f108e36]:
+              - link "Chat with Copilot" [ref=f108e38] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f108e43] [cursor=pointer]
+            - button "Create new..." [ref=f108e45] [cursor=pointer]
+            - generic [ref=f108e47]:
+              - link "All issues (g then i)" [ref=f108e48] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f108e52] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f108e55] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f108e58] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f108e62] [cursor=pointer]:
+            - img "User avatar" [ref=f108e63]
+  - main [ref=f108e66]:
+    - generic [ref=f108e68]:
+      - navigation "Developer settings" [ref=f108e71]:
+        - list [ref=f108e73]:
+          - listitem [ref=f108e74]:
+            - link "GitHub Apps" [ref=f108e75] [cursor=pointer]:
+              - /url: /settings/apps
+          - listitem [ref=f108e77]:
+            - link "OAuth Apps" [ref=f108e78] [cursor=pointer]:
+              - /url: /settings/developers
+          - listitem [ref=f108e80]:
+            - button "Personal access tokens" [expanded] [ref=f108e81] [cursor=pointer]
+            - list "Personal access tokens" [ref=f108e83]:
+              - listitem [ref=f108e84]:
+                - link "Fine-grained tokens" [ref=f108e85] [cursor=pointer]:
+                  - /url: /settings/personal-access-tokens
+              - listitem [ref=f108e87]:
+                - link "Tokens (classic)" [ref=f108e88] [cursor=pointer]:
+                  - /url: /settings/tokens
+      - generic [ref=f108e93]:
+        - heading "Fine-grained personal access tokens" [level=2] [ref=f108e95]
+        - generic [ref=f108e97]:
+          - heading "No fine-grained tokens created" [level=2] [ref=f108e101]
+          - paragraph [ref=f108e102]: Need an API token for scripts or testing? Generate a personal access token for quick access to the GitHub API.
+          - link "Generate new token" [ref=f108e104] [cursor=pointer]:
+            - /url: /settings/personal-access-tokens/new
+          - link "GitHub API" [ref=f108e108] [cursor=pointer]:
+            - /url: https://docs.github.com
+  - contentinfo [ref=f108e109]:
+    - heading "Footer" [level=2] [ref=f108e110]
+    - generic [ref=f108e111]:
+      - generic [ref=f108e112]:
+        - link "GitHub Homepage" [ref=f108e113] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f108e116]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f108e117]:
+        - heading "Footer navigation" [level=3] [ref=f108e118]
+        - list "Footer navigation" [ref=f108e119]:
+          - listitem [ref=f108e120]:
+            - link "Terms" [ref=f108e121] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f108e122]:
+            - link "Privacy" [ref=f108e123] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f108e124]:
+            - link "Security" [ref=f108e125] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f108e126]:
+            - link "Status" [ref=f108e127] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f108e128]:
+            - link "Community" [ref=f108e129] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f108e130]:
+            - link "Docs" [ref=f108e131] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f108e132]:
+            - link "Contact" [ref=f108e133] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f108e134]:
+            - button "Manage cookies" [ref=f108e136] [cursor=pointer]
+          - listitem [ref=f108e137]:
+            - button "Do not share my personal information" [ref=f108e139] [cursor=pointer]

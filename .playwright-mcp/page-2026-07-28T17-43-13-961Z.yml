@@ -1,0 +1,33 @@
+- generic [active] [ref=f40e8]:
+  - generic [ref=f40e685]:
+    - generic [ref=f40e833]:
+      - status "Loading" [ref=f40e835]
+      - generic [ref=f40e838]: Loading
+    - contentinfo [ref=f40e706]:
+      - list [ref=f40e708]:
+        - listitem [ref=f40e709]:
+          - link "Support" [ref=f40e710] [cursor=pointer]:
+            - /url: https://support.cloudflare.com
+        - listitem [ref=f40e711]:
+          - link "System status" [ref=f40e712] [cursor=pointer]:
+            - /url: https://www.cloudflarestatus.com
+        - listitem [ref=f40e713]:
+          - link "Careers" [ref=f40e714] [cursor=pointer]:
+            - /url: https://www.cloudflare.com/careers/
+        - listitem [ref=f40e715]:
+          - link "Terms of Use" [ref=f40e716] [cursor=pointer]:
+            - /url: https://www.cloudflare.com/website-terms/
+        - listitem [ref=f40e717]:
+          - link "Report Security Issues" [ref=f40e718] [cursor=pointer]:
+            - /url: https://www.cloudflare.com/disclosure/
+        - listitem [ref=f40e719]:
+          - link "Privacy Policy" [ref=f40e720] [cursor=pointer]:
+            - /url: https://www.cloudflare.com/privacypolicy/
+        - listitem [ref=f40e721]:
+          - button [ref=f40e722] [cursor=pointer]:
+            - img "A blue and white pill with a checkmark and an x, representing privacy choices" [ref=f40e723]
+            - text: Cookie Preferences
+        - listitem [ref=f40e724]:
+          - generic [ref=f40e725]: © 2026 Cloudflare, Inc.
+  - generic:
+    - region "Notifications"

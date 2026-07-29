@@ -1,0 +1,75 @@
+- generic [ref=f97e2]:
+  - generic [ref=f97e3]:
+    - link "Skip to content" [ref=f97e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f97e8]:
+      - generic [ref=f97e9]:
+        - generic [ref=f97e10]:
+          - button "Open menu" [ref=f97e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f97e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f97e18]:
+          - navigation "Breadcrumbs" [ref=f97e19]:
+            - list [ref=f97e20]:
+              - listitem [ref=f97e21]:
+                - generic [ref=f97e22]: New repository
+          - button "Search or jump to…" [ref=f97e26] [cursor=pointer]:
+            - generic [ref=f97e28]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f97e29]:
+          - generic [ref=f97e30]:
+            - generic [ref=f97e33]:
+              - link "Chat with Copilot" [ref=f97e35] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f97e40] [cursor=pointer]
+            - button "Create new..." [ref=f97e42] [cursor=pointer]
+            - generic [ref=f97e44]:
+              - link "All issues (g then i)" [ref=f97e45] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f97e49] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f97e52] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f97e55] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f97e59] [cursor=pointer]:
+            - img "User avatar" [ref=f97e60]
+  - main [ref=f97e63]
+  - contentinfo [ref=f97e65]:
+    - heading "Footer" [level=2] [ref=f97e66]
+    - generic [ref=f97e67]:
+      - generic [ref=f97e68]:
+        - link "GitHub Homepage" [ref=f97e69] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f97e72]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f97e73]:
+        - heading "Footer navigation" [level=3] [ref=f97e74]
+        - list "Footer navigation" [ref=f97e75]:
+          - listitem [ref=f97e76]:
+            - link "Terms" [ref=f97e77] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f97e78]:
+            - link "Privacy" [ref=f97e79] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f97e80]:
+            - link "Security" [ref=f97e81] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f97e82]:
+            - link "Status" [ref=f97e83] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f97e84]:
+            - link "Community" [ref=f97e85] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f97e86]:
+            - link "Docs" [ref=f97e87] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f97e88]:
+            - link "Contact" [ref=f97e89] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f97e90]:
+            - button "Manage cookies" [ref=f97e92] [cursor=pointer]
+          - listitem [ref=f97e93]:
+            - button "Do not share my personal information" [ref=f97e95] [cursor=pointer]

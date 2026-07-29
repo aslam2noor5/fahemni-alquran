@@ -1,0 +1,123 @@
+- generic [ref=f116e2]:
+  - generic [ref=f116e3]:
+    - link "Skip to content" [ref=f116e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f116e8]:
+      - generic [ref=f116e9]:
+        - generic [ref=f116e10]:
+          - button "Open menu" [ref=f116e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f116e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f116e18]:
+          - navigation "Breadcrumbs" [ref=f116e19]:
+            - list [ref=f116e20]:
+              - listitem [ref=f116e21]:
+                - link "Settings" [ref=f116e22] [cursor=pointer]:
+                  - /url: /settings/profile
+              - listitem [ref=f116e24]:
+                - link "Developer Settings" [ref=f116e25] [cursor=pointer]:
+                  - /url: /settings/apps
+          - button "Search or jump to…" [ref=f116e29] [cursor=pointer]:
+            - generic [ref=f116e31]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f116e32]:
+          - generic [ref=f116e33]:
+            - generic [ref=f116e36]:
+              - link "Chat with Copilot" [ref=f116e38] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f116e43] [cursor=pointer]
+            - button "Create new..." [ref=f116e45] [cursor=pointer]
+            - generic [ref=f116e47]:
+              - link "All issues (g then i)" [ref=f116e48] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f116e52] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f116e55] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f116e58] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f116e62] [cursor=pointer]:
+            - img "User avatar" [ref=f116e63]
+  - main [ref=f116e66]:
+    - generic [ref=f116e68]:
+      - navigation "Developer settings" [ref=f116e71]:
+        - list [ref=f116e73]:
+          - listitem [ref=f116e74]:
+            - link "GitHub Apps" [ref=f116e75] [cursor=pointer]:
+              - /url: /settings/apps
+          - listitem [ref=f116e77]:
+            - link "OAuth Apps" [ref=f116e78] [cursor=pointer]:
+              - /url: /settings/developers
+          - listitem [ref=f116e80]:
+            - button "Personal access tokens" [expanded] [ref=f116e81] [cursor=pointer]
+            - list "Personal access tokens" [ref=f116e83]:
+              - listitem [ref=f116e84]:
+                - link "Fine-grained tokens" [ref=f116e85] [cursor=pointer]:
+                  - /url: /settings/personal-access-tokens
+              - listitem [ref=f116e87]:
+                - link "Tokens (classic)" [ref=f116e88] [cursor=pointer]:
+                  - /url: /settings/tokens
+      - generic [ref=f116e92]:
+        - generic [ref=f116e93]:
+          - generic [ref=f116e94]:
+            - heading "Personal access tokens (classic)" [level=2] [ref=f116e95]
+            - group [ref=f116e97]:
+              - button "Generate new token" [ref=f116e98] [cursor=pointer]
+          - paragraph [ref=f116e99]:
+            - text: Tokens you have generated that can be used to access the
+            - link "GitHub API" [ref=f116e100] [cursor=pointer]:
+              - /url: https://docs.github.com
+            - text: .
+          - generic [ref=f116e103]:
+            - group [ref=f116e106]:
+              - button "Delete" [ref=f116e107] [cursor=pointer]
+            - generic [ref=f116e108]: Never used
+            - generic [ref=f116e109]:
+              - strong [ref=f116e110]:
+                - link "whatsapp-marketing-pro-push" [ref=f116e111] [cursor=pointer]:
+                  - /url: /settings/tokens/4958245081
+              - emphasis [ref=f116e113]: — repo
+            - generic [ref=f116e114]: Expires on Sat, Aug 15 2026.
+        - generic [ref=f116e116]:
+          - text: Personal access tokens (classic) function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS, or can be used to
+          - link "authenticate to the API over Basic Authentication" [ref=f116e117] [cursor=pointer]:
+            - /url: https://docs.github.com/v3/auth/#basic-authentication
+          - text: .
+  - contentinfo [ref=f116e118]:
+    - heading "Footer" [level=2] [ref=f116e119]
+    - generic [ref=f116e120]:
+      - generic [ref=f116e121]:
+        - link "GitHub Homepage" [ref=f116e122] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f116e125]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f116e126]:
+        - heading "Footer navigation" [level=3] [ref=f116e127]
+        - list "Footer navigation" [ref=f116e128]:
+          - listitem [ref=f116e129]:
+            - link "Terms" [ref=f116e130] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f116e131]:
+            - link "Privacy" [ref=f116e132] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f116e133]:
+            - link "Security" [ref=f116e134] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f116e135]:
+            - link "Status" [ref=f116e136] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f116e137]:
+            - link "Community" [ref=f116e138] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f116e139]:
+            - link "Docs" [ref=f116e140] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f116e141]:
+            - link "Contact" [ref=f116e142] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f116e143]:
+            - button "Manage cookies" [ref=f116e145] [cursor=pointer]
+          - listitem [ref=f116e146]:
+            - button "Do not share my personal information" [ref=f116e148] [cursor=pointer]

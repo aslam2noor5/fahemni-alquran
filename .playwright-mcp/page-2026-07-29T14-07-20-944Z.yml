@@ -1,0 +1,285 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - button "Open menu" [ref=e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=e18]:
+          - navigation "Breadcrumbs" [ref=e19]:
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - link "aslam2noor5" [ref=e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=e24]:
+                - link "fahemni-alquran" [ref=e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=e31] [cursor=pointer]:
+            - generic [ref=e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e38]:
+              - link "Chat with Copilot" [ref=e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=e45] [cursor=pointer]
+            - button "Create new..." [ref=e47] [cursor=pointer]
+            - generic [ref=e49]:
+              - link "All issues" [ref=e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=e64] [cursor=pointer]:
+            - img "User avatar" [ref=e65]
+      - heading "Repository navigation" [level=2] [ref=e66]
+      - navigation "Repository" [ref=e67]:
+        - list [ref=e68]:
+          - listitem [ref=e69]:
+            - link "Code" [ref=e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=e72]:
+            - link "Issues" [ref=e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=e75]:
+            - link "Pull requests" [ref=e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=e78]:
+            - link "Agents" [ref=e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=e81]:
+            - link "Actions" [ref=e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=e84]:
+            - link "Projects" [ref=e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=e87]:
+            - link "Wiki" [ref=e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=e90]:
+            - link "Security and quality" [ref=e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=e93]:
+            - link "Insights" [ref=e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=e96]:
+            - link "Settings" [ref=e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=e102]:
+    - generic [ref=e115]:
+      - generic [ref=e120]:
+        - generic [ref=e123]:
+          - img "aslam2noor5" [ref=e124]
+          - generic "fahemni-alquran" [ref=e125]:
+            - strong [ref=e126]:
+              - link "fahemni-alquran" [ref=e127] [cursor=pointer]:
+                - /url: /aslam2noor5/fahemni-alquran
+          - generic [ref=e128]: Public
+        - list [ref=e130]:
+          - listitem [ref=e131]:
+            - button "Pin aslam2noor5/fahemni-alquran" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Pin
+          - listitem [ref=e135]:
+            - 'button "Watch: Participating in aslam2noor5/fahemni-alquran. Click to change subscription settings." [ref=e136] [cursor=pointer]':
+              - generic [ref=e137]:
+                - generic [ref=e138]: Watch
+                - generic:
+                  - generic: "0"
+                  - generic: (0)
+          - listitem [ref=e139]:
+            - button "You own aslam2noor5/fahemni-alquran and are not a member of any organizations" [ref=e140]:
+              - generic [ref=e142]:
+                - text: Fork
+                - generic [ref=e143]: "0"
+                - generic [ref=e144]: (0)
+          - listitem [ref=e145]:
+            - generic [ref=e146]:
+              - button "Star aslam2noor5/fahemni-alquran" [ref=e149] [cursor=pointer]:
+                - generic [ref=e151]:
+                  - text: Star
+                  - generic [ref=e152]: "0"
+                  - generic [ref=e153]: (0)
+              - button "Star lists" [ref=e155] [cursor=pointer]
+      - generic [ref=e158]:
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - generic [ref=e163]:
+              - button "master branch" [ref=e165] [cursor=pointer]:
+                - generic [ref=e166]: master
+              - generic [ref=e170]:
+                - link "Go to Branches page" [ref=e171] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/branches
+                - link "Go to Tags page" [ref=e174] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/tags
+            - generic [ref=e177]:
+              - generic [ref=e179]:
+                - heading "Add file" [level=2] [ref=e180]
+                - button "Add file" [ref=e181] [cursor=pointer]
+              - button "Code" [ref=e186] [cursor=pointer]
+          - generic [ref=e189]:
+            - generic [ref=e190]:
+              - heading "Folders and files" [level=2] [ref=e191]
+              - table "Folders and files" [ref=e192]:
+                - rowgroup:
+                  - row "Name Last commit message Last commit date":
+                    - columnheader "Name"
+                    - columnheader "Last commit message"
+                    - columnheader "Last commit date"
+                - rowgroup [ref=e193]:
+                  - row [ref=e194]:
+                    - cell "Latest commit History 21 Commits" [ref=e195]:
+                      - generic [ref=e196]:
+                        - heading "Latest commit" [level=2] [ref=e197]
+                        - generic [ref=e200]:
+                          - heading "History" [level=2] [ref=e201]
+                          - link "21 Commits" [ref=e202] [cursor=pointer]:
+                            - /url: /aslam2noor5/fahemni-alquran/commits/master/
+                  - row "fahemni_alquran, (Directory)" [ref=e205]:
+                    - cell [ref=e206]:
+                      - link "fahemni_alquran, (Directory)" [ref=e213] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/tree/master/fahemni_alquran
+                        - text: fahemni_alquran
+                    - cell [ref=e214]
+                    - cell [ref=e216]
+                  - row "السور, (Directory)" [ref=e219]:
+                    - cell [ref=e220]:
+                      - link "السور, (Directory)" [ref=e227] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/tree/master/%D8%A7%D9%84%D8%B3%D9%88%D8%B1
+                        - text: السور
+                    - cell [ref=e228]
+                    - cell [ref=e230]
+                  - row ".env.example, (File)" [ref=e233]:
+                    - cell [ref=e234]:
+                      - link ".env.example, (File)" [ref=e241] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/.env.example
+                        - text: .env.example
+                    - cell [ref=e242]
+                    - cell [ref=e244]
+                  - row ".gitignore, (File)" [ref=e247]:
+                    - cell [ref=e248]:
+                      - link ".gitignore, (File)" [ref=e255] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/.gitignore
+                        - text: .gitignore
+                    - cell [ref=e256]
+                    - cell [ref=e258]
+                  - row "HOW_TO_USE.md, (File)" [ref=e261]:
+                    - cell [ref=e262]:
+                      - link "HOW_TO_USE.md, (File)" [ref=e269] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/HOW_TO_USE.md
+                        - text: HOW_TO_USE.md
+                    - cell [ref=e270]
+                    - cell [ref=e272]
+                  - row "check_structure.cmd, (File)" [ref=e275]:
+                    - cell [ref=e276]:
+                      - link "check_structure.cmd, (File)" [ref=e283] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/check_structure.cmd
+                        - text: check_structure.cmd
+                    - cell [ref=e284]
+                    - cell [ref=e286]
+                  - row "data.json, (File)" [ref=e289]:
+                    - cell [ref=e290]:
+                      - link "data.json, (File)" [ref=e297] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/data.json
+                        - text: data.json
+                    - cell [ref=e298]
+                    - cell [ref=e300]
+                  - row "test_app.html, (File)" [ref=e303]:
+                    - cell [ref=e304]:
+                      - link "test_app.html, (File)" [ref=e311] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/test_app.html
+                        - text: test_app.html
+                    - cell [ref=e312]
+                    - cell [ref=e314]
+                  - row "upload_r2.py, (File)" [ref=e317]:
+                    - cell [ref=e318]:
+                      - link "upload_r2.py, (File)" [ref=e325] [cursor=pointer]:
+                        - /url: /aslam2noor5/fahemni-alquran/blob/master/upload_r2.py
+                        - text: upload_r2.py
+                    - cell [ref=e326]
+                    - cell [ref=e328]
+            - generic [ref=e332]:
+              - generic [ref=e333]:
+                - heading "Repository files navigation" [level=2] [ref=e334]
+                - navigation "Repository files" [ref=e335]:
+                  - list [ref=e336]:
+                    - listitem [ref=e337]:
+                      - link "README" [ref=e338] [cursor=pointer]:
+                        - /url: "#"
+              - generic [ref=e341]:
+                - heading "Add a README" [level=2] [ref=e345]
+                - paragraph [ref=e346]: Help people interested in this repository understand your project.
+                - link "Add a README" [ref=e348] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran/new/master?filename=README.md
+        - generic [ref=e353]:
+          - generic [ref=e354]:
+            - heading "About Edit repository metadata" [level=2] [ref=e355]:
+              - generic [ref=e357]:
+                - generic [ref=e358]: About
+                - button "Edit repository metadata" [ref=e359] [cursor=pointer]
+            - paragraph [ref=e362]: ملفات القرآن الصوتية - تطبيق فهمني القرآن
+            - link "Activity" [ref=e364] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/activity
+            - heading "Stars" [level=3] [ref=e367]
+            - link [ref=e369] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/stargazers
+              - strong [ref=e373]: "0"
+              - text: stars
+            - heading "Watchers" [level=3] [ref=e374]
+            - link [ref=e376] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/watchers
+              - strong [ref=e380]: "0"
+              - text: watching
+            - heading "Forks" [level=3] [ref=e381]
+            - link [ref=e383] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/forks
+              - strong [ref=e387]: "0"
+              - text: forks
+          - heading "Releases" [level=2] [ref=e389]
+          - heading "Packages" [level=2] [ref=e393]
+          - heading "Contributors" [level=2] [ref=e396]
+          - heading "Languages" [level=2] [ref=e399]
+  - contentinfo [ref=e402]:
+    - heading "Footer" [level=2] [ref=e403]
+    - generic [ref=e404]:
+      - generic [ref=e405]:
+        - link "GitHub Homepage" [ref=e406] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=e409]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e410]:
+        - heading "Footer navigation" [level=3] [ref=e411]
+        - list "Footer navigation" [ref=e412]:
+          - listitem [ref=e413]:
+            - link "Terms" [ref=e414] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e415]:
+            - link "Privacy" [ref=e416] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e417]:
+            - link "Security" [ref=e418] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e419]:
+            - link "Status" [ref=e420] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e421]:
+            - link "Community" [ref=e422] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e423]:
+            - link "Docs" [ref=e424] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e425]:
+            - link "Contact" [ref=e426] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e427]:
+            - button "Manage cookies" [ref=e429] [cursor=pointer]
+          - listitem [ref=e430]:
+            - button "Do not share my personal information" [ref=e432] [cursor=pointer]

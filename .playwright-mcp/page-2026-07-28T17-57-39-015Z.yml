@@ -1,0 +1,168 @@
+- generic [ref=f109e2]:
+  - generic [ref=f109e3]:
+    - link "Skip to content" [ref=f109e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f109e8]:
+      - generic [ref=f109e9]:
+        - generic [ref=f109e10]:
+          - button "Open menu" [ref=f109e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f109e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f109e18]:
+          - navigation "Breadcrumbs" [ref=f109e19]:
+            - list [ref=f109e20]:
+              - listitem [ref=f109e21]:
+                - link "Settings" [ref=f109e22] [cursor=pointer]:
+                  - /url: /settings/profile
+              - listitem [ref=f109e24]:
+                - link "Developer Settings" [ref=f109e25] [cursor=pointer]:
+                  - /url: /settings/apps
+          - button "Search or jump to…" [ref=f109e29] [cursor=pointer]:
+            - generic [ref=f109e31]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f109e32]:
+          - generic [ref=f109e33]:
+            - generic [ref=f109e36]:
+              - link "Chat with Copilot" [ref=f109e38] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f109e43] [cursor=pointer]
+            - button "Create new..." [ref=f109e45] [cursor=pointer]
+            - generic [ref=f109e47]:
+              - link "All issues (g then i)" [ref=f109e48] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f109e52] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f109e55] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f109e58] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f109e62] [cursor=pointer]:
+            - img "User avatar" [ref=f109e63]
+  - main [ref=f109e66]:
+    - generic [ref=f109e68]:
+      - navigation "Developer settings" [ref=f109e71]:
+        - list [ref=f109e73]:
+          - listitem [ref=f109e74]:
+            - link "GitHub Apps" [ref=f109e75] [cursor=pointer]:
+              - /url: /settings/apps
+          - listitem [ref=f109e77]:
+            - link "OAuth Apps" [ref=f109e78] [cursor=pointer]:
+              - /url: /settings/developers
+          - listitem [ref=f109e80]:
+            - button "Personal access tokens" [expanded] [ref=f109e81] [cursor=pointer]
+            - list "Personal access tokens" [ref=f109e83]:
+              - listitem [ref=f109e84]:
+                - link "Fine-grained tokens" [ref=f109e85] [cursor=pointer]:
+                  - /url: /settings/personal-access-tokens
+              - listitem [ref=f109e87]:
+                - link "Tokens (classic)" [ref=f109e88] [cursor=pointer]:
+                  - /url: /settings/tokens
+      - generic [ref=f109e92]:
+        - heading "New fine-grained personal access token" [level=2] [ref=f109e94]
+        - paragraph [ref=f109e95]: Create a fine-grained, repository-scoped token suitable for personal API use and for using Git over HTTPS.
+        - form "personal access token" [ref=f109e96]:
+          - generic [ref=f109e97]:
+            - generic [ref=f109e98]: Token name *
+            - textbox "Token name" [ref=f109e101]
+            - text: A unique name for this token. May be visible to resource owners or users with possession of the token.
+          - generic [ref=f109e102]:
+            - generic [ref=f109e103]: Description
+            - textbox "Description" [ref=f109e104]
+          - generic [ref=f109e105]:
+            - generic [ref=f109e106]: Resource owner
+            - button "Resource owner" [ref=f109e109] [cursor=pointer]:
+              - generic [ref=f109e111]:
+                - img "@aslam2noor5" [ref=f109e112]
+                - text: aslam2noor5
+            - generic [ref=f109e113]: The token will only be able to make changes to resources owned by the selected resource owner. Tokens can always read all public repositories.
+          - generic [ref=f109e115]:
+            - generic [ref=f109e117]:
+              - term [ref=f109e118]: Expiration
+              - definition [ref=f109e119]:
+                - button [ref=f109e124] [cursor=pointer]
+            - generic [ref=f109e127]: The token will expire on the selected date
+          - generic [ref=f109e128]:
+            - generic [ref=f109e129]:
+              - heading "Repository access" [level=3] [ref=f109e131]
+              - radiogroup "Repository access" [ref=f109e133]:
+                - generic [ref=f109e135]:
+                  - generic [ref=f109e136]:
+                    - radio "Public repositories" [checked] [ref=f109e137] [cursor=pointer]
+                    - generic [ref=f109e138]:
+                      - generic [ref=f109e139] [cursor=pointer]: Public repositories
+                      - generic [ref=f109e140]: Read-only access to public repositories.
+                  - generic [ref=f109e141]:
+                    - radio "All repositories" [ref=f109e142] [cursor=pointer]
+                    - generic [ref=f109e143]:
+                      - generic [ref=f109e144] [cursor=pointer]: All repositories
+                      - generic [ref=f109e145]: This applies to all current and future repositories you own. Also includes public repositories (read-only).
+                  - generic [ref=f109e146]:
+                    - radio "Only select repositories" [ref=f109e147] [cursor=pointer]
+                    - generic [ref=f109e148]:
+                      - generic [ref=f109e149] [cursor=pointer]: Only select repositories
+                      - generic [ref=f109e150]: Select at least one repository. Max 50 repositories. Also includes public repositories (read-only).
+            - generic [ref=f109e152]:
+              - heading "Permissions" [level=3] [ref=f109e154]
+              - paragraph [ref=f109e155]:
+                - text: Choose the minimal permissions necessary for your needs.
+                - link "Learn more about permissions." [ref=f109e156] [cursor=pointer]:
+                  - /url: https://docs.github.com/rest/overview/permissions-required-for-fine-grained-personal-access-tokens
+              - generic [ref=f109e158]:
+                - heading "Permissions" [level=2] [ref=f109e159]
+                - generic [ref=f109e160]:
+                  - button "Account (0)" [ref=f109e163] [cursor=pointer]:
+                    - generic [ref=f109e164]:
+                      - generic [ref=f109e165]: Account
+                      - generic:
+                        - generic: "0"
+                        - generic: (0)
+                  - button "Add permissions" [ref=f109e168] [cursor=pointer]
+                - list "Permissions" [ref=f109e173]:
+                  - listitem "." [ref=f109e174]:
+                    - generic [ref=f109e175]: Permission Blank Slate
+                    - generic [ref=f109e177]:
+                      - heading "No account permissions added yet" [level=2] [ref=f109e181]
+                      - paragraph [ref=f109e182]: User permissions permit access to resources under your personal GitHub account.
+            - generic [ref=f109e183]:
+              - button "Generate token" [ref=f109e184] [cursor=pointer]
+              - link "Cancel" [ref=f109e187] [cursor=pointer]:
+                - /url: /settings/personal-access-tokens
+            - paragraph [ref=f109e190]: This token will be ready for use immediately.
+  - contentinfo [ref=f109e191]:
+    - heading "Footer" [level=2] [ref=f109e192]
+    - generic [ref=f109e193]:
+      - generic [ref=f109e194]:
+        - link "GitHub Homepage" [ref=f109e195] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f109e198]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f109e199]:
+        - heading "Footer navigation" [level=3] [ref=f109e200]
+        - list "Footer navigation" [ref=f109e201]:
+          - listitem [ref=f109e202]:
+            - link "Terms" [ref=f109e203] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f109e204]:
+            - link "Privacy" [ref=f109e205] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f109e206]:
+            - link "Security" [ref=f109e207] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f109e208]:
+            - link "Status" [ref=f109e209] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f109e210]:
+            - link "Community" [ref=f109e211] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f109e212]:
+            - link "Docs" [ref=f109e213] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f109e214]:
+            - link "Contact" [ref=f109e215] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f109e216]:
+            - button "Manage cookies" [ref=f109e218] [cursor=pointer]
+          - listitem [ref=f109e219]:
+            - button "Do not share my personal information" [ref=f109e221] [cursor=pointer]

@@ -1,0 +1,207 @@
+- generic [ref=f98e2]:
+  - generic [ref=f98e3]:
+    - link "Skip to content" [ref=f98e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f98e8]:
+      - generic [ref=f98e9]:
+        - generic [ref=f98e10]:
+          - button "Open menu" [ref=f98e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f98e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f98e18]:
+          - navigation "Breadcrumbs" [ref=f98e19]:
+            - list [ref=f98e20]:
+              - listitem [ref=f98e21]:
+                - link "aslam2noor5" [ref=f98e22] [cursor=pointer]:
+                  - /url: /aslam2noor5
+              - listitem [ref=f98e24]:
+                - link "fahemni-alquran" [ref=f98e25] [cursor=pointer]:
+                  - /url: /aslam2noor5/fahemni-alquran
+                - button "Switch repository (alt shift r)" [ref=f98e26] [cursor=pointer]
+          - button "Search or jump to…" [ref=f98e31] [cursor=pointer]:
+            - generic [ref=f98e33]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f98e34]:
+          - generic [ref=f98e35]:
+            - generic [ref=f98e38]:
+              - link "Chat with Copilot" [ref=f98e40] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f98e45] [cursor=pointer]
+            - button "Create new..." [ref=f98e47] [cursor=pointer]
+            - generic [ref=f98e49]:
+              - link "All issues" [ref=f98e50] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests" [ref=f98e54] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f98e57] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f98e60] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f98e64] [cursor=pointer]:
+            - img "User avatar" [ref=f98e65]
+      - heading "Repository navigation" [level=2] [ref=f98e66]
+      - navigation "Repository" [ref=f98e67]:
+        - list [ref=f98e68]:
+          - listitem [ref=f98e69]:
+            - link "Code" [ref=f98e70] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran
+          - listitem [ref=f98e72]:
+            - link "Issues" [ref=f98e73] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/issues
+          - listitem [ref=f98e75]:
+            - link "Pull requests" [ref=f98e76] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulls
+          - listitem [ref=f98e78]:
+            - link "Agents" [ref=f98e79] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/agents?author=aslam2noor5
+          - listitem [ref=f98e81]:
+            - link "Actions" [ref=f98e82] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/actions
+          - listitem [ref=f98e84]:
+            - link "Projects" [ref=f98e85] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/projects
+          - listitem [ref=f98e87]:
+            - link "Wiki" [ref=f98e88] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/wiki
+          - listitem [ref=f98e90]:
+            - link "Security and quality" [ref=f98e91] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/security
+          - listitem [ref=f98e93]:
+            - link "Insights" [ref=f98e94] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/pulse
+          - listitem [ref=f98e96]:
+            - link "Settings" [ref=f98e97] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/settings
+  - main [ref=f98e102]:
+    - generic [ref=f98e104]:
+      - generic [ref=f98e106]:
+        - img "Owner avatar" [ref=f98e107]
+        - strong [ref=f98e108]:
+          - link "fahemni-alquran" [ref=f98e109] [cursor=pointer]:
+            - /url: /aslam2noor5/fahemni-alquran
+        - generic [ref=f98e110]: Public
+      - generic [ref=f98e111]:
+        - list:
+          - listitem [ref=f98e112]:
+            - button "Pin" [ref=f98e115] [cursor=pointer]
+          - listitem [ref=f98e118]:
+            - 'button "Watch: Participating in aslam2noor5/fahemni-alquran. Click to change subscription settings." [ref=f98e121] [cursor=pointer]':
+              - generic [ref=f98e122]:
+                - generic [ref=f98e123]: Watch
+                - generic:
+                  - generic: "0"
+                  - generic: (0)
+          - listitem [ref=f98e124]:
+            - generic [ref=f98e125]:
+              - button "Fork 0" [disabled] [ref=f98e126]:
+                - text: Fork
+                - generic "0" [ref=f98e129]
+              - group [ref=f98e130]:
+                - button "See your forks of this repository" [ref=f98e131] [cursor=pointer]
+          - listitem [ref=f98e134]:
+            - generic [ref=f98e136]:
+              - button "Star this repository (0)" [ref=f98e138] [cursor=pointer]:
+                - text: Star
+                - generic "0 users starred this repository" [ref=f98e141]: "0"
+              - button "Add this repository to a list" [ref=f98e145] [cursor=pointer]
+    - generic [ref=f98e150]:
+      - generic [ref=f98e151]:
+        - generic [ref=f98e153]:
+          - heading "Start coding with Codespaces" [level=3] [ref=f98e157]
+          - paragraph [ref=f98e158]: Add a README file and start coding in a secure, configurable, and dedicated development environment.
+          - link "Create a codespace" [ref=f98e159] [cursor=pointer]:
+            - /url: /codespaces/new/aslam2noor5/fahemni-alquran?auto_init=1&resume=1
+        - generic [ref=f98e163]:
+          - heading "Add collaborators to this repository" [level=3] [ref=f98e166]
+          - paragraph [ref=f98e167]: Search for people using their GitHub username or email address.
+          - link "Invite collaborators" [ref=f98e168] [cursor=pointer]:
+            - /url: /aslam2noor5/fahemni-alquran/settings/access
+      - generic [ref=f98e171]:
+        - generic [ref=f98e172]:
+          - heading [level=3] [ref=f98e173]:
+            - strong [ref=f98e174]: Quick setup
+            - text: — if you’ve done this kind of thing before
+          - generic [ref=f98e175]:
+            - link "Set up in Desktop" [ref=f98e177] [cursor=pointer]:
+              - /url: https://desktop.github.com
+            - strong [ref=f98e182]: or
+            - generic [ref=f98e184]:
+              - button "HTTPS" [ref=f98e186] [cursor=pointer]
+              - button "SSH" [ref=f98e188] [cursor=pointer]
+            - generic [ref=f98e191]:
+              - textbox "Clone URL" [ref=f98e192]: https://github.com/aslam2noor5/fahemni-alquran.git
+              - button "Copy to clipboard" [ref=f98e194] [cursor=pointer]
+          - paragraph [ref=f98e198]:
+            - text: Get started by
+            - link "creating a new file" [ref=f98e199] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/new/main
+            - text: or
+            - link "uploading an existing file" [ref=f98e200] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/upload
+            - text: . We recommend every repository include a
+            - link "README" [ref=f98e201] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/new/main?readme=1
+            - text: ","
+            - link "LICENSE" [ref=f98e202] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/new/main?filename=LICENSE.md
+            - text: ", and"
+            - link ".gitignore" [ref=f98e203] [cursor=pointer]:
+              - /url: /aslam2noor5/fahemni-alquran/new/main?filename=.gitignore
+            - text: .
+        - generic [ref=f98e204]:
+          - generic [ref=f98e205]:
+            - heading "…or create a new repository on the command line" [level=3] [ref=f98e206]
+            - generic [ref=f98e207]:
+              - button "Copy to clipboard" [ref=f98e209] [cursor=pointer]
+              - generic [ref=f98e213]:
+                - text: echo "# fahemni-alquran" >> README.md git init git add README.md git commit -m "first commit" git branch -M main
+                - generic [ref=f98e214]: git remote add origin https://github.com/aslam2noor5/fahemni-alquran.git
+                - text: git push -u origin main
+          - generic [ref=f98e215]:
+            - heading "…or push an existing repository from the command line" [level=3] [ref=f98e216]
+            - generic [ref=f98e217]:
+              - button "Copy to clipboard" [ref=f98e219] [cursor=pointer]
+              - generic [ref=f98e223]:
+                - generic [ref=f98e224]: git remote add origin https://github.com/aslam2noor5/fahemni-alquran.git
+                - text: git branch -M main git push -u origin main
+      - generic [ref=f98e225]:
+        - strong [ref=f98e228]: ProTip!
+        - text: Use the URL for this page when adding GitHub as a remote.
+  - contentinfo [ref=f98e229]:
+    - heading "Footer" [level=2] [ref=f98e230]
+    - generic [ref=f98e231]:
+      - generic [ref=f98e232]:
+        - link "GitHub Homepage" [ref=f98e233] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f98e236]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f98e237]:
+        - heading "Footer navigation" [level=3] [ref=f98e238]
+        - list "Footer navigation" [ref=f98e239]:
+          - listitem [ref=f98e240]:
+            - link "Terms" [ref=f98e241] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f98e242]:
+            - link "Privacy" [ref=f98e243] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f98e244]:
+            - link "Security" [ref=f98e245] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f98e246]:
+            - link "Status" [ref=f98e247] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f98e248]:
+            - link "Community" [ref=f98e249] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f98e250]:
+            - link "Docs" [ref=f98e251] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f98e252]:
+            - link "Contact" [ref=f98e253] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f98e254]:
+            - button "Manage cookies" [ref=f98e256] [cursor=pointer]
+          - listitem [ref=f98e257]:
+            - button "Do not share my personal information" [ref=f98e259] [cursor=pointer]

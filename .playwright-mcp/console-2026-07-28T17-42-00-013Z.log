@@ -1,0 +1,33 @@
+[    2489ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/access/organizations:0
+[    3112ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/payment-methods:0
+[   74508ms] [INFO] Route is ready. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   75565ms] [INFO] App is loaded. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   76469ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/payment-methods:0
+[   76523ms] [INFO] [STRIPE] Fetching clientSecret from createClientSecret for account 39584349344620ea0f2e3cfc8fac78e1 @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   76527ms] [INFO] Gate: ☑️ billing-on-session-payment @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   77508ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/billing/profile:0
+[   77509ms] [INFO] No billing profile. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   77585ms] [INFO] Captcha not required. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   77696ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/payment-methods:0
+[   77719ms] [INFO] [STRIPE] Fetching clientSecret from createClientSecret for account 39584349344620ea0f2e3cfc8fac78e1 @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   77720ms] [INFO] Gate: ☑️ billing-on-session-payment @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   78807ms] [INFO] Captcha not required. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   78975ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/billing/profile:0
+[   78976ms] [INFO] No billing profile. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   79029ms] [INFO] [STRIPE] Fetching clientSecret from createClientSecret for account 39584349344620ea0f2e3cfc8fac78e1 @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   79030ms] [INFO] Gate: ☑️ billing-on-session-payment @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80047ms] [INFO] Captcha not required. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80071ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dash.cloudflare.com/api/v4/accounts/39584349344620ea0f2e3cfc8fac78e1/billing/profile:0
+[   80072ms] [INFO] No billing profile. @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80399ms] [INFO] Gate: ☑️ billing-google-pay-gate @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80399ms] [INFO] Gate: ☑️ billing-apple-pay-gate @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80399ms] [INFO] Gate: ☑️ billing-google-pay-gate @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80399ms] [INFO] Gate: ☑️ billing-apple-pay-gate @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   80571ms] [INFO] ✓ Cloudflare → Stripe @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   82324ms] [INFO] ✓ Cloudflare → PayPal @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   82332ms] [INFO] Loading the script 'https://js.braintreegateway.com/web/3.117.0/js/client.min.js' violates the following Content Security Policy directive: "script-src cloudflare.com *.cloudflare.com 'unsafe-eval' 'unsafe-inline' static.cloudflareinsights.com js.stripe.com accounts.google.com www.paypal.com c.paypal.com embed.cloudflarestream.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The policy is report-only, so the violation has been logged but no further action has been taken. @ https://dash.cloudflare.com/assets/cf-ConnectPaypalButton.BEq_aJfS.js:4
+[   82333ms] [INFO] Loading the script 'https://js.braintreegateway.com/web/3.117.0/js/paypal-checkout.min.js' violates the following Content Security Policy directive: "script-src cloudflare.com *.cloudflare.com 'unsafe-eval' 'unsafe-inline' static.cloudflareinsights.com js.stripe.com accounts.google.com www.paypal.com c.paypal.com embed.cloudflarestream.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The policy is report-only, so the violation has been logged but no further action has been taken. @ https://dash.cloudflare.com/assets/cf-ConnectPaypalButton.BEq_aJfS.js:4
+[   82545ms] [INFO] ECE ready — wallets available: yes @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   82545ms] [INFO] ✓ Cloudflare → Stripe @ https://dash.cloudflare.com/assets/cf-init-core.DMsOmgyI.js:162
+[   82682ms] [WARNING] Cannot download icons after the webpage has been closed (web app manifest "https://pay.google.com/gp/p/web_manifest.json" for payment handler manifest "https://google.com/pay"). @ https://dash.cloudflare.com/39584349344620ea0f2e3cfc8fac78e1/r2/checkout/payment:0
+[   82682ms] [ERROR] Failed to download or decode a non-empty icon for payment app with "https://pay.google.com/gp/p/web_manifest.json" manifest. @ https://dash.cloudflare.com/39584349344620ea0f2e3cfc8fac78e1/r2/checkout/payment:0

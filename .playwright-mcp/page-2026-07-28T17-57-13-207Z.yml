@@ -1,0 +1,93 @@
+- generic [ref=f107e2]:
+  - generic [ref=f107e3]:
+    - link "Skip to content" [ref=f107e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f107e8]:
+      - generic [ref=f107e9]:
+        - generic [ref=f107e10]:
+          - button "Open menu" [ref=f107e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f107e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f107e18]:
+          - navigation "Breadcrumbs" [ref=f107e19]:
+            - list [ref=f107e20]:
+              - listitem [ref=f107e21]:
+                - link "Dashboard" [ref=f107e22] [cursor=pointer]:
+                  - /url: https://github.com/
+          - button "Search or jump to…" [ref=f107e26] [cursor=pointer]:
+            - generic [ref=f107e28]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f107e29]:
+          - generic [ref=f107e30]:
+            - generic [ref=f107e33]:
+              - link "Chat with Copilot" [ref=f107e35] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f107e40] [cursor=pointer]
+            - button "Create new..." [ref=f107e42] [cursor=pointer]
+            - generic [ref=f107e44]:
+              - link "All issues (g then i)" [ref=f107e45] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f107e49] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f107e52] [cursor=pointer]:
+                - /url: /repos
+          - link "You have no unread notifications (g then n)" [ref=f107e55] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f107e59] [cursor=pointer]:
+            - img "User avatar" [ref=f107e60]
+  - generic [ref=f107e64]:
+    - complementary "Account" [ref=f107e65]:
+      - generic [ref=f107e71]:
+        - generic [ref=f107e72]: Loading
+        - paragraph
+    - generic [ref=f107e80]:
+      - main [ref=f107e81]:
+        - generic [ref=f107e83]:
+          - heading "Dashboard" [level=1] [ref=f107e84]
+          - heading "Home" [level=2] [ref=f107e86]
+          - generic [ref=f107e88]:
+            - generic [ref=f107e89]:
+              - heading "Feed" [level=2] [ref=f107e90]
+              - group [ref=f107e93]:
+                - button "Filter" [ref=f107e94] [cursor=pointer]
+            - generic [ref=f107e99]:
+              - img "Loading your activity..." [ref=f107e101]
+              - paragraph [ref=f107e102]: One moment please...
+      - contentinfo [ref=f107e103]:
+        - heading "Footer" [level=2] [ref=f107e104]
+        - generic [ref=f107e105]:
+          - generic [ref=f107e106]:
+            - link "GitHub Homepage" [ref=f107e107] [cursor=pointer]:
+              - /url: https://github.com
+            - generic [ref=f107e110]: © 2026 GitHub, Inc.
+          - navigation "Footer" [ref=f107e111]:
+            - heading "Footer navigation" [level=3] [ref=f107e112]
+            - list "Footer navigation" [ref=f107e113]:
+              - listitem [ref=f107e114]:
+                - link "Terms" [ref=f107e115] [cursor=pointer]:
+                  - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+              - listitem [ref=f107e116]:
+                - link "Privacy" [ref=f107e117] [cursor=pointer]:
+                  - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+              - listitem [ref=f107e118]:
+                - link "Security" [ref=f107e119] [cursor=pointer]:
+                  - /url: https://github.com/security
+              - listitem [ref=f107e120]:
+                - link "Status" [ref=f107e121] [cursor=pointer]:
+                  - /url: https://www.githubstatus.com/
+              - listitem [ref=f107e122]:
+                - link "Community" [ref=f107e123] [cursor=pointer]:
+                  - /url: https://github.community/
+              - listitem [ref=f107e124]:
+                - link "Docs" [ref=f107e125] [cursor=pointer]:
+                  - /url: https://docs.github.com/
+              - listitem [ref=f107e126]:
+                - link "Contact" [ref=f107e127] [cursor=pointer]:
+                  - /url: https://support.github.com?tags=dotcom-footer
+              - listitem [ref=f107e128]:
+                - button "Manage cookies" [ref=f107e130] [cursor=pointer]
+              - listitem [ref=f107e131]:
+                - button "Do not share my personal information" [ref=f107e133] [cursor=pointer]
