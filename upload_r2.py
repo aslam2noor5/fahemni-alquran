@@ -6,6 +6,7 @@
 
 import os
 import json
+import re
 import mimetypes
 from pathlib import Path
 import boto3
@@ -26,6 +27,18 @@ SURAH_DIR = Path(__file__).parent / "السور"
 
 # أنواع الملفات الصوتية المسموح بها
 AUDIO_EXTENSIONS = {".mp3", ".aac", ".wav", ".ogg", ".m4a", ".wma"}
+
+# ترجمة الأرقام العربية المشرقية إلى أرقام لاتينية
+_AR_TO_LAT = str.maketrans("٠١٢٣٤٥٦٧٨٩", "0123456789")
+
+
+def page_key(name):
+    """استخراج رقم الصفحة من اسم الملف لترتيب عددي صحيح.
+    الملفات التي لا تحتوي على رقم صفحة (مقدمة/تمهيد) تأتي أولاً."""
+    m = re.search(r"صفحة\s*([0-9٠-٩]+)", name)
+    if not m:
+        return -1
+    return int(m.group(1).translate(_AR_TO_LAT))
 
 def init_r2_client():
     """تهيئة عميل R2"""
@@ -107,9 +120,9 @@ def scan_and_upload(client):
         surah_name = folder.name.strip()
         print(f"\n📖 سورة: {surah_name}")
 
-        # جمع جميع الملفات الصوتية فقط
+        # جمع جميع الملفات الصوتية فقط، مرتبة ترتيباً عددياً حسب رقم الصفحة
         audio_files = []
-        for file in sorted(folder.iterdir()):
+        for file in sorted(folder.iterdir(), key=lambda f: page_key(f.stem)):
             if file.is_file() and file.suffix.lower() in AUDIO_EXTENSIONS:
                 audio_files.append(file)
 
@@ -154,17 +167,27 @@ def scan_and_upload(client):
 
 def generate_data_file(surah_list):
     """إنشاء ملف data.json"""
+    # الحفاظ على قسم المقدمة (intro) من الملف السابق إن وُجد
+    existing_intro = None
+    data_path = Path(__file__).parent / "data.json"
+    if data_path.exists():
+        try:
+            with open(data_path, encoding="utf-8") as f:
+                existing_intro = json.load(f).get("intro")
+        except Exception:
+            pass
+
     data = {
         "app": "فهمني القرآن",
         "version": "1.0.0",
         "last_updated": __import__("datetime").datetime.now().isoformat(),
         "base_url": R2_PUBLIC_URL,
+        "intro": existing_intro,
         "surahs": surah_list,
         "total_surahs": len(surah_list),
         "total_files": sum(s["count"] for s in surah_list),
     }
 
-    data_path = Path(__file__).parent / "data.json"
     with open(data_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
