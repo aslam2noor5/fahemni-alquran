@@ -141,13 +141,6 @@
   body.dark-mode .prayer-card .prayer-name { color: #FFFFFF; }
   body.dark-mode .prayer-card .prayer-time { color: #D8B45A; }
   body.dark-mode .prayer-card.current .prayer-name, body.dark-mode .prayer-card.current .prayer-time { color: #D8B45A; }
-  /* Prayer Notifications */
-  body.dark-mode .prayer-notify-section { background: #22272E; border-color: rgba(255,255,255,0.06); }
-  body.dark-mode .prayer-notify-header { color: #FFFFFF; background: rgba(255,255,255,0.02); }
-  body.dark-mode .prayer-sound-option { border-color: rgba(255,255,255,0.06); }
-  body.dark-mode .prayer-sound-option:hover { border-color: #2FA36B; background: rgba(47,163,107,0.04); }
-  body.dark-mode .prayer-sound-option.selected { border-color: #2FA36B; background: rgba(47,163,107,0.08); }
-  body.dark-mode .prayer-sound-option input[type="radio"] { accent-color: #2FA36B; }
   body.dark-mode select { background: #22272E !important; color: #FFFFFF !important; border-color: rgba(255,255,255,0.06) !important; }
   /* Settings */
   body.dark-mode .settings-section { background: #22272E; border-color: rgba(255,255,255,0.06); }
@@ -546,33 +539,6 @@
   .prayer-card.current .prayer-name, .prayer-card.current .prayer-time { color: var(--gold); }
   .prayer-card .prayer-icon { font-size: 20px; }
 
-  /* Prayer Notification Settings */
-  .prayer-notify-section {
-    margin-top: 16px; border-radius: var(--radius);
-    border: 1.5px solid rgba(212, 175, 55, 0.15);
-    overflow: hidden; box-shadow: var(--card-shadow);
-  }
-  .prayer-notify-header {
-    padding: 14px 16px; display: flex; align-items: center; gap: 8px;
-    cursor: pointer; font-size: 14px; font-weight: 700; color: var(--primary);
-    background: rgba(212, 175, 55, 0.06); user-select: none;
-  }
-  .prayer-notify-toggle-arrow {
-    margin-right: auto; font-size: 12px; transition: transform 0.3s ease;
-  }
-  .prayer-notify-toggle-arrow.open { transform: rotate(180deg); }
-  .prayer-notify-body { padding: 0 16px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-  .prayer-notify-body.open { max-height: 500px; padding: 16px; }
-  .prayer-notify-body .settings-row { padding: 8px 0; }
-  .prayer-sound-options { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
-  .prayer-sound-option {
-    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-    border-radius: 10px; cursor: pointer; font-size: 14px;
-    border: 1.5px solid rgba(212, 175, 55, 0.1); transition: var(--transition);
-  }
-  .prayer-sound-option:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
-  .prayer-sound-option.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
-  .prayer-sound-option input[type="radio"] { accent-color: var(--gold); }
   /* Settings page */
   .settings-page { padding: 16px; padding-bottom: 80px; }
   .settings-section { background: white; border-radius: var(--radius); padding: 16px; margin-bottom: 24px; box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.08); }
@@ -844,46 +810,6 @@
         <div class="next-prayer-time" id="nextPrayerTime">--</div>
       </div>
       <div class="prayer-times" id="prayerTimesList"></div>
-      <div class="prayer-notify-section" id="prayerNotifySection">
-        <div class="prayer-notify-header" onclick="togglePrayerNotifySettings()">
-          <span>&#128276;</span>
-          <span>تنبيهات الصلاة</span>
-          <span class="prayer-notify-toggle-arrow" id="notifyArrow">&#9660;</span>
-        </div>
-        <div class="prayer-notify-body" id="prayerNotifyBody">
-          <div class="settings-row">
-            <div><label>تفعيل التنبيهات</label><small>إشعار عند دخول وقت الصلاة</small></div>
-            <div class="toggle" id="prayerNotifyToggle" onclick="togglePrayerNotify()"></div>
-          </div>
-          <div class="settings-row">
-            <div><label>صوت التنبيه</label></div>
-          </div>
-          <div class="prayer-sound-options" id="prayerSoundOptions">
-            <label class="prayer-sound-option" onclick="selectPrayerSound('adhan1')">
-              <input type="radio" name="prayerSound" value="adhan1">
-              <span>&#127925; أذان - مشاري العفاسي</span>
-            </label>
-            <label class="prayer-sound-option" onclick="selectPrayerSound('adhan2')">
-              <input type="radio" name="prayerSound" value="adhan2">
-              <span>&#127925; أذان - الحرم المدني</span>
-            </label>
-          </div>
-          <div class="settings-row">
-            <div><label>معاينة الصوت</label></div>
-            <button class="back-btn preview-btn" onclick="togglePrayerPreview(this)" style="padding: 6px 14px; font-size: 12px;">&#9654; استماع</button>
-          </div>
-          <div class="settings-row">
-            <div><label>التنبيه قبل الصلاة</label></div>
-            <select id="prayerNotifyBefore" onchange="savePrayerNotifyBefore(this.value)" style="font-family: 'Noto Naskh Arabic', serif; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(212,175,55,0.3); background: transparent; color: var(--text-dark);">
-              <option value="0">في وقت الصلاة</option>
-              <option value="5">قبل 5 دقائق</option>
-              <option value="10">قبل 10 دقائق</option>
-              <option value="15">قبل 15 دقيقة</option>
-              <option value="30">قبل 30 دقيقة</option>
-            </select>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -901,26 +827,7 @@
       <div class="settings-section">
         <h3><span>&#8505;</span> عن التطبيق</h3>
         <div class="settings-row"><div><label>فهمني القرآن</label><small>استمع إلى شرح القرآن الكريم</small></div></div>
-        <div class="settings-row"><div><label>الإصدار</label></div><span style="color: var(--primary); font-weight: 700;" id="appVersion">2.5.0</span></div>
         <div class="settings-row"><div><label>آخر تحديث</label></div><span style="color: #888; font-size: 12px;" id="appBuildDate">2026-07-29</span></div>
-      </div>
-      <div class="settings-section">
-        <h3><span>&#128276;</span> تنبيهات الصلاة</h3>
-        <div class="settings-row">
-          <div><label>تفعيل التنبيهات</label><small>إشعار عند دخول وقت الصلاة</small></div>
-          <div class="toggle" id="settingsNotifyToggle" onclick="togglePrayerNotify(); this.classList.toggle('active');"></div>
-        </div>
-        <div class="settings-row">
-          <div><label>صوت التنبيه</label><small>اختيار نغمة الأذان</small></div>
-          <select onchange="selectPrayerSound(this.value)" style="font-family:'Noto Naskh Arabic',serif;padding:6px 10px;border-radius:8px;border:1px solid rgba(212,175,55,0.3);background:transparent;color:var(--text-dark);">
-            <option value="adhan1">أذان - مشاري العفاسي</option>
-            <option value="adhan2">أذان - الحرم المدني</option>
-          </select>
-        </div>
-        <div class="settings-row">
-          <div><label>معاينة الصوت</label></div>
-          <button class="preview-btn" onclick="togglePrayerPreview(this)" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:white;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;font-size:12px;">&#9654; استماع</button>
-        </div>
       </div>
       <div class="settings-section">
         <h3><span>&#128172;</span> الدعم</h3>
@@ -928,7 +835,7 @@
       </div>
       <div class="settings-section" style="cursor:pointer;" onclick="showPrivacyPolicy()">
         <h3><span>&#128214;</span> سياسة الخصوصية</h3>
-        <div class="settings-row"><label>اضغط لعرض سياسة الخصوصية والأذونات</label></div>
+        <div class="settings-row"><label>اضغط لعرض سياسة الخصوصية</label></div>
       </div>
       <div class="footer">جميع الحقوق محفوظة &copy; 2026</div>
 
@@ -939,7 +846,7 @@
     <div style="text-align:left;"><button onclick="closePrivacyPolicy()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--primary);">&times;</button></div>
     <div class="modal-title" style="margin-bottom:16px;">&#128214; سياسة الخصوصية</div>
     <div style="font-size:14px;line-height:1.8;color:#e0e0e0;max-height:55vh;overflow-y:auto;padding-left:4px;">
-      <p style="margin-bottom:12px;"><strong>آخر تحديث:</strong> يوليو 2026</p>
+      <p style="margin-bottom:12px;"><strong>آخر تحديث:</strong> أغسطس 2026</p>
       
       <h4 style="color:var(--gold);margin:16px 0 8px;">1. مقدمة</h4>
       <p>تطبيق "فهمني القرآن" يحترم خصوصيتك. هذه السياسة توضح كيفية جمع واستخدام وحماية معلوماتك عند استخدام التطبيق على أندرويد.</p>
@@ -948,7 +855,6 @@
       <p>قد يطلب التطبيق الأذونات التالية لتقديم الخدمات المطلوبة:</p>
       <ul style="padding-right:20px;margin:8px 0;">
         <li><strong>الموقع (الوصف التقريبي):</strong> يُستخدم فقط لحساب مواقيت الصلاة بدقة. لا يتم تخزينه أو إرساله إلى أي خادم. يمكنك تعطيل هذا الإذن من إعدادات جهازك في أي وقت.</li>
-        <li><strong>الإشعارات:</strong> تُستخدم لإرسال تنبيهات بمواقيت الصلاة إذا اخترت تفعيلها. يمكنك إدارة الإشعارات من إعدادات التطبيق أو إعدادات الجهاز.</li>
         <li><strong>الإنترنت:</strong> يُستخدم لتحميل بيانات القرآن والأذكار وصوتيات التفسير. لا يتم جمع أي بيانات تصفح أو نشاط.</li>
         <li><strong>الصوت:</strong> يُستخدم لتشغيل التلاوات القرآنية والمحاضرات. لا يتم تسجيل أي صوت.</li>
       </ul>
@@ -964,7 +870,7 @@
       <p>يستخدم التطبيق التخزين المحلي على جهاز الأندرويد لحفظ تفضيلاتك مثل:</p>
       <ul style="padding-right:20px;margin:8px 0;">
         <li>المظهر (داكن/فاتح)</li>
-        <li>إعدادات تنبيهات الصلاة</li>
+        <li>موقعك لحساب مواقيت الصلاة</li>
         <li>حالة الأذكار والتسبيح</li>
         <li>المفضلة</li>
       </ul>
@@ -1143,8 +1049,6 @@ async function init() {
     renderSurahs(); renderFavorites();
     renderAzkar(); renderPrayerTimes(); updateHijriDate();
     initTasbih(); setupAzkarEvents();
-    preloadAdhanAudios();
-    initPrayerNotificationChecker();
   }, Math.max(0, 2000 - elapsed));
 }
 
@@ -1498,7 +1402,6 @@ function doRenderPrayer(times) {
     const isCurrent = i === nextIdx;
     return `<div class="prayer-card ${isCurrent ? 'current' : ''}"><span class="prayer-icon">${prayerIcons[i]}</span><span class="prayer-name">${prayerLabels[i]}</span><span class="prayer-time">${to12h(timeMap[name])}</span></div>`;
   }).join('');
-  renderPrayerNotifyUI();
 }
 
 function updateHijriDate() {
@@ -1520,198 +1423,6 @@ function updateHijriDate() {
   
   document.getElementById('hijriDate').textContent = `${hDay} ${hijriMonths[hMonths]} ${hYear} هـ`;
   document.getElementById('gregDate').textContent = `${day} ${gregMonths[month - 1]} ${year} م`;
-}
-
-// ============ PRAYER NOTIFICATIONS ============
-const PRAYER_NOTIFY_KEY = 'prayerNotifySettings';
-const prayerNames = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
-const prayerLabels = ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء'];
-
-function getPrayerNotifySettings() {
-  return JSON.parse(localStorage.getItem(PRAYER_NOTIFY_KEY) || '{"enabled":false,"sound":"adhan1","before":0}');
-}
-function savePrayerNotifySettings(s) {
-  localStorage.setItem(PRAYER_NOTIFY_KEY, JSON.stringify(s));
-}
-function renderPrayerNotifyUI() {
-  const s = getPrayerNotifySettings();
-  const toggle = document.getElementById('prayerNotifyToggle');
-  if (toggle) toggle.classList.toggle('active', s.enabled);
-  const settingsToggle = document.getElementById('settingsNotifyToggle');
-  if (settingsToggle) settingsToggle.classList.toggle('active', s.enabled);
-  document.querySelectorAll('.prayer-sound-option').forEach(el => {
-    const radio = el.querySelector('input');
-    if (radio && radio.value === s.sound) {
-      radio.checked = true;
-      el.classList.add('selected');
-    } else if (el) {
-      el.classList.remove('selected');
-    }
-  });
-  const beforeSelect = document.getElementById('prayerNotifyBefore');
-  if (beforeSelect) beforeSelect.value = String(s.before);
-  // Sync settings page sound select
-  const settingsSoundSelect = document.querySelector('.settings-section select');
-  if (settingsSoundSelect) settingsSoundSelect.value = s.sound;
-}
-function togglePrayerNotifySettings() {
-  const body = document.getElementById('prayerNotifyBody');
-  const arrow = document.getElementById('notifyArrow');
-  if (!body || !arrow) return;
-  const isOpen = body.classList.toggle('open');
-  arrow.classList.toggle('open', isOpen);
-}
-function togglePrayerNotify() {
-  const s = getPrayerNotifySettings();
-  s.enabled = !s.enabled;
-  savePrayerNotifySettings(s);
-  renderPrayerNotifyUI();
-  // Sync settings page toggle
-  const settingsToggle = document.getElementById('settingsNotifyToggle');
-  if (settingsToggle) settingsToggle.classList.toggle('active', s.enabled);
-  if (s.enabled) {
-    if (Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-    initPrayerNotificationChecker();
-    showToast('تم تفعيل تنبيهات الصلاة');
-  } else {
-    showToast('تم إيقاف تنبيهات الصلاة');
-  }
-}
-function selectPrayerSound(sound) {
-  const s = getPrayerNotifySettings();
-  s.sound = sound;
-  savePrayerNotifySettings(s);
-  renderPrayerNotifyUI();
-}
-function savePrayerNotifyBefore(val) {
-  const s = getPrayerNotifySettings();
-  s.before = parseInt(val) || 0;
-  savePrayerNotifySettings(s);
-}
-
-function preloadAdhanAudios() {
-  const urls = [
-    'https://cdn.aladhan.com/audio/adhans/a9.mp3',
-    'https://raw.githubusercontent.com/Kiwifu/adhan-mp3/main/Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(%D8%A3%D8%B0%D8%A7%D9%86_%D8%A7%D9%84%D8%AD%D8%B1%D9%85_%D8%A7%D9%84%D9%85%D8%AF%D9%86%D9%8A_-_%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9_%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9).mp3'
-  ];
-  state._adhanAudios = {};
-  urls.forEach(function(url) {
-    var audio = new Audio(url);
-    audio.preload = 'auto';
-    audio.load();
-    state._adhanAudios[url] = audio;
-  });
-}
-
-function getAdhanAudio(url) {
-  if (state._adhanAudios && state._adhanAudios[url]) {
-    var a = state._adhanAudios[url];
-    a.currentTime = 0;
-    return a;
-  }
-  var audio = new Audio(url);
-  audio.preload = 'auto';
-  return audio;
-}
-
-function togglePrayerPreview(btn) {
-  if (state._previewAudio && !state._previewAudio.paused) {
-    state._previewAudio.pause();
-    state._previewAudio.currentTime = 0;
-    state._previewAudio = null;
-    document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9654; استماع'; });
-    return;
-  }
-  playPrayerNotificationSound(true);
-  document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9208; إيقاف'; });
-}
-
-function playPrayerNotificationSound(isPreview) {
-  const s = getPrayerNotifySettings();
-  var audioUrl = null;
-  if (s.sound === 'adhan1') audioUrl = 'https://cdn.aladhan.com/audio/adhans/a9.mp3';
-  else if (s.sound === 'adhan2') audioUrl = 'https://raw.githubusercontent.com/Kiwifu/adhan-mp3/main/Adhan_Al_Haram_Al_Madani_-_Al_Madinah_1_(%D8%A3%D8%B0%D8%A7%D9%86_%D8%A7%D9%84%D8%AD%D8%B1%D9%85_%D8%A7%D9%84%D9%85%D8%AF%D9%86%D9%8A_-_%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9_%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9).mp3';
-
-  if (audioUrl) {
-    try {
-      var audio = getAdhanAudio(audioUrl);
-      audio.volume = 0.9;
-      audio.play().catch(function(){});
-      if (isPreview) {
-        state._previewAudio = audio;
-        audio.onended = function() {
-          state._previewAudio = null;
-          document.querySelectorAll('.preview-btn').forEach(function(b) { b.innerHTML = '&#9654; استماع'; });
-        };
-      }
-      return;
-    } catch(e) {}
-    showToast('تعذر تشغيل الصوت');
-    return;
-  }
-}
-
-let _prayerCheckInterval = null;
-
-function initPrayerNotificationChecker() {
-  if (_prayerCheckInterval) return;
-  _prayerCheckInterval = setInterval(checkPrayerNotifications, 30000);
-  setTimeout(checkPrayerNotifications, 1000);
-}
-
-function parseTimeToMin(str) {
-  const parts = str.split(':');
-  if (parts.length !== 2) return -1;
-  const h = parseInt(parts[0]), m = parseInt(parts[1]);
-  if (isNaN(h) || isNaN(m)) return -1;
-  return h * 60 + m;
-}
-
-function checkPrayerNotifications() {
-  const s = getPrayerNotifySettings();
-  if (!s.enabled) return;
-  const now = new Date();
-  const nowMin = now.getHours() * 60 + now.getMinutes();
-  const today = now.toDateString();
-  const lastNotified = JSON.parse(localStorage.getItem('prayerLastNotified') || '{}');
-
-  // Get stored prayer times from the last fetch
-  const storedTimes = state._lastPrayerTimes;
-  if (!storedTimes) return;
-
-  for (let i = 0; i < prayerNames.length; i++) {
-    const pName = prayerNames[i];
-    if (pName === 'Sunrise') continue; // skip sunrise
-    const t = storedTimes[pName];
-    if (!t) continue;
-    const prayerMin = parseTimeToMin(t) - (s.before || 0);
-    if (prayerMin < 0) continue;
-
-    const lastKey = today + '_' + pName;
-    if (lastNotified[lastKey]) continue;
-
-    if (nowMin >= prayerMin && nowMin < prayerMin + 3) {
-      lastNotified[lastKey] = true;
-      localStorage.setItem('prayerLastNotified', JSON.stringify(lastNotified));
-      showPrayerNotification(prayerLabels[i]);
-      playPrayerNotificationSound(false);
-      break;
-    }
-  }
-}
-
-function showPrayerNotification(prayerName) {
-  if (!('Notification' in window)) return;
-  if (Notification.permission === 'granted') {
-    try {
-      new Notification('حان وقت صلاة ' + prayerName, {
-        body: 'حان الآن وقت صلاة ' + prayerName + ' - فهمني القرآن',
-        icon: 'https://raw.githubusercontent.com/aslam2noor5/fahemni-alquran/master/fahemni_alquran/assets/images/logo.png'
-      });
-    } catch(e) {}
-  }
 }
 
 // ============ QURAN READER ============
