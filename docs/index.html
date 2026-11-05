@@ -155,20 +155,31 @@
   body.dark-mode .modal-content { background: #1C2227; }
   body.dark-mode .modal-handle { background: rgba(255,255,255,0.08); }
   body.dark-mode .modal-title { color: #FFFFFF; }
-  /* Quran Reader */
-  body.dark-mode .quran-surah-header { background: linear-gradient(135deg, #1C2227, #22272E); border-color: rgba(255,255,255,0.06); color: #FFFFFF; }
-  body.dark-mode .quran-surah-header .surah-name-en { color: #B6BEC7; }
-  body.dark-mode .quran-surah-header .surah-info-row { color: #8C98A4; }
-  body.dark-mode .quran-page-view { background: #22272E; border-color: rgba(255,255,255,0.06); color: #FFFFFF; }
-  body.dark-mode .quran-page-view .verse-number { background: #D8B45A; color: #FFFFFF; }
-  body.dark-mode .quran-page-view .verse-number.highlighted { box-shadow: 0 0 0 3px #D8B45A, 0 0 15px rgba(216,180,90,0.3); }
+  /* Quran Reader (Mushaf) */
+  body.dark-mode .mushaf-page {
+    background:
+      radial-gradient(120% 80% at 15% 0%, rgba(255,255,255,0.05), rgba(255,255,255,0) 55%),
+      linear-gradient(165deg, #262A24 0%, #20241F 50%, #1B1F1A 100%);
+    border-color: rgba(216,180,90,0.28);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35);
+  }
+  body.dark-mode .mushaf-page::before { border-color: rgba(216,180,90,0.32); }
+  body.dark-mode .mushaf-corner { border-color: rgba(216,180,90,0.45); }
+  body.dark-mode .mushaf-inner { color: #EDE3C8; }
+  body.dark-mode .mushaf-basmala { color: #E6D9B4; }
+  body.dark-mode .mushaf-basmala::before, body.dark-mode .mushaf-basmala::after { color: rgba(216,180,90,0.45); }
+  body.dark-mode .mushaf-surah-band { color: #E8CC7A; border-color: rgba(216,180,90,0.45); background: linear-gradient(180deg, rgba(216,180,90,0.18), rgba(216,180,90,0.04)); box-shadow: inset 0 0 0 3px rgba(0,0,0,0.15); }
+  body.dark-mode .mushaf-foot { color: #B9AE8E; border-top-color: rgba(216,180,90,0.18); }
+  body.dark-mode .mushaf-page-num { color: #E8CC7A; background: rgba(255,255,255,0.05); border-color: rgba(216,180,90,0.4); }
+  body.dark-mode .ayah-marker { color: #E8CC7A; border-color: rgba(216,180,90,0.55); background: radial-gradient(circle at 50% 45%, #2A2E27 30%, rgba(216,180,90,0.16) 72%, rgba(216,180,90,0.05) 100%); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.05); }
+  body.dark-mode .mushaf-loading { color: #B9AE8E; }
+  body.dark-mode .mushaf-edge { background: rgba(28,34,39,0.85); color: #E8CC7A; border-color: rgba(216,180,90,0.35); }
+  body.dark-mode .mushaf-hint { color: #D8B45A; }
   body.dark-mode .quran-nav button { background: #2FA36B; color: #FFFFFF; }
   body.dark-mode .quran-nav button:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.35); }
-  body.dark-mode .quran-page-sep { background: rgba(255,255,255,0.02); color: #D8B45A; border-color: rgba(255,255,255,0.06); }
-  body.dark-mode .quran-page-indicator { background: linear-gradient(135deg, #2FA36B, #258A59); color: #FFFFFF; }
+  body.dark-mode .quran-page-nav, body.dark-mode .quran-surah-nav { border-color: rgba(255,255,255,0.05); }
   body.dark-mode .quran-page-nav button, body.dark-mode .quran-surah-nav button { background: #2FA36B; color: #FFFFFF; }
   body.dark-mode .quran-page-nav button:hover, body.dark-mode .quran-surah-nav button:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.35); }
-  body.dark-mode .quran-page-nav, body.dark-mode .quran-surah-nav { border-color: rgba(255,255,255,0.05); }
   body.dark-mode .quran-page-jump button, body.dark-mode .quran-ayah-jump button { background: #D8B45A !important; color: #1C2227 !important; }
   body.dark-mode .jump-label { color: #8C98A4; }
   ::-webkit-scrollbar { width: 6px; }
@@ -580,44 +591,138 @@
     .nav-item { font-size: 9px; }
   }
 
-  /* ===== Quran Reader ===== */
+  /* ===== Quran Reader (Mushaf) ===== */
   .quran-page { padding-bottom: 80px; }
-  .quran-surah-header {
-    text-align: center; padding: 20px; margin: 0 16px 16px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: var(--radius); color: var(--gold); box-shadow: 0 8px 25px rgba(27, 94, 32, 0.3);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+  .quran-reader-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; padding: 8px 12px 0;
   }
-  .quran-surah-header .surah-name-ar { font-size: 28px; font-weight: 700; font-family: 'Noto Naskh Arabic', serif; }
-  .quran-surah-header .surah-name-en { font-size: 14px; opacity: 0.8; margin-top: 4px; }
-  .quran-surah-header .surah-info-row { display: flex; justify-content: center; gap: 16px; margin-top: 8px; font-size: 12px; opacity: 0.7; }
-  .quran-verses {
-    padding: 0 16px 20px; direction: rtl;
-  }
-  .quran-page-view {
-    background: white; border-radius: var(--radius); padding: 24px 28px;
-    box-shadow: var(--card-shadow); border: 1px solid rgba(212, 175, 55, 0.12);
-    line-height: 2.2; text-align: justify;
-  }
-  .quran-page-view .verse-text {
-    font-family: 'Noto Naskh Arabic', serif; font-size: 22px;
-  }
-  .quran-page-view .verse-number {
-    display: inline-block; background: var(--gold); color: white; border-radius: 50%;
-    width: 26px; height: 26px; line-height: 26px; font-size: 10px; text-align: center;
-    margin: 0 4px; font-family: sans-serif; vertical-align: middle; cursor: pointer;
-    transition: transform 0.2s ease; position: relative;
-  }
-  .quran-page-view .verse-number:hover { transform: scale(1.15); }
-  .quran-page-view .verse-number.highlighted {
-    box-shadow: 0 0 0 3px var(--gold), 0 0 15px rgba(212, 175, 55, 0.4);
-    transform: scale(1.2);
-  }
-  .quran-page-view .verse-number::after {
-    content: '۝'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); font-size: 14px; opacity: 0.3;
+  .quran-reader-top .back-btn { margin: 0; }
+  .mushaf-hint {
+    text-align: center; font-size: 11px; color: var(--gold);
+    padding: 8px 12px 2px; opacity: .95;
   }
 
+  /* --- paper stage --- */
+  .mushaf-stage {
+    position: relative; margin: 8px 12px 2px;
+    perspective: 1600px; perspective-origin: 50% 40%;
+    touch-action: pan-y; -webkit-user-select: none; user-select: none;
+    overflow: hidden; border-radius: 10px;
+  }
+  .mushaf-page {
+    position: relative; direction: rtl;
+    background:
+      radial-gradient(120% 80% at 15% 0%, rgba(255,255,255,.95), rgba(255,255,255,0) 55%),
+      linear-gradient(165deg, #FEFAF1 0%, #F9F2E2 45%, #F3E9D2 100%);
+    border: 1px solid #E2D0A6; border-radius: 8px;
+    box-shadow: 0 14px 34px rgba(60,45,10,.18), 0 2px 6px rgba(60,45,10,.10);
+    padding: 20px 16px 12px; min-height: 58vh;
+    transform-style: preserve-3d; will-change: transform, opacity; overflow: hidden;
+  }
+  .mushaf-page::before {
+    content: ''; position: absolute; inset: 8px; pointer-events: none;
+    border: 2px double rgba(180,145,50,.55); border-radius: 4px;
+  }
+  .mushaf-page::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 8px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(160,120,30,.10), transparent 24%),
+      radial-gradient(circle at 100% 100%, rgba(160,120,30,.10), transparent 24%);
+  }
+  .mushaf-corner {
+    position: absolute; width: 18px; height: 18px; pointer-events: none;
+    border: 2px solid rgba(180,145,50,.6); opacity: .85; z-index: 2;
+  }
+  .mushaf-corner.tl { top: 15px; left: 15px; border-right: 0; border-bottom: 0; border-radius: 4px 0 0 0; }
+  .mushaf-corner.tr { top: 15px; right: 15px; border-left: 0; border-bottom: 0; border-radius: 0 4px 0 0; }
+  .mushaf-corner.bl { bottom: 15px; left: 15px; border-right: 0; border-top: 0; border-radius: 0 0 0 4px; }
+  .mushaf-corner.br { bottom: 15px; right: 15px; border-left: 0; border-top: 0; border-radius: 0 0 4px 0; }
+
+  .mushaf-head { position: relative; z-index: 3; text-align: center; margin: 0 0 4px; }
+  .mushaf-surah-band {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 4px 22px; border: 1px solid rgba(180,145,50,.55); border-radius: 999px;
+    background: linear-gradient(180deg, rgba(212,175,55,.20), rgba(212,175,55,.05));
+    color: #7A5A10; font-size: 14px; font-weight: 700;
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,.35);
+  }
+  .mushaf-surah-band .band-star { color: rgba(150,115,20,.75); font-size: 11px; }
+  .mushaf-basmala {
+    position: relative; z-index: 3; text-align: center;
+    font-size: 21px; line-height: 1.9; color: #4A3A12; margin: 8px 0 10px;
+  }
+  .mushaf-basmala::before, .mushaf-basmala::after {
+    content: '❁'; color: rgba(180,145,50,.55); font-size: 11px; vertical-align: middle; margin: 0 10px;
+  }
+  .mushaf-inner {
+    position: relative; z-index: 3;
+    direction: rtl; text-align: justify; text-align-last: center;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 21px; line-height: 2.35; color: #2B2416; padding: 0 4px;
+  }
+  .mushaf-inner .verse-text { word-spacing: 1px; }
+  .surah-band-row { text-align: center; margin: 16px 0 10px; }
+
+  .ayah-marker {
+    position: relative; display: inline-flex; align-items: center; justify-content: center;
+    width: 29px; height: 29px; margin: 0 4px; vertical-align: middle;
+    border-radius: 50%; border: 1px solid rgba(170,135,40,.75);
+    background: radial-gradient(circle at 50% 45%, #FFFDF6 30%, rgba(212,175,55,.22) 72%, rgba(212,175,55,.08) 100%);
+    color: #8A6714; font-size: 11px; line-height: 1;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.6);
+    cursor: pointer; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .ayah-marker::before {
+    content: '۝'; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 25px; color: rgba(180,145,50,.28); pointer-events: none;
+  }
+  .ayah-marker span { position: relative; z-index: 1; }
+  .ayah-marker:hover { transform: scale(1.1); }
+  .ayah-marker.highlighted {
+    box-shadow: 0 0 0 3px rgba(212,175,55,.55), 0 0 16px rgba(212,175,55,.55);
+    transform: scale(1.18);
+  }
+
+  .mushaf-foot {
+    position: relative; z-index: 3;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    margin-top: 14px; padding-top: 8px;
+    border-top: 1px solid rgba(180,145,50,.25);
+    font-size: 11px; color: #8A7748;
+  }
+  .mushaf-foot .juz-label { white-space: nowrap; }
+  .mushaf-page-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 44px; height: 22px; padding: 0 10px; border-radius: 999px;
+    border: 1px solid rgba(180,145,50,.5);
+    background: rgba(255,255,255,.45); color: #7A5A10; font-weight: 700;
+  }
+
+  .mushaf-loading {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; min-height: 46vh; color: #8A7748; font-size: 14px; text-align: center;
+  }
+  .mushaf-loading .spinner {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 3px solid rgba(180,145,50,.2); border-top-color: #B48A1E;
+    animation: mushafSpin .8s linear infinite;
+  }
+  @keyframes mushafSpin { to { transform: rotate(360deg); } }
+
+  .mushaf-edge {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 10px; color: #7A5A10; background: rgba(255,255,255,.8);
+    border: 1px solid rgba(180,145,50,.4); border-radius: 999px; padding: 3px 8px;
+    opacity: 0; transition: opacity .2s ease; pointer-events: none; z-index: 5;
+  }
+  .mushaf-edge.right { right: 6px; }
+  .mushaf-edge.left { left: 6px; }
+  .mushaf-stage.dragging-left .mushaf-edge.left,
+  .mushaf-stage.dragging-right .mushaf-edge.right { opacity: .9; }
+
+  /* --- bottom navigation --- */
   .quran-nav {
     display: flex; flex-direction: column; gap: 6px; padding: 12px 12px 20px;
   }
@@ -628,20 +733,6 @@
   }
   .quran-nav button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3); }
   .quran-nav button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .quran-page-sep {
-    text-align: center; padding: 10px; margin: 16px 0 8px;
-    font-size: 13px; font-weight: 700; color: var(--gold);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    border-top: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(212, 175, 55, 0.05);
-    border-radius: var(--radius-sm);
-  }
-  .quran-page-indicator {
-    text-align: center; padding: 8px; margin-bottom: 12px;
-    font-size: 14px; font-weight: 700; color: var(--gold);
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: var(--radius-sm);
-  }
   .quran-page-nav, .quran-surah-nav {
     display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px;
     align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.1);
@@ -664,39 +755,27 @@
   .quran-page-jump, .quran-ayah-jump {
     display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
-  .jump-row {
-    display: flex; align-items: center; gap: 4px;
-  }
-  .jump-label {
-    font-size: 10px; color: var(--gold); text-align: center;
-  }
-  .quran-page-jump input, .quran-ayah-jump input {
-    width: 60px !important;
-  }
+  .jump-row { display: flex; align-items: center; gap: 4px; }
+  .jump-label { font-size: 10px; color: var(--gold); text-align: center; white-space: nowrap; }
+  .quran-page-jump input, .quran-ayah-jump input { width: 60px !important; }
   .quran-page-jump button, .quran-ayah-jump button {
     background: var(--gold) !important; color: var(--primary) !important;
     padding: 6px 12px !important; font-size: 12px !important;
   }
   @media (max-width: 600px) {
-    .quran-page-view { padding: 16px 14px; line-height: 1.8; }
-    .quran-page-view .verse-text { font-size: 16px; }
-    .quran-page-view .verse-number { width: 22px; height: 22px; line-height: 22px; font-size: 9px; }
-    .quran-surah-header .surah-name-ar { font-size: 24px; }
+    .mushaf-page { padding: 18px 13px 10px; min-height: 54vh; }
+    .mushaf-inner { font-size: 17px; line-height: 2.15; }
+    .mushaf-basmala { font-size: 18px; }
+    .ayah-marker { width: 24px; height: 24px; font-size: 10px; margin: 0 3px; }
+    .ayah-marker::before { font-size: 21px; }
   }
   @media (max-width: 400px) {
-    .quran-page-nav, .quran-surah-nav {
-      grid-template-columns: 1fr 70px 1fr; gap: 3px;
-    }
-    .quran-page-nav button, .quran-surah-nav button {
-      padding: 6px 4px; font-size: 10px;
-    }
-    .quran-page-jump input, .quran-ayah-jump input {
-      width: 36px !important; padding: 4px !important;
-    }
-    .quran-page-jump button, .quran-ayah-jump button {
-      padding: 4px 6px !important; font-size: 10px !important;
-    }
+    .quran-page-nav, .quran-surah-nav { grid-template-columns: 1fr 70px 1fr; gap: 3px; }
+    .quran-page-nav button, .quran-surah-nav button { padding: 6px 4px; font-size: 10px; }
+    .quran-page-jump input, .quran-ayah-jump input { width: 36px !important; padding: 4px !important; }
+    .quran-page-jump button, .quran-ayah-jump button { padding: 4px 6px !important; font-size: 10px !important; }
     .jump-label { font-size: 8px; }
+    .mushaf-inner { font-size: 16px; }
   }
 </style>
 </head>
@@ -786,14 +865,29 @@
         <div class="surah-grid" id="quranGrid"></div>
       </div>
       <div id="quranSurahView" style="display:none;">
-        <div style="padding: 8px 12px;">
-          <button class="back-btn" onclick="closeQuranSurah()" style="margin-bottom:4px;">&#8594; العودة للسور</button>
+        <div class="quran-reader-top">
+          <button class="back-btn" onclick="closeQuranSurah()">&#8594; العودة للسور</button>
         </div>
-        <div class="search-container show" style="padding: 0 12px 8px;">
-          <input class="search-box" id="quranInSurahSearch" type="text" placeholder="ابحث عن آية (رقم الآية أو نص)...">
+        <div class="search-container show" style="padding: 8px 12px 0;">
+          <input class="search-box" id="mushafSearchBox" type="text" placeholder="ابحث عن آية في هذه السورة (نص أو رقم)..." onkeydown="if(event.key==='Enter'){quranSearchAyah(this.value);}">
         </div>
-        <div class="quran-surah-header" id="quranSurahHeader"></div>
-        <div class="quran-verses" id="quranVerses"></div>
+
+        <div class="mushaf-stage" id="mushafStage">
+          <div class="mushaf-page" id="mushafPage">
+            <div class="mushaf-corner tl"></div>
+            <div class="mushaf-corner tr"></div>
+            <div class="mushaf-corner bl"></div>
+            <div class="mushaf-corner br"></div>
+            <div class="mushaf-head" id="mushafHead"></div>
+            <div class="mushaf-inner" id="quranVerses"></div>
+            <div class="mushaf-foot" id="mushafFooter"></div>
+          </div>
+          <div class="mushaf-edge right" id="mushafEdgeRight">التالية &#9654;</div>
+          <div class="mushaf-edge left" id="mushafEdgeLeft">&#9664; السابقة</div>
+        </div>
+
+        <div class="mushaf-hint">اسحب الصفحة لليمين للصفحة التالية، ولليسار للسابقة &#128214;</div>
+
         <div class="quran-nav" id="quranNav"></div>
       </div>
     </div>
@@ -1466,25 +1560,71 @@ function updateHijriDate() {
   document.getElementById('gregDate').textContent = `${day} ${gregMonths[month - 1]} ${year} م`;
 }
 
-// ============ QURAN READER ============
-var quranCache = {};
+// ============ QURAN READER (MUSHAF PAGES) ============
+var QURAN_TOTAL_PAGES = 604;
+var quranCache = {};            // surah number -> surah data
+var quranSurahListCache = null; // full surah list
+var mushafPageCache = {};       // page number -> page data
 var currentQuranSurah = null;
+var currentMushafPage = 1;
+var mushafFlipping = false;
+var mushafReqToken = 0;
+var mushafHighlight = null;     // { surah: Number, ayah: Number }
 var quranSearchQuery = '';
 
+var AR_DIACRITIC_ONE = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/;
+var AR_DIACRITIC_ALL = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g;
+
+function toArabicDigits(value) {
+  return String(value).replace(/[0-9]/g, function(d) {
+    return '٠١٢٣٤٥٦٧٨٩'.charAt(parseInt(d, 10));
+  });
+}
+
+function normalizeArabic(text) {
+  if (!text) return '';
+  return text.replace(/\u0671/g, 'ا').replace(AR_DIACRITIC_ALL, '').replace(/\s+/g, ' ').trim();
+}
+
+// Removes the basmala that the API prepends to the first ayah of most surahs.
+function stripLeadingBasmala(text) {
+  if (!text) return text;
+  var target = 'بسم الله الرحمن الرحيم';
+  var i = 0, ti = 0;
+  while (i < text.length && ti < target.length) {
+    var ch = text.charAt(i);
+    if (ch === '\u0671') ch = 'ا';
+    if (AR_DIACRITIC_ONE.test(ch)) { i++; continue; }
+    if (ch !== target.charAt(ti)) return text;
+    ti++; i++;
+  }
+  if (ti < target.length) return text;
+  return text.slice(i).replace(/^[\s\u00A0]+/, '');
+}
+
+/* ---------------- surah list ---------------- */
 function loadQuranSurahs() {
   var grid = document.getElementById('quranGrid');
+  if (!grid) return;
   quranSearchQuery = '';
   var searchInput = document.getElementById('quranSearchBox');
   if (searchInput) searchInput.value = '';
   if (grid.children.length > 0 && !document.getElementById('quranNoSearch')) return;
+
+  if (quranSurahListCache) {
+    document.getElementById('quranSurahCount').textContent = quranSurahListCache.length + ' سورة';
+    renderQuranSurahList(quranSurahListCache);
+    return;
+  }
+
   grid.innerHTML = '<div style="text-align:center;padding:40px;color:#888;">جاري تحميل قائمة السور...</div>';
   fetch('https://api.alquran.cloud/v1/surah')
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (data.code !== 200) throw new Error('API error');
-      var surahs = data.data;
-      document.getElementById('quranSurahCount').textContent = surahs.length + ' سورة';
-      renderQuranSurahList(surahs);
+      quranSurahListCache = data.data;
+      document.getElementById('quranSurahCount').textContent = data.data.length + ' سورة';
+      renderQuranSurahList(data.data);
     })
     .catch(function() {
       grid.innerHTML = '<div style="text-align:center;padding:40px;color:#c00;">فشل تحميل السور. تحقق من اتصالك بالإنترنت.</div>';
@@ -1493,6 +1633,7 @@ function loadQuranSurahs() {
 
 function renderQuranSurahList(surahs) {
   var grid = document.getElementById('quranGrid');
+  if (!grid) return;
   var q = quranSearchQuery.toLowerCase();
   var filtered = surahs;
   if (q) {
@@ -1517,235 +1658,460 @@ function renderQuranSurahList(surahs) {
 }
 
 function quranSearch(value) {
-  quranSearchQuery = value;
-  var grid = document.getElementById('quranGrid');
-  grid.innerHTML = '<div style="text-align:center;padding:40px;color:#888;">جاري البحث...</div>';
-  fetch('https://api.alquran.cloud/v1/surah')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.code !== 200) throw new Error('API error');
-      renderQuranSurahList(data.data);
-    });
+  quranSearchQuery = value || '';
+  if (!quranSurahListCache) {
+    fetch('https://api.alquran.cloud/v1/surah')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.code !== 200) throw new Error('API error');
+        quranSurahListCache = data.data;
+        renderQuranSurahList(data.data);
+      })
+      .catch(function() {});
+    return;
+  }
+  renderQuranSurahList(quranSurahListCache);
+}
+
+/* ---------------- mushaf reader ---------------- */
+function showMushafLoading() {
+  var el = document.getElementById('quranVerses');
+  if (el) el.innerHTML = '<div class="mushaf-loading"><div class="spinner"></div><div>جاري تحميل الصفحة...</div></div>';
+  var foot = document.getElementById('mushafFooter');
+  if (foot) foot.innerHTML = '';
+}
+
+function showMushafError() {
+  var el = document.getElementById('quranVerses');
+  if (el) el.innerHTML = '<div class="mushaf-loading" style="color:#B3261E;"><div>تعذر تحميل الصفحة</div><div style="font-size:12px;">تحقق من اتصالك بالإنترنت</div></div>';
 }
 
 function openQuranSurah(num) {
-  currentQuranSurah = num;
+  num = parseInt(num, 10);
+  if (!num || num < 1 || num > 114) return;
+
   document.getElementById('quranSurahList').style.display = 'none';
   document.getElementById('quranSurahView').style.display = 'block';
-  document.getElementById('quranVerses').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">جاري تحميل الآيات...</div>';
-  document.getElementById('quranSurahHeader').innerHTML = '';
-  document.getElementById('quranNav').innerHTML = '';
+  currentQuranSurah = num;
+  mushafHighlight = null;
+  var searchBox = document.getElementById('mushafSearchBox');
+  if (searchBox) searchBox.value = '';
+  try { window.scrollTo(0, 0); } catch (e) {}
 
+  if (quranCache[num]) {
+    var cached = quranCache[num];
+    var cachedPage = (cached.ayahs && cached.ayahs.length) ? cached.ayahs[0].page : 1;
+    loadMushafPage(cachedPage, { dir: 0 });
+    return;
+  }
+
+  var token = ++mushafReqToken;
+  mushafFlipping = true;
+  showMushafLoading();
   fetch('https://api.alquran.cloud/v1/surah/' + num)
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      if (data.code !== 200) throw new Error('API error');
-      var surah = data.data;
-      quranCache[num] = surah;
-      renderQuranSurah(num);
+      if (token !== mushafReqToken) return;
+      if (data.code !== 200 || !data.data) throw new Error('API error');
+      quranCache[num] = data.data;
+      var startPage = (data.data.ayahs && data.data.ayahs.length) ? data.data.ayahs[0].page : 1;
+      loadMushafPage(startPage, { dir: 0 });
     })
     .catch(function() {
-      document.getElementById('quranVerses').innerHTML = '<div style="text-align:center;padding:40px;color:#c00;">فشل تحميل الآيات. تحقق من اتصالك.</div>';
+      if (token !== mushafReqToken) return;
+      showMushafError();
+      mushafFlipping = false;
     });
 }
 
-var quranCurrentPage = 0;
-var quranPageKeys = [];
-var quranSurahCache = null;
-var quranInSurahResults = null;
-
-// In-surah search listener
-document.addEventListener('DOMContentLoaded', function() {
-  document.addEventListener('input', function(e) {
-    if (e.target && e.target.id === 'quranInSurahSearch') {
-      quranFilterInSurah(e.target.value);
-    }
-  });
-});
-
-function quranFilterInSurah(query) {
-  var surah = quranSurahCache;
-  if (!surah || !quranPageKeys.length) return;
-  var q = query.trim().toLowerCase();
-  if (!q) {
-    quranInSurahResults = null;
-    renderQuranPage();
-    return;
-  }
-
-  // Search by ayah number, text, or page number
-  var results = [];
-  surah.ayahs.forEach(function(a) {
-    if (a.numberInSurah == parseInt(q) || a.text.toLowerCase().includes(q) || String(a.page) === q) {
-      results.push(a);
-    }
-  });
-
-  if (results.length === 0) {
-    document.getElementById('quranVerses').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">لا توجد نتائج</div>';
-    document.getElementById('quranNav').innerHTML = '<div style="text-align:center;padding:8px;"><button onclick="quranClearInSurahSearch()">مسح البحث</button></div>';
-    return;
-  }
-
-  quranInSurahResults = results;
-  var html = '<div class="quran-page-view">';
-  results.forEach(function(a) {
-    html += '<span class="verse-text">' + a.text + ' </span>' +
-      '<span class="verse-number" data-ayah="' + a.numberInSurah + '">' + a.numberInSurah + '</span> ';
-  });
-  html += '</div>';
-  document.getElementById('quranVerses').innerHTML = html;
-  document.getElementById('quranNav').innerHTML = '<div style="text-align:center;padding:8px;color:var(--gold);font-size:13px;">' + results.length + ' نتيجة | <span style="cursor:pointer;text-decoration:underline;" onclick="quranClearInSurahSearch()">مسح البحث</span></div>';
-}
-
-function quranClearInSurahSearch() {
-  var input = document.getElementById('quranInSurahSearch');
-  if (input) input.value = '';
-  quranInSurahResults = null;
-  renderQuranPage();
-}
-
-function renderQuranSurah(num) {
-  var surah = quranCache[num];
-  if (!surah) return;
-  quranSurahCache = surah;
-  var typeAr = surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
-
-  // Group ayahs by page
-  var pages = {};
-  surah.ayahs.forEach(function(a) {
-    if (!pages[a.page]) { pages[a.page] = []; }
-    pages[a.page].push(a);
-  });
-  quranPageKeys = Object.keys(pages).sort(function(a,b){return parseInt(a)-parseInt(b);});
-  quranCurrentPage = 0;
-
-  document.getElementById('quranSurahHeader').innerHTML =
-    '<div class="surah-name-ar">' + surah.name + '</div>' +
-    '<div class="surah-name-en">' + surah.englishName + ' (' + surah.englishNameTranslation + ')</div>' +
-    '<div class="surah-info-row"><span>' + typeAr + '</span><span> · </span><span>' + surah.numberOfAyahs + ' آية</span><span> · </span><span>' + quranPageKeys.length + ' صفحة</span></div>';
-
-  renderQuranPage();
-}
-
-function renderQuranPage() {
-  var surah = quranSurahCache;
-  if (!surah) return;
-  var pKey = quranPageKeys[quranCurrentPage];
-  var ayahsOnPage = surah.ayahs.filter(function(a){ return a.page == pKey; });
-
-  var html = '<div class="quran-page-indicator">سورة ' + surah.name + ' - صفحة ' + pKey + '</div>';
-  html += '<div class="quran-page-view" id="quranPageView">';
-  ayahsOnPage.forEach(function(a) {
-    html += '<span class="verse-text">' + a.text + ' </span>' +
-      '<span class="verse-number" data-ayah="' + a.numberInSurah + '">' + a.numberInSurah + '</span> ';
-  });
-  html += '</div>';
-  document.getElementById('quranVerses').innerHTML = html;
-
-  // Page navigation
-  var navHtml = '<div class="quran-page-nav">';
-  if (quranCurrentPage > 0) {
-    navHtml += '<button onclick="quranPrevPage()">&#9654; الصفحة السابقة</button>';
-  } else {
-    navHtml += '<button disabled>&#9654; الصفحة السابقة</button>';
-  }
-  navHtml += '<span class="quran-page-jump">';
-  navHtml += '<div class="jump-row"><input type="number" id="quranPageJumpInput" min="1" placeholder="..." style="width:60px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;"><button onclick="quranJumpToPage()">اذهب</button></div>';
-  navHtml += '<div class="jump-label">رقم الصفحة</div>';
-  navHtml += '</span>';
-  if (quranCurrentPage < quranPageKeys.length - 1) {
-    navHtml += '<button onclick="quranNextPage()">الصفحة التالية &#9664;</button>';
-  } else {
-    navHtml += '<button disabled>الصفحة التالية &#9664;</button>';
-  }
-  navHtml += '</div>';
-
-  // Surah navigation
-  var surahNavHtml = '<div class="quran-surah-nav">';
-  var suNum = currentQuranSurah;
-  if (suNum > 1) {
-    surahNavHtml += '<button onclick="openQuranSurah(' + (suNum - 1) + ')">&#9654; السورة السابقة</button>';
-  } else {
-    surahNavHtml += '<button disabled>&#9654; السورة السابقة</button>';
-  }
-  surahNavHtml += '<span class="quran-ayah-jump">';
-  surahNavHtml += '<div class="jump-row"><input type="number" id="quranAyahJumpInput" min="1" max="' + surah.numberOfAyahs + '" placeholder="..." style="width:60px;padding:6px;border:1px solid rgba(212,175,55,0.3);border-radius:8px;text-align:center;background:transparent;color:inherit;font-family:inherit;"><button onclick="quranJumpToAyah()">اذهب</button></div>';
-  surahNavHtml += '<div class="jump-label">رقم الآية</div>';
-  surahNavHtml += '</span>';
-  if (suNum < 114) {
-    surahNavHtml += '<button onclick="openQuranSurah(' + (suNum + 1) + ')">السورة التالية &#9664;</button>';
-  } else {
-    surahNavHtml += '<button disabled>السورة التالية &#9664;</button>';
-  }
-  surahNavHtml += '</div>';
-
-  document.getElementById('quranNav').innerHTML = navHtml + surahNavHtml;
-
-  // Update page count in header
-  var header = document.querySelector('#quranSurahHeader .quran-info-row');
-  if (header) {
-    var oldHtml = header.innerHTML;
-    header.innerHTML = oldHtml.replace(/صفحة/g, 'صفحة ' + pKey + ' من ' + quranPageKeys.length);
-  }
-}
-
-function quranPrevPage() {
-  if (quranCurrentPage > 0) { quranCurrentPage--; renderQuranPage(); }
-}
-
-function quranNextPage() {
-  if (quranCurrentPage < quranPageKeys.length - 1) { quranCurrentPage++; renderQuranPage(); }
-}
-
-function quranJumpToPage() {
-  var input = document.getElementById('quranPageJumpInput');
-  var val = input.value.trim();
-  if (!val) return;
-  // Search by absolute page number
-  var idx = quranPageKeys.indexOf(val);
-  if (idx >= 0) {
-    quranCurrentPage = idx;
-    renderQuranPage();
-    input.value = '';
-  }
-}
-
-function quranJumpToAyah() {
-  var input = document.getElementById('quranAyahJumpInput');
-  var val = parseInt(input.value);
-  var surah = quranSurahCache;
-  if (!surah || !val || val < 1 || val > surah.numberOfAyahs) return;
-  // Find which page this ayah is on
-  var targetAyah = surah.ayahs[val - 1];
-  if (targetAyah) {
-    var pageIndex = quranPageKeys.indexOf(String(targetAyah.page));
-    if (pageIndex >= 0) {
-      quranCurrentPage = pageIndex;
-      renderQuranPage();
-      input.value = '';
-      // Scroll to the ayah
-      setTimeout(function() {
-        var numEls = document.querySelectorAll('#quranVerses .verse-number');
-        for (var i = 0; i < numEls.length; i++) {
-          if (numEls[i].textContent.trim() == String(val)) {
-            numEls[i].scrollIntoView({behavior:'smooth', block:'center'});
-            numEls[i].classList.add('highlighted');
-            setTimeout(function(){ numEls[i].classList.remove('highlighted'); }, 2500);
-            break;
-          }
-        }
-      }, 100);
-    }
-  }
-}
-
 function closeQuranSurah() {
+  mushafReqToken++;
+  mushafFlipping = false;
   currentQuranSurah = null;
-  quranSurahCache = null;
+  mushafHighlight = null;
   document.getElementById('quranSurahList').style.display = 'block';
   document.getElementById('quranSurahView').style.display = 'none';
 }
+
+function loadMushafPage(page, opts) {
+  opts = opts || {};
+  page = parseInt(page, 10);
+  if (!page || page < 1) page = 1;
+  if (page > QURAN_TOTAL_PAGES) page = QURAN_TOTAL_PAGES;
+
+  if (mushafPageCache[page]) {
+    renderMushafPage(page, opts);
+    return;
+  }
+
+  var token = ++mushafReqToken;
+  mushafFlipping = true;
+  showMushafLoading();
+
+  var pageEl = document.getElementById('mushafPage');
+  if (pageEl) {
+    pageEl.style.transition = 'transform .2s ease, opacity .2s ease';
+    pageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
+    pageEl.style.opacity = '1';
+  }
+
+  fetch('https://api.alquran.cloud/v1/page/' + page + '/quran-uthmani')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (token !== mushafReqToken) return;
+      if (data.code !== 200 || !data.data) throw new Error('API error');
+      mushafPageCache[page] = data.data;
+      renderMushafPage(page, opts);
+    })
+    .catch(function() {
+      if (token !== mushafReqToken) return;
+      showMushafError();
+      mushafFlipping = false;
+    });
+}
+
+function renderMushafPage(page, opts) {
+  opts = opts || {};
+  var data = mushafPageCache[page];
+  if (!data) return;
+  currentMushafPage = page;
+
+  var ayahs = data.ayahs || [];
+  var groups = [];
+  ayahs.forEach(function(a) {
+    var sNum = (a.surah && a.surah.number) ? a.surah.number : 0;
+    var last = groups[groups.length - 1];
+    if (!last || last.surah.number !== sNum) {
+      groups.push({
+        surah: a.surah || { number: sNum, name: 'سورة ' + sNum },
+        ayahs: []
+      });
+    }
+    groups[groups.length - 1].ayahs.push(a);
+  });
+
+  if (groups.length) {
+    var keepSurah = groups.some(function(g) { return g.surah.number === currentQuranSurah; });
+    if (!keepSurah) currentQuranSurah = groups[0].surah.number;
+  }
+
+  var names = groups.map(function(g) { return g.surah.name; });
+  var head = document.getElementById('mushafHead');
+  if (head) {
+    head.innerHTML = '<div class="mushaf-surah-band"><span class="band-star">❁</span><span>' + names.join(' • ') + '</span><span class="band-star">❁</span></div>';
+  }
+
+  var body = '';
+  groups.forEach(function(g, gi) {
+    var surah = g.surah;
+    var startsSurah = g.ayahs.length && g.ayahs[0].numberInSurah === 1;
+
+    if (gi > 0 && startsSurah) {
+      body += '<div class="surah-band-row"><span class="mushaf-surah-band"><span class="band-star">❁</span><span>' + surah.name + '</span><span class="band-star">❁</span></span></div>';
+    }
+
+    g.ayahs.forEach(function(a, idx) {
+      var text = a.text || '';
+      if (idx === 0 && startsSurah && surah.number !== 1 && surah.number !== 9) {
+        var stripped = stripLeadingBasmala(text);
+        if (stripped !== text) {
+          body += '<div class="mushaf-basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>';
+          text = stripped;
+        }
+      }
+      var markerClass = 'ayah-marker';
+      if (mushafHighlight && mushafHighlight.ayah === a.numberInSurah && mushafHighlight.surah === surah.number) {
+        markerClass += ' highlighted';
+      }
+      body += '<span class="verse-text">' + text + ' </span>' +
+        '<span class="' + markerClass + '" data-ayah="' + a.numberInSurah + '" data-surah="' + surah.number + '"><span>' + toArabicDigits(a.numberInSurah) + '</span></span> ';
+    });
+  });
+
+  var versesEl = document.getElementById('quranVerses');
+  if (versesEl) versesEl.innerHTML = body;
+
+  var juz = ayahs.length ? ayahs[0].juz : '';
+  var foot = document.getElementById('mushafFooter');
+  if (foot) {
+    foot.innerHTML =
+      '<span class="juz-label">' + (juz ? 'الجزء ' + toArabicDigits(juz) : '') + '</span>' +
+      '<span class="mushaf-page-num">' + toArabicDigits(page) + '</span>' +
+      '<span class="juz-label">' + (names.length === 1 ? names[0] : '') + '</span>';
+  }
+
+  renderMushafNav(page, groups);
+  animateMushafIn(opts.dir || 0);
+
+  if (mushafHighlight) {
+    setTimeout(function() {
+      var el = document.querySelector('#quranVerses .ayah-marker.highlighted');
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 140);
+    setTimeout(function() {
+      var el = document.querySelector('#quranVerses .ayah-marker.highlighted');
+      if (el) el.classList.remove('highlighted');
+      mushafHighlight = null;
+    }, 3200);
+  }
+}
+
+function renderMushafNav(page, groups) {
+  var nav = document.getElementById('quranNav');
+  if (!nav) return;
+  var surahNum = currentQuranSurah || 1;
+  var refGroup = groups.length ? groups[0] : null;
+  for (var gi = 0; gi < groups.length; gi++) {
+    if (groups[gi].surah.number === surahNum) { refGroup = groups[gi]; break; }
+  }
+
+  var html = '<div class="quran-page-nav">';
+  html += '<button onclick="quranPrevPage()"' + (page <= 1 ? ' disabled' : '') + '>&#9654; السابقة</button>';
+  html += '<span class="quran-page-jump">' +
+    '<div class="jump-row">' +
+    '<input type="number" id="quranPageJumpInput" min="1" max="' + QURAN_TOTAL_PAGES + '" placeholder="..." value="' + page + '">' +
+    '<button onclick="quranJumpToPage()">اذهب</button>' +
+    '</div>' +
+    '<div class="jump-label">صفحة ' + toArabicDigits(page) + ' من ' + toArabicDigits(QURAN_TOTAL_PAGES) + '</div>' +
+    '</span>';
+  html += '<button onclick="quranNextPage()"' + (page >= QURAN_TOTAL_PAGES ? ' disabled' : '') + '>التالية &#9664;</button>';
+  html += '</div>';
+
+  html += '<div class="quran-surah-nav">';
+  html += '<button onclick="quranPrevSurah()"' + (surahNum <= 1 ? ' disabled' : '') + '>&#9654; سورة سابقة</button>';
+  html += '<span class="quran-ayah-jump"><div class="jump-label">' + (refGroup ? refGroup.surah.name : '') + '</div></span>';
+  html += '<button onclick="quranNextSurah()"' + (surahNum >= 114 ? ' disabled' : '') + '>سورة تالية &#9664;</button>';
+  html += '</div>';
+
+  nav.innerHTML = html;
+}
+
+function animateMushafIn(dir) {
+  var pageEl = document.getElementById('mushafPage');
+  if (!pageEl) { mushafFlipping = false; return; }
+
+  if (dir) {
+    var from = dir > 0 ? 'translateX(-48%) rotateY(16deg) scale(.95)' : 'translateX(48%) rotateY(-16deg) scale(.95)';
+    pageEl.style.transition = 'none';
+    pageEl.style.transform = from;
+    pageEl.style.opacity = '0';
+    void pageEl.offsetWidth;
+    pageEl.style.transition = 'transform .34s cubic-bezier(.22,.7,.3,1), opacity .3s ease';
+    pageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
+    pageEl.style.opacity = '1';
+  } else {
+    pageEl.style.transition = 'transform .3s ease, opacity .3s ease';
+    pageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
+    pageEl.style.opacity = '1';
+  }
+  setTimeout(function() { mushafFlipping = false; }, 380);
+}
+
+function flipMushafPage(dir, animDir) {
+  if (mushafFlipping) return;
+  if (!animDir) animDir = dir;
+  var target = currentMushafPage + dir;
+  if (target < 1 || target > QURAN_TOTAL_PAGES) { bounceMushaf(dir); return; }
+
+  mushafFlipping = true;
+  var pageEl = document.getElementById('mushafPage');
+  if (pageEl) {
+    pageEl.style.transition = 'transform .26s ease-in, opacity .24s ease-in';
+    pageEl.style.transform = animDir > 0 ? 'translateX(48%) rotateY(-16deg) scale(.95)' : 'translateX(-48%) rotateY(16deg) scale(.95)';
+    pageEl.style.opacity = '0.1';
+  }
+  setTimeout(function() { loadMushafPage(target, { dir: animDir }); }, 250);
+}
+
+function goToMushafPage(target) {
+  target = parseInt(target, 10);
+  if (!target || target < 1 || target > QURAN_TOTAL_PAGES) return;
+  if (target === currentMushafPage) return;
+  if (mushafFlipping) return;
+
+  mushafFlipping = true;
+  var dir = target > currentMushafPage ? 1 : -1;
+  var pageEl = document.getElementById('mushafPage');
+  if (pageEl) {
+    pageEl.style.transition = 'transform .22s ease-in, opacity .2s ease-in';
+    pageEl.style.transform = dir > 0 ? 'translateX(48%) rotateY(-16deg) scale(.95)' : 'translateX(-48%) rotateY(16deg) scale(.95)';
+    pageEl.style.opacity = '0.1';
+  }
+  setTimeout(function() { loadMushafPage(target, { dir: dir }); }, 210);
+}
+
+function snapBackMushaf() {
+  var pageEl = document.getElementById('mushafPage');
+  if (!pageEl) return;
+  pageEl.style.transition = 'transform .28s cubic-bezier(.22,.7,.3,1), opacity .28s ease';
+  pageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
+  pageEl.style.opacity = '1';
+}
+
+function bounceMushaf(dir) {
+  var pageEl = document.getElementById('mushafPage');
+  if (!pageEl) return;
+  pageEl.style.transition = 'transform .12s ease-out, opacity .12s ease-out';
+  pageEl.style.transform = 'translateX(' + (dir > 0 ? '14px' : '-14px') + ') rotateY(0deg) scale(1)';
+  pageEl.style.opacity = '1';
+  setTimeout(function() {
+    pageEl.style.transition = 'transform .2s ease-out, opacity .2s ease-out';
+    pageEl.style.transform = 'translateX(0) rotateY(0deg) scale(1)';
+    pageEl.style.opacity = '1';
+  }, 130);
+}
+
+function quranPrevPage() { flipMushafPage(-1, 1); }
+function quranNextPage() { flipMushafPage(1, -1); }
+function quranPrevSurah() { if (currentQuranSurah > 1) openQuranSurah(currentQuranSurah - 1); }
+function quranNextSurah() { if (currentQuranSurah < 114) openQuranSurah(currentQuranSurah + 1); }
+
+function quranJumpToPage() {
+  var input = document.getElementById('quranPageJumpInput');
+  if (!input) return;
+  var val = parseInt(input.value, 10);
+  if (!val || val < 1 || val > QURAN_TOTAL_PAGES) {
+    showToast('أدخل رقم صفحة بين ١ و ' + toArabicDigits(QURAN_TOTAL_PAGES));
+    return;
+  }
+  goToMushafPage(val);
+}
+
+function quranSearchAyah(query) {
+  query = (query || '').trim();
+  if (!query) return;
+  var sNum = currentQuranSurah;
+  var surah = quranCache[sNum];
+
+  if (!surah) {
+    showToast('جارٍ تحميل السورة...');
+    fetch('https://api.alquran.cloud/v1/surah/' + sNum)
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (d.code !== 200 || !d.data) return;
+        quranCache[sNum] = d.data;
+        quranSearchAyah(query);
+      })
+      .catch(function() { showToast('تعذر تحميل السورة'); });
+    return;
+  }
+
+  var qNorm = normalizeArabic(query);
+  var found = null;
+  for (var i = 0; i < surah.ayahs.length; i++) {
+    var a = surah.ayahs[i];
+    if (String(a.numberInSurah) === query || (qNorm && normalizeArabic(a.text).indexOf(qNorm) !== -1)) {
+      found = a;
+      break;
+    }
+  }
+  if (!found) { showToast('لا توجد نتائج في سورة ' + surah.name); return; }
+
+  mushafHighlight = { surah: surah.number, ayah: found.numberInSurah };
+  if (found.page === currentMushafPage) {
+    renderMushafPage(currentMushafPage, { dir: 0 });
+  } else {
+    goToMushafPage(found.page);
+  }
+}
+
+/* ---------------- swipe / drag to flip ---------------- */
+var mushafDrag = null;
+
+function setupMushafGestures() {
+  var stage = document.getElementById('mushafStage');
+  if (!stage) return;
+
+  stage.addEventListener('pointerdown', function(e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('button, input, select, a, .ayah-marker')) return;
+    if (mushafFlipping) return;
+    mushafDrag = {
+      id: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      dx: 0,
+      dy: 0,
+      axis: null,
+      moved: false,
+      t: Date.now()
+    };
+    try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+
+  stage.addEventListener('pointermove', function(e) {
+    if (!mushafDrag || e.pointerId !== mushafDrag.id) return;
+    var dx = e.clientX - mushafDrag.startX;
+    var dy = e.clientY - mushafDrag.startY;
+    mushafDrag.dx = dx;
+    mushafDrag.dy = dy;
+
+    if (!mushafDrag.axis) {
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        mushafDrag.axis = 'x';
+      } else if (Math.abs(dy) > 10) {
+        mushafDrag = null; // vertical scroll wins
+        return;
+      }
+    }
+    if (!mushafDrag || mushafDrag.axis !== 'x') return;
+
+    if (e.cancelable) e.preventDefault();
+    mushafDrag.moved = true;
+
+    var pageEl = document.getElementById('mushafPage');
+    var width = stage.clientWidth || 320;
+    var max = width * 0.9;
+    var d = dx;
+
+    if ((currentMushafPage <= 1 && d < 0) || (currentMushafPage >= QURAN_TOTAL_PAGES && d > 0)) d = d * 0.25;
+    if (d > max) d = max + (d - max) * 0.2;
+    if (d < -max) d = -max + (d + max) * 0.2;
+
+    var rot = (-d / width) * 14;
+    var scale = 1 - Math.min(Math.abs(d) / (width * 4), 0.04);
+
+    pageEl.style.transition = 'none';
+    pageEl.style.transform = 'translateX(' + d + 'px) rotateY(' + rot + 'deg) scale(' + scale + ')';
+    pageEl.style.opacity = String(1 - Math.min(Math.abs(d) / (width * 1.6), 0.35));
+
+    stage.classList.toggle('dragging-left', d < -8);
+    stage.classList.toggle('dragging-right', d > 8);
+  });
+
+  function endDrag(e) {
+    if (!mushafDrag) return;
+    if (e && e.pointerId !== undefined && e.pointerId !== mushafDrag.id) return;
+
+    var d = mushafDrag.dx;
+    var elapsed = Math.max(Date.now() - mushafDrag.t, 1);
+    var speed = Math.abs(d) / elapsed;
+    var axis = mushafDrag.axis;
+    var moved = mushafDrag.moved;
+
+    stage.classList.remove('dragging-left', 'dragging-right');
+    mushafDrag = null;
+
+    if (axis !== 'x' || !moved) return;
+
+    var threshold = Math.max(50, stage.clientWidth * 0.16);
+    var fastFlick = speed > 0.6 && Math.abs(d) > 30 && elapsed < 400;
+    if (Math.abs(d) > threshold || fastFlick) {
+      flipMushafPage(d > 0 ? 1 : -1);
+    } else {
+      snapBackMushaf();
+    }
+  }
+
+  stage.addEventListener('pointerup', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
+  stage.addEventListener('lostpointercapture', function() {
+    if (mushafDrag) endDrag({ pointerId: mushafDrag.id });
+  });
+}
+
+setupMushafGestures();
 
 // ============ PRIVACY POLICY ============
 function showPrivacyPolicy() {
